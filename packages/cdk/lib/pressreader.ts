@@ -39,7 +39,7 @@ export class PressReader extends GuStack {
 				monitoringConfiguration: {
 					noMonitoring: true,
 				},
-				rules: [{ schedule: Schedule.cron({ minute: '0', hour: '1' }) }],
+				rules: [{ schedule: Schedule.rate(Duration.hours(1)) }],
 				timeout: Duration.seconds(300),
 			},
 		);
