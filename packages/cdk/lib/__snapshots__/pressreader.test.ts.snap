@@ -69,6 +69,9 @@ exports[`The PressReader stack matches the snapshot 1`] = `
         "Environment": {
           "Variables": {
             "APP": "pressreader",
+            "BUCKET_NAME": {
+              "Ref": "AmigoDataBucketPressreader702A8858",
+            },
             "STACK": "print-production",
             "STAGE": "TEST",
           },
