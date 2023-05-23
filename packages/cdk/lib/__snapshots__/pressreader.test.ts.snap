@@ -18,7 +18,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
     },
   },
   "Resources": {
-    "AmigoDataBucketPressreader702A8858": {
+    "PressreaderDataBucketPressreader48E10950": {
       "DeletionPolicy": "Retain",
       "Properties": {
         "BucketName": "gu-pressreader-data-test",
@@ -70,7 +70,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
           "Variables": {
             "APP": "pressreader",
             "BUCKET_NAME": {
-              "Ref": "AmigoDataBucketPressreader702A8858",
+              "Ref": "PressreaderDataBucketPressreader48E10950",
             },
             "STACK": "print-production",
             "STAGE": "TEST",
@@ -261,7 +261,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
                   [
                     {
                       "Fn::GetAtt": [
-                        "AmigoDataBucketPressreader702A8858",
+                        "PressreaderDataBucketPressreader48E10950",
                         "Arn",
                       ],
                     },
