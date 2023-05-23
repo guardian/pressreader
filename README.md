@@ -10,6 +10,7 @@ internet connectivity may be limited.
 ## Developing
 
 - `./scripts/setup` to get the project bootstrapped
+- `docker-compose up` to start [localstack](https://localstack.cloud/)
 - `npm run dev -w pressreader`
 
 _This is a project by the Newsroom Resilience team_
