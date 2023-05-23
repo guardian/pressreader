@@ -1,10 +1,8 @@
 import { S3Client } from '@aws-sdk/client-s3';
 /**
  * Is this application running locally, or in AWS?
- *
- * Heuristics:
- *  – if require.main is the current module, this file was run directly by node.
- *  – if jest is available globally, we're running in a test.
+ * LAMBDA_TASK_ROOT & AWS_EXECUTION_ENV are set when running in AWS
+ * See: https://docs.aws.amazon.com/lambda/latest/dg/configuration-envvars.html
  */
 export const isRunningLocally =
 	!process.env.LAMBDA_TASK_ROOT && !process.env.AWS_EXECUTION_ENV;
