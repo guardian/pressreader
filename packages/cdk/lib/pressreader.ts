@@ -13,7 +13,7 @@ export class PressReader extends GuStack {
 		super(scope, id, props);
 		const pressReaderApp = 'pressreader';
 
-		const dataBucket = new GuS3Bucket(this, 'AmigoDataBucket', {
+		const dataBucket = new GuS3Bucket(this, 'PressreaderDataBucket', {
 			app: pressReaderApp,
 			bucketName: `gu-pressreader-data-${this.stage.toLowerCase()}`,
 		});
