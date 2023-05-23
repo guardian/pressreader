@@ -32,6 +32,9 @@ export class PressReader extends GuStack {
 				runtime: Runtime.NODEJS_18_X,
 				memorySize: 512,
 				handler: 'handler.main',
+				environment: {
+					BUCKET_NAME: dataBucket.bucketName,
+				},
 				fileName: `pressreader.zip`,
 				monitoringConfiguration: {
 					noMonitoring: true,
