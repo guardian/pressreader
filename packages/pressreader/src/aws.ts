@@ -1,4 +1,4 @@
-import AWS from 'aws-sdk';
+import { config, S3 } from 'aws-sdk';
 
 /**
  * Is this application running locally, or in AWS?
@@ -12,7 +12,7 @@ export const isRunningLocally =
 
 // We use localstack to mock AWS services if we are running locally.
 if (isRunningLocally) {
-	AWS.config.update({
+	config.update({
 		accessKeyId: 'xyz',
 		secretAccessKey: 'qwe',
 		s3ForcePathStyle: true,
@@ -26,4 +26,4 @@ const awsOptions = isRunningLocally
 	  }
 	: undefined;
 
-export const s3 = new AWS.S3(awsOptions);
+export const s3 = new S3(awsOptions);

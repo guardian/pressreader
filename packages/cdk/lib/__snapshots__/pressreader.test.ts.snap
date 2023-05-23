@@ -4,6 +4,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
 {
   "Metadata": {
     "gu:cdk:constructs": [
+      "GuS3Bucket",
       "GuDistributionBucketParameter",
       "GuScheduledLambda",
     ],
@@ -17,6 +18,42 @@ exports[`The PressReader stack matches the snapshot 1`] = `
     },
   },
   "Resources": {
+    "AmigoDataBucketPressreader702A8858": {
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "BucketName": "gu-pressreader-data-test",
+        "PublicAccessBlockConfiguration": {
+          "BlockPublicAcls": true,
+          "BlockPublicPolicy": true,
+          "IgnorePublicAcls": true,
+          "RestrictPublicBuckets": true,
+        },
+        "Tags": [
+          {
+            "Key": "App",
+            "Value": "pressreader",
+          },
+          {
+            "Key": "gu:cdk:version",
+            "Value": "TEST",
+          },
+          {
+            "Key": "gu:repo",
+            "Value": "guardian/pressreader",
+          },
+          {
+            "Key": "Stack",
+            "Value": "print-production",
+          },
+          {
+            "Key": "Stage",
+            "Value": "TEST",
+          },
+        ],
+      },
+      "Type": "AWS::S3::Bucket",
+      "UpdateReplacePolicy": "Retain",
+    },
     "pressreaderlambdaB481BEF0": {
       "DependsOn": [
         "pressreaderlambdaServiceRoleDefaultPolicy7471EACC",
@@ -208,6 +245,24 @@ exports[`The PressReader stack matches the snapshot 1`] = `
                       "Ref": "AWS::AccountId",
                     },
                     ":parameter/TEST/print-production/pressreader/*",
+                  ],
+                ],
+              },
+            },
+            {
+              "Action": "s3:PutObject",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    {
+                      "Fn::GetAtt": [
+                        "AmigoDataBucketPressreader702A8858",
+                        "Arn",
+                      ],
+                    },
+                    "/*",
                   ],
                 ],
               },
