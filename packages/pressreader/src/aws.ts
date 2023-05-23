@@ -1,5 +1,4 @@
-import { config, S3 } from 'aws-sdk';
-
+import { S3Client } from '@aws-sdk/client-s3';
 /**
  * Is this application running locally, or in AWS?
  *
@@ -11,19 +10,16 @@ export const isRunningLocally =
 	!process.env.LAMBDA_TASK_ROOT && !process.env.AWS_EXECUTION_ENV;
 
 // We use localstack to mock AWS services if we are running locally.
-if (isRunningLocally) {
-	config.update({
-		accessKeyId: 'xyz',
-		secretAccessKey: 'qwe',
-		s3ForcePathStyle: true,
-		region: 'eu-west-1',
-	});
-}
-
 const awsOptions = isRunningLocally
 	? {
 			endpoint: 'http://localhost:4566',
+			region: 'eu-west-1',
+			forcePathStyle: true,
+			credentials: {
+				accessKeyId: '',
+				secretAccessKey: '',
+			},
 	  }
-	: undefined;
+	: {};
 
-export const s3 = new S3(awsOptions);
+export const s3 = new S3Client(awsOptions);
