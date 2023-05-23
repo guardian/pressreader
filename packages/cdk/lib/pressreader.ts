@@ -7,6 +7,7 @@ import { Duration } from 'aws-cdk-lib';
 import { Schedule } from 'aws-cdk-lib/aws-events';
 import { Effect, PolicyStatement } from 'aws-cdk-lib/aws-iam';
 import { Runtime } from 'aws-cdk-lib/aws-lambda';
+import { Secret } from 'aws-cdk-lib/aws-secretsmanager';
 
 export class PressReader extends GuStack {
 	constructor(scope: App, id: string, props: GuStackProps) {
@@ -16,6 +17,17 @@ export class PressReader extends GuStack {
 		const dataBucket = new GuS3Bucket(this, 'PressreaderDataBucket', {
 			app: pressReaderApp,
 			bucketName: `gu-pressreader-data-${this.stage.toLowerCase()}`,
+		});
+
+		const capiSecret = new Secret(this, 'CapiTokenSecret', {
+			secretName: `/${this.stage}/${this.stack}/${pressReaderApp}/capiToken`,
+			description: 'The CAPI token used to retrieve content',
+		});
+
+		const capiSecretGetPolicyStatement = new PolicyStatement({
+			effect: Effect.ALLOW,
+			actions: ['secretsmanager:GetSecretValue'],
+			resources: [capiSecret.secretArn],
 		});
 
 		const s3PutPolicyStatement = new PolicyStatement({
@@ -44,6 +56,7 @@ export class PressReader extends GuStack {
 			},
 		);
 
+		scheduledLambda.addToRolePolicy(capiSecretGetPolicyStatement);
 		scheduledLambda.addToRolePolicy(s3PutPolicyStatement);
 	}
 }

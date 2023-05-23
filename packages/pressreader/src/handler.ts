@@ -1,4 +1,4 @@
-import { putDataToS3 } from './util';
+import { getCapiToken, putDataToS3 } from './util';
 
 const fakeData = [
 	{
@@ -18,6 +18,9 @@ const fakeData = [
 
 export const main = async () => {
 	console.log('Lambda handler called, processing request');
+
+	// TODO: Use this to get the CAPI token later
+	const capiToken = await getCapiToken();
 
 	const dataToStore = JSON.stringify(fakeData);
 	const currentDate = new Date();

@@ -1,4 +1,6 @@
 import { S3Client } from '@aws-sdk/client-s3';
+import { SecretsManagerClient } from '@aws-sdk/client-secrets-manager';
+
 /**
  * Is this application running locally, or in AWS?
  * LAMBDA_TASK_ROOT & AWS_EXECUTION_ENV are set when running in AWS
@@ -21,3 +23,4 @@ const awsOptions = isRunningLocally
 	: {};
 
 export const s3 = new S3Client(awsOptions);
+export const secretsManager = new SecretsManagerClient(awsOptions);

@@ -1,6 +1,7 @@
 import { PutObjectCommand } from '@aws-sdk/client-s3';
-import { s3 } from './aws';
-import { bucketName } from './constants';
+import { GetSecretValueCommand } from '@aws-sdk/client-secrets-manager';
+import { s3, secretsManager } from './aws';
+import { bucketName, capiSecretLocation } from './constants';
 
 export const putDataToS3 = async (dataToStore: string, date: Date) => {
 	const objectLocation = [
@@ -21,3 +22,10 @@ export const putDataToS3 = async (dataToStore: string, date: Date) => {
 		.send(new PutObjectCommand(params))
 		.then((_) => objectLocation);
 };
+
+export const getCapiToken = async () =>
+	(
+		await secretsManager.send(
+			new GetSecretValueCommand({ SecretId: capiSecretLocation }),
+		)
+	).SecretString as string;
