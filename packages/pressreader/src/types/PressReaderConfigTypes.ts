@@ -5,7 +5,7 @@ export interface PressReaderEditionConfig {
 	 * If an article has any of these tags, it will not be displayed.
 	 * @example `["sport/series/talking-horses"]`
 	 */
-	bannedTags: string[];
+	bannedTags?: string[];
 }
 
 export interface Section {

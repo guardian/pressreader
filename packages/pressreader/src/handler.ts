@@ -1,4 +1,5 @@
-import { putDataToS3 } from './util';
+import { editionConfig } from './config';
+import { getCapiToken, putDataToS3 } from './util';
 
 const fakeData = [
 	{
@@ -18,6 +19,13 @@ const fakeData = [
 
 export const main = async () => {
 	console.log('Lambda handler called, processing request');
+
+	// TODO: Remove this log when consumed
+	const capiToken = await getCapiToken();
+	console.log(`Got capiToken (length): ${capiToken.length}`);
+
+	// TODO: Remove this log when consumed
+	console.log(`Got editionConfig: ${JSON.stringify(editionConfig)}`);
 
 	const dataToStore = JSON.stringify(fakeData);
 	const currentDate = new Date();
