@@ -15,14 +15,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/guardian/newsroom-resilience-platform.git"
+    "url": "git+https://github.com/guardian/pressreader.git"
   },
   "author": "",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/guardian/newsroom-resilience-platform/issues"
+    "url": "https://github.com/guardian/pressreader/issues"
   },
-  "homepage": "https://github.com/guardian/newsroom-resilience-platform#readme",
+  "homepage": "https://github.com/guardian/pressreader#readme",
   "dependencies": {
     "ts-node-dev": "^2.0.0"
   }
