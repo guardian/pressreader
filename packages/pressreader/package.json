@@ -10,7 +10,7 @@
     "dev": "ts-node-dev --respawn src/handler.ts",
     "typecheck": "tsc -noEmit",
     "format": "prettier --write \"src/**/*.ts\"",
-    "build": "tsc --noEmit & esbuild src/handler.ts --bundle --minify --outfile=dist/handler.js --external:aws-sdk --platform=node",
+    "build": "esbuild src/handler.ts --bundle --minify --outfile=dist/handler.js --external:aws-sdk --platform=node",
     "test": "jest --detectOpenHandles --config ../../jest.config.js --selectProjects pressreader"
   },
   "repository": {
