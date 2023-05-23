@@ -1,3 +1,4 @@
+import { PutObjectCommand } from '@aws-sdk/client-s3';
 import { s3 } from './aws';
 import { bucketName } from './constants';
 
@@ -17,7 +18,6 @@ export const putDataToS3 = async (dataToStore: string, date: Date) => {
 	};
 
 	return await s3
-		.putObject(params)
-		.promise()
+		.send(new PutObjectCommand(params))
 		.then((_) => objectLocation);
 };
