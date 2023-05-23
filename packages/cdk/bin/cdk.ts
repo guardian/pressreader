@@ -1,0 +1,12 @@
+import 'source-map-support/register';
+import { GuRootExperimental } from '@guardian/cdk/lib/experimental/constructs/root';
+import { PressReader } from '../lib/pressreader';
+
+const app = new GuRootExperimental();
+
+new PressReader(app, 'PressReader-INFRA', {
+	env: { region: 'eu-west-1' },
+	app: 'pressreader',
+	stack: 'print-production',
+	stage: 'INFRA',
+});
