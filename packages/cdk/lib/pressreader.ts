@@ -128,6 +128,7 @@ export class PressReader extends GuStack {
 				handler: 'handler.main',
 				environment: {
 					BUCKET_NAME: dataBucket.bucketName,
+					CAPI_SECRET_LOCATION: capiSecret.secretName,
 				},
 				fileName: `pressreader.zip`,
 				monitoringConfiguration: {
