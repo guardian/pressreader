@@ -86,6 +86,19 @@ export class PressReader extends GuStack {
 				},
 			});
 
+		const usagePlan = apiGateway.addUsagePlan('PressReaderAPIUsagePlan', {
+			throttle: {
+				// Maximum expected average requests per second
+				rateLimit: 5,
+			},
+		});
+
+		const pressReaderClientApiKey = apiGateway.addApiKey(
+			'PressReaderClientApiKey',
+		);
+
+		usagePlan.addApiKey(pressReaderClientApiKey);
+
 		// Secret
 		const capiSecret = new Secret(this, 'CapiTokenSecret', {
 			secretName: `/${this.stage}/${this.stack}/${pressReaderApp}/capiToken`,
