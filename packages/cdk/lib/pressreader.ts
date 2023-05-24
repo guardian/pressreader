@@ -119,12 +119,7 @@ export class PressReader extends GuStack {
 		// associate stage with plan
 		usagePlan.addApiStage({ stage: apiGateway.deploymentStage });
 
-		// Secret
-		const capiSecret = new Secret(this, 'CapiTokenSecret', {
-			secretName: `/${this.stage}/${this.stack}/${pressReaderApp}/capiToken`,
-			description: 'The CAPI token used to retrieve content',
-		});
-
+		// domain name
 		const apiDomainName = apiGateway.domainName as DomainName;
 
 		new GuCname(this, 'cname', {
@@ -134,7 +129,13 @@ export class PressReader extends GuStack {
 			resourceRecord: apiDomainName.domainNameAliasDomainName,
 		});
 
-		// Scheduled Lambda
+		// secrets
+		const capiSecret = new Secret(this, 'CapiTokenSecret', {
+			secretName: `/${this.stage}/${this.stack}/${pressReaderApp}/capiToken`,
+			description: 'The CAPI token used to retrieve content',
+		});
+
+		// scheduled Lambda
 		const capiSecretGetPolicyStatement = new PolicyStatement({
 			effect: Effect.ALLOW,
 			actions: ['secretsmanager:GetSecretValue'],

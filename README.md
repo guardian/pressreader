@@ -7,6 +7,8 @@ publishes hourly lists of content to S3 for consumption by the
 The content in S3 is used to print daily versions of the newspaper where 
 internet connectivity may be limited.
 
+Further documentation is available in the [`/docs` folder](./docs/).
+
 ## Developing
 
 - `./scripts/setup` to get the project bootstrapped
