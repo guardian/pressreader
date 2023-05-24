@@ -1,6 +1,6 @@
 # Use of API Gateway to serve data
 
-## Context
+## Context
 
 [Pressreader](https://about.pressreader.com/cruises-ferries/) need to consume the data produced by this service, which is uploaded via a scheduled lambda into S3 with a predicatable name in the for `YYYYMMDD`.
 
