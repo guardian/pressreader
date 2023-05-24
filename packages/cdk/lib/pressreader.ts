@@ -82,13 +82,15 @@ export class PressReader extends GuStack {
 					'method.request.path.key': true,
 					'method.request.header.Content-Type': true,
 				},
+				apiKeyRequired: true,
 			});
 
 		// create usage plan
 		const usagePlan = apiGateway.addUsagePlan('PressReaderAPIUsagePlan', {
 			throttle: {
 				// Maximum expected average requests per second
-				rateLimit: 25,
+				rateLimit: 10,
+				burstLimit: 10,
 			},
 		});
 
@@ -101,7 +103,7 @@ export class PressReader extends GuStack {
 		usagePlan.addApiKey(pressReaderClientApiKey);
 
 		// associate stage with plan
-		// usagePlan.addApiStage({ stage: apiGateway.deploymentStage });
+		usagePlan.addApiStage({ stage: apiGateway.deploymentStage });
 
 		// Secret
 		const capiSecret = new Secret(this, 'CapiTokenSecret', {
