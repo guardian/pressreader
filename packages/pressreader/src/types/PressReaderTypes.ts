@@ -1,5 +1,5 @@
 export interface PressReaderEditionConfig {
-	sections: Section[];
+	sections: SectionConfig[];
 	/**
 	 * A list of CAPI tags that is used to filter out articles from the section.
 	 * If an article has any of these tags, it will not be displayed.
@@ -8,7 +8,7 @@ export interface PressReaderEditionConfig {
 	bannedTags?: string[];
 }
 
-export interface Section {
+export interface SectionConfig {
 	/**
 	 * The name we are giving to this section (doesn't need to correspond to anything in
 	 * the pressed front json, but should be unique across all sections)
@@ -40,4 +40,11 @@ export interface FrontSource {
 	 * @example `"http://api.nextgen.guardianapps.co.uk/science/lite.json"`
 	 */
 	sectionContentURL: string;
+}
+
+export type PressReaderEditionOutput = PressReaderSectionOutput[];
+
+interface PressReaderSectionOutput {
+	section: string;
+	articles: string[];
 }
