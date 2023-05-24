@@ -62,6 +62,7 @@ export class PressReader extends GuStack {
 					},
 				],
 				requestParameters: {
+					'integration.request.path.folder': 'method.request.path.folder',
 					'integration.request.path.key': 'method.request.path.key',
 				},
 			},
@@ -69,6 +70,7 @@ export class PressReader extends GuStack {
 
 		apiGateway.root
 			.addResource('data')
+			.addResource('{folder}')
 			.addResource('{key}')
 			.addMethod('GET', s3Integration, {
 				methodResponses: [
@@ -80,11 +82,13 @@ export class PressReader extends GuStack {
 					},
 				],
 				requestParameters: {
+					'method.request.path.folder': true,
 					'method.request.path.key': true,
 					'method.request.header.Content-Type': true,
 				},
 			});
 
+		// create usage plan
 		const usagePlan = apiGateway.addUsagePlan('PressReaderAPIUsagePlan', {
 			throttle: {
 				// Maximum expected average requests per second
@@ -92,11 +96,16 @@ export class PressReader extends GuStack {
 			},
 		});
 
+		// create api key
 		const pressReaderClientApiKey = apiGateway.addApiKey(
 			'PressReaderClientApiKey',
 		);
 
+		// associate api key to plan
 		usagePlan.addApiKey(pressReaderClientApiKey);
+
+		// associate stage with plan
+		usagePlan.addApiStage({ stage: apiGateway.deploymentStage });
 
 		// Secret
 		const capiSecret = new Secret(this, 'CapiTokenSecret', {
