@@ -5,6 +5,8 @@ exports[`The PressReader stack matches the snapshot 1`] = `
   "Metadata": {
     "gu:cdk:constructs": [
       "GuS3Bucket",
+      "GuCertificate",
+      "GuCname",
       "GuDistributionBucketParameter",
       "GuScheduledLambda",
     ],
@@ -144,6 +146,41 @@ exports[`The PressReader stack matches the snapshot 1`] = `
       "Type": "AWS::SecretsManager::Secret",
       "UpdateReplacePolicy": "Delete",
     },
+    "CertificatePressreader5EF99BC2": {
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "DomainName": "pressreader.gutools.co.uk",
+        "Tags": [
+          {
+            "Key": "App",
+            "Value": "pressreader",
+          },
+          {
+            "Key": "gu:cdk:version",
+            "Value": "TEST",
+          },
+          {
+            "Key": "gu:repo",
+            "Value": "guardian/pressreader",
+          },
+          {
+            "Key": "Name",
+            "Value": "PressReader/CertificatePressreader",
+          },
+          {
+            "Key": "Stack",
+            "Value": "print-production",
+          },
+          {
+            "Key": "Stage",
+            "Value": "TEST",
+          },
+        ],
+        "ValidationMethod": "DNS",
+      },
+      "Type": "AWS::CertificateManager::Certificate",
+      "UpdateReplacePolicy": "Retain",
+    },
     "PressReaderAPI27D6A559": {
       "Properties": {
         "Description": "Serves data to Press Reader from an S3 bucket.",
@@ -236,7 +273,53 @@ exports[`The PressReader stack matches the snapshot 1`] = `
       "Type": "AWS::IAM::Role",
       "UpdateReplacePolicy": "Retain",
     },
-    "PressReaderAPIDeployment76372679b767bd6c2d07c973927fa790b7ede477": {
+    "PressReaderAPICustomDomain01A52E88": {
+      "Properties": {
+        "DomainName": "pressreader.gutools.co.uk",
+        "EndpointConfiguration": {
+          "Types": [
+            "REGIONAL",
+          ],
+        },
+        "RegionalCertificateArn": {
+          "Ref": "CertificatePressreader5EF99BC2",
+        },
+        "Tags": [
+          {
+            "Key": "gu:cdk:version",
+            "Value": "TEST",
+          },
+          {
+            "Key": "gu:repo",
+            "Value": "guardian/pressreader",
+          },
+          {
+            "Key": "Stack",
+            "Value": "print-production",
+          },
+          {
+            "Key": "Stage",
+            "Value": "TEST",
+          },
+        ],
+      },
+      "Type": "AWS::ApiGateway::DomainName",
+    },
+    "PressReaderAPICustomDomainMapPressReaderPressReaderAPI9C38AEB65FDBC78E": {
+      "Properties": {
+        "DomainName": {
+          "Ref": "PressReaderAPICustomDomain01A52E88",
+        },
+        "RestApiId": {
+          "Ref": "PressReaderAPI27D6A559",
+        },
+        "Stage": {
+          "Ref": "PressReaderAPIDeploymentStageprod36351D7E",
+        },
+      },
+      "Type": "AWS::ApiGateway::BasePathMapping",
+    },
+    "PressReaderAPIDeployment76372679e3895ad93ebdd14299f5c92e17122e30": {
       "DependsOn": [
         "PressReaderAPIdatakeyGET902D4076",
         "PressReaderAPIdatakey9D39D3B4",
@@ -256,7 +339,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
       ],
       "Properties": {
         "DeploymentId": {
-          "Ref": "PressReaderAPIDeployment76372679b767bd6c2d07c973927fa790b7ede477",
+          "Ref": "PressReaderAPIDeployment76372679e3895ad93ebdd14299f5c92e17122e30",
         },
         "RestApiId": {
           "Ref": "PressReaderAPI27D6A559",
@@ -435,7 +518,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
                 {
                   "Ref": "PressreaderDataBucketPressreader48E10950",
                 },
-                "/data/{key}",
+                "/data/{key}.json",
               ],
             ],
           },
@@ -497,6 +580,23 @@ exports[`The PressReader stack matches the snapshot 1`] = `
       },
       "Type": "AWS::S3::Bucket",
       "UpdateReplacePolicy": "Retain",
+    },
+    "cname": {
+      "Properties": {
+        "Name": "pressreader.gutools.co.uk",
+        "RecordType": "CNAME",
+        "ResourceRecords": [
+          {
+            "Fn::GetAtt": [
+              "PressReaderAPICustomDomain01A52E88",
+              "RegionalDomainName",
+            ],
+          },
+        ],
+        "Stage": "TEST",
+        "TTL": 86400,
+      },
+      "Type": "Guardian::DNS::RecordSet",
     },
     "pressreaderlambdaB481BEF0": {
       "DependsOn": [

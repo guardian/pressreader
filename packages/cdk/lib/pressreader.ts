@@ -1,9 +1,12 @@
+import { GuCertificate } from '@guardian/cdk/lib/constructs/acm';
 import type { GuStackProps } from '@guardian/cdk/lib/constructs/core';
 import { GuStack } from '@guardian/cdk/lib/constructs/core';
+import { GuCname } from '@guardian/cdk/lib/constructs/dns/';
 import { GuS3Bucket } from '@guardian/cdk/lib/constructs/s3';
 import { GuScheduledLambda } from '@guardian/cdk/lib/patterns/scheduled-lambda';
 import type { App } from 'aws-cdk-lib';
 import { Duration } from 'aws-cdk-lib';
+import type { DomainName } from 'aws-cdk-lib/aws-apigateway';
 import { AwsIntegration, RestApi } from 'aws-cdk-lib/aws-apigateway';
 import { Schedule } from 'aws-cdk-lib/aws-events';
 import {
@@ -19,6 +22,7 @@ export class PressReader extends GuStack {
 	constructor(scope: App, id: string, props: GuStackProps) {
 		super(scope, id, props);
 		const pressReaderApp = 'pressreader';
+		const domainName = 'pressreader.gutools.co.uk';
 
 		// S3 Bucket
 		const dataBucket = new GuS3Bucket(this, 'PressreaderDataBucket', {
@@ -26,10 +30,20 @@ export class PressReader extends GuStack {
 			bucketName: `gu-pressreader-data-${this.stage.toLowerCase()}`,
 		});
 
+		// ACM Certificate
+		const certificate = new GuCertificate(this, {
+			app: pressReaderApp,
+			domainName: domainName,
+		});
+
 		// API Gateway
 		const apiGateway = new RestApi(this, 'PressReaderAPI', {
 			restApiName: 'Press Reader API',
 			description: 'Serves data to Press Reader from an S3 bucket.',
+			domainName: {
+				domainName,
+				certificate,
+			},
 		});
 
 		const executeRole = new Role(this, 'ApiGatewayS3AssumeRole', {
@@ -47,7 +61,7 @@ export class PressReader extends GuStack {
 		const s3Integration = new AwsIntegration({
 			service: 's3',
 			integrationHttpMethod: 'GET',
-			path: `${dataBucket.bucketName}/data/{key}`,
+			path: `${dataBucket.bucketName}/data/{key}.json`,
 			options: {
 				credentialsRole: executeRole,
 				integrationResponses: [
@@ -109,6 +123,15 @@ export class PressReader extends GuStack {
 		const capiSecret = new Secret(this, 'CapiTokenSecret', {
 			secretName: `/${this.stage}/${this.stack}/${pressReaderApp}/capiToken`,
 			description: 'The CAPI token used to retrieve content',
+		});
+
+		const apiDomainName = apiGateway.domainName as DomainName;
+
+		new GuCname(this, 'cname', {
+			app: pressReaderApp,
+			domainName: domainName,
+			ttl: Duration.days(1),
+			resourceRecord: apiDomainName.domainNameAliasDomainName,
 		});
 
 		// Scheduled Lambda
