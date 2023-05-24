@@ -87,12 +87,20 @@ exports[`The PressReader stack matches the snapshot 1`] = `
         "PolicyDocument": {
           "Statement": [
             {
-              "Action": "s3:Get",
+              "Action": "s3:GetObject",
               "Effect": "Allow",
               "Resource": {
-                "Fn::GetAtt": [
-                  "PressreaderDataBucketPressreader48E10950",
-                  "Arn",
+                "Fn::Join": [
+                  "",
+                  [
+                    {
+                      "Fn::GetAtt": [
+                        "PressreaderDataBucketPressreader48E10950",
+                        "Arn",
+                      ],
+                    },
+                    "/data/*",
+                  ],
                 ],
               },
             },
@@ -139,7 +147,6 @@ exports[`The PressReader stack matches the snapshot 1`] = `
     "PressReaderAPI27D6A559": {
       "Properties": {
         "Description": "Serves data to Press Reader from an S3 bucket.",
-        "MinimumCompressionSize": 0,
         "Name": "Press Reader API",
         "Tags": [
           {
@@ -229,11 +236,10 @@ exports[`The PressReader stack matches the snapshot 1`] = `
       "Type": "AWS::IAM::Role",
       "UpdateReplacePolicy": "Retain",
     },
-    "PressReaderAPIDeployment7637267952cbe75bed63d0c64d74821a6c2a3b81": {
+    "PressReaderAPIDeployment76372679b73fc68b30f25fdf1147ce7be2abf5c5": {
       "DependsOn": [
-        "PressReaderAPIdatafolderkeyGET0804CE69",
-        "PressReaderAPIdatafolderkeyAE4BFC59",
-        "PressReaderAPIdatafolderD3E21776",
+        "PressReaderAPIdatakeyGET902D4076",
+        "PressReaderAPIdatakey9D39D3B4",
         "PressReaderAPIdata6C16C1E3",
       ],
       "Properties": {
@@ -250,7 +256,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
       ],
       "Properties": {
         "DeploymentId": {
-          "Ref": "PressReaderAPIDeployment7637267952cbe75bed63d0c64d74821a6c2a3b81",
+          "Ref": "PressReaderAPIDeployment76372679b73fc68b30f25fdf1147ce7be2abf5c5",
         },
         "RestApiId": {
           "Ref": "PressReaderAPI27D6A559",
@@ -279,17 +285,6 @@ exports[`The PressReader stack matches the snapshot 1`] = `
     },
     "PressReaderAPIPressReaderAPIUsagePlan5896C6C0": {
       "Properties": {
-        "ApiStages": [
-          {
-            "ApiId": {
-              "Ref": "PressReaderAPI27D6A559",
-            },
-            "Stage": {
-              "Ref": "PressReaderAPIDeploymentStageprod36351D7E",
-            },
-            "Throttle": {},
-          },
-        ],
         "Tags": [
           {
             "Key": "gu:cdk:version",
@@ -309,7 +304,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
           },
         ],
         "Throttle": {
-          "RateLimit": 5,
+          "RateLimit": 25,
         },
       },
       "Type": "AWS::ApiGateway::UsagePlan",
@@ -375,22 +370,10 @@ exports[`The PressReader stack matches the snapshot 1`] = `
       },
       "Type": "AWS::ApiGateway::Resource",
     },
-    "PressReaderAPIdatafolderD3E21776": {
+    "PressReaderAPIdatakey9D39D3B4": {
       "Properties": {
         "ParentId": {
           "Ref": "PressReaderAPIdata6C16C1E3",
-        },
-        "PathPart": "{folder}",
-        "RestApiId": {
-          "Ref": "PressReaderAPI27D6A559",
-        },
-      },
-      "Type": "AWS::ApiGateway::Resource",
-    },
-    "PressReaderAPIdatafolderkeyAE4BFC59": {
-      "Properties": {
-        "ParentId": {
-          "Ref": "PressReaderAPIdatafolderD3E21776",
         },
         "PathPart": "{key}",
         "RestApiId": {
@@ -399,7 +382,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
       },
       "Type": "AWS::ApiGateway::Resource",
     },
-    "PressReaderAPIdatafolderkeyGET0804CE69": {
+    "PressReaderAPIdatakeyGET902D4076": {
       "Properties": {
         "AuthorizationType": "NONE",
         "HttpMethod": "GET",
@@ -420,7 +403,6 @@ exports[`The PressReader stack matches the snapshot 1`] = `
             },
           ],
           "RequestParameters": {
-            "integration.request.path.folder": "method.request.path.folder",
             "integration.request.path.key": "method.request.path.key",
           },
           "Type": "AWS",
@@ -440,7 +422,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
                 {
                   "Ref": "PressreaderDataBucketPressreader48E10950",
                 },
-                "/{key}",
+                "/data/{key}",
               ],
             ],
           },
@@ -448,6 +430,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
         "MethodResponses": [
           {
             "ResponseParameters": {
+              "method.response.header.Content-Length": true,
               "method.response.header.Content-Type": true,
             },
             "StatusCode": "200",
@@ -455,11 +438,10 @@ exports[`The PressReader stack matches the snapshot 1`] = `
         ],
         "RequestParameters": {
           "method.request.header.Content-Type": true,
-          "method.request.path.folder": true,
           "method.request.path.key": true,
         },
         "ResourceId": {
-          "Ref": "PressReaderAPIdatafolderkeyAE4BFC59",
+          "Ref": "PressReaderAPIdatakey9D39D3B4",
         },
         "RestApiId": {
           "Ref": "PressReaderAPI27D6A559",
@@ -774,7 +756,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
                         "Arn",
                       ],
                     },
-                    "/*",
+                    "/data/*",
                   ],
                 ],
               },

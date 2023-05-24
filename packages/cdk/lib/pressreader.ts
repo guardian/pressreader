@@ -14,7 +14,6 @@ import {
 } from 'aws-cdk-lib/aws-iam';
 import { Runtime } from 'aws-cdk-lib/aws-lambda';
 import { Secret } from 'aws-cdk-lib/aws-secretsmanager';
-import { Size } from 'aws-cdk-lib/core';
 
 export class PressReader extends GuStack {
 	constructor(scope: App, id: string, props: GuStackProps) {
@@ -31,7 +30,6 @@ export class PressReader extends GuStack {
 		const apiGateway = new RestApi(this, 'PressReaderAPI', {
 			restApiName: 'Press Reader API',
 			description: 'Serves data to Press Reader from an S3 bucket.',
-			minCompressionSize: Size.bytes(0),
 		});
 
 		const executeRole = new Role(this, 'ApiGatewayS3AssumeRole', {
@@ -41,15 +39,15 @@ export class PressReader extends GuStack {
 
 		executeRole.addToPolicy(
 			new PolicyStatement({
-				resources: [dataBucket.bucketArn],
-				actions: ['s3:Get'],
+				resources: [`${dataBucket.bucketArn}/data/*`],
+				actions: ['s3:GetObject'],
 			}),
 		);
 
 		const s3Integration = new AwsIntegration({
 			service: 's3',
 			integrationHttpMethod: 'GET',
-			path: `${dataBucket.bucketName}/{key}`,
+			path: `${dataBucket.bucketName}/data/{key}`,
 			options: {
 				credentialsRole: executeRole,
 				integrationResponses: [
@@ -62,7 +60,6 @@ export class PressReader extends GuStack {
 					},
 				],
 				requestParameters: {
-					'integration.request.path.folder': 'method.request.path.folder',
 					'integration.request.path.key': 'method.request.path.key',
 				},
 			},
@@ -70,19 +67,18 @@ export class PressReader extends GuStack {
 
 		apiGateway.root
 			.addResource('data')
-			.addResource('{folder}')
 			.addResource('{key}')
 			.addMethod('GET', s3Integration, {
 				methodResponses: [
 					{
 						statusCode: '200',
 						responseParameters: {
+							'method.response.header.Content-Length': true,
 							'method.response.header.Content-Type': true,
 						},
 					},
 				],
 				requestParameters: {
-					'method.request.path.folder': true,
 					'method.request.path.key': true,
 					'method.request.header.Content-Type': true,
 				},
@@ -92,7 +88,7 @@ export class PressReader extends GuStack {
 		const usagePlan = apiGateway.addUsagePlan('PressReaderAPIUsagePlan', {
 			throttle: {
 				// Maximum expected average requests per second
-				rateLimit: 5,
+				rateLimit: 25,
 			},
 		});
 
@@ -105,7 +101,7 @@ export class PressReader extends GuStack {
 		usagePlan.addApiKey(pressReaderClientApiKey);
 
 		// associate stage with plan
-		usagePlan.addApiStage({ stage: apiGateway.deploymentStage });
+		// usagePlan.addApiStage({ stage: apiGateway.deploymentStage });
 
 		// Secret
 		const capiSecret = new Secret(this, 'CapiTokenSecret', {
@@ -123,7 +119,7 @@ export class PressReader extends GuStack {
 		const s3PutPolicyStatement = new PolicyStatement({
 			effect: Effect.ALLOW,
 			actions: ['s3:PutObject'],
-			resources: [`${dataBucket.bucketArn}/*`],
+			resources: [`${dataBucket.bucketArn}/data/*`],
 		});
 
 		const scheduledLambda = new GuScheduledLambda(
