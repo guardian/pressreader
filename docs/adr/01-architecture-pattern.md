@@ -1,5 +1,7 @@
 # Architectural Pattern and Backend Language
 
+## Context
+
 This service is replacing an on-premise service that runs in a cron job, taking data about fronts and from the content API to produce json output in S3 
 which is consumed by [pressreader](https://about.pressreader.com/cruises-ferries/)
 

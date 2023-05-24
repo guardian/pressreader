@@ -5,10 +5,40 @@ exports[`The PressReader stack matches the snapshot 1`] = `
   "Metadata": {
     "gu:cdk:constructs": [
       "GuS3Bucket",
+      "GuCertificate",
+      "GuCname",
       "GuDistributionBucketParameter",
       "GuScheduledLambda",
     ],
     "gu:cdk:version": "TEST",
+  },
+  "Outputs": {
+    "PressReaderAPIEndpointC91EED74": {
+      "Value": {
+        "Fn::Join": [
+          "",
+          [
+            "https://",
+            {
+              "Ref": "PressReaderAPI27D6A559",
+            },
+            ".execute-api.",
+            {
+              "Ref": "AWS::Region",
+            },
+            ".",
+            {
+              "Ref": "AWS::URLSuffix",
+            },
+            "/",
+            {
+              "Ref": "PressReaderAPIDeploymentStageprod36351D7E",
+            },
+            "/",
+          ],
+        ],
+      },
+    },
   },
   "Parameters": {
     "DistributionBucketName": {
@@ -18,6 +48,76 @@ exports[`The PressReader stack matches the snapshot 1`] = `
     },
   },
   "Resources": {
+    "ApiGatewayS3AssumeRoleC6FF4BBF": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "apigateway.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "RoleName": "APIGatewayS3IntegrationRole",
+        "Tags": [
+          {
+            "Key": "gu:cdk:version",
+            "Value": "TEST",
+          },
+          {
+            "Key": "gu:repo",
+            "Value": "guardian/pressreader",
+          },
+          {
+            "Key": "Stack",
+            "Value": "print-production",
+          },
+          {
+            "Key": "Stage",
+            "Value": "TEST",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "ApiGatewayS3AssumeRoleDefaultPolicy523002C3": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "s3:GetObject",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    {
+                      "Fn::GetAtt": [
+                        "PressreaderDataBucketPressreader48E10950",
+                        "Arn",
+                      ],
+                    },
+                    "/data/*",
+                  ],
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "ApiGatewayS3AssumeRoleDefaultPolicy523002C3",
+        "Roles": [
+          {
+            "Ref": "ApiGatewayS3AssumeRoleC6FF4BBF",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
     "CapiTokenSecret1D3F4E33": {
       "DeletionPolicy": "Delete",
       "Properties": {
@@ -45,6 +145,405 @@ exports[`The PressReader stack matches the snapshot 1`] = `
       },
       "Type": "AWS::SecretsManager::Secret",
       "UpdateReplacePolicy": "Delete",
+    },
+    "CertificatePressreader5EF99BC2": {
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "DomainName": "pressreader.gutools.co.uk",
+        "Tags": [
+          {
+            "Key": "App",
+            "Value": "pressreader",
+          },
+          {
+            "Key": "gu:cdk:version",
+            "Value": "TEST",
+          },
+          {
+            "Key": "gu:repo",
+            "Value": "guardian/pressreader",
+          },
+          {
+            "Key": "Name",
+            "Value": "PressReader/CertificatePressreader",
+          },
+          {
+            "Key": "Stack",
+            "Value": "print-production",
+          },
+          {
+            "Key": "Stage",
+            "Value": "TEST",
+          },
+        ],
+        "ValidationMethod": "DNS",
+      },
+      "Type": "AWS::CertificateManager::Certificate",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "PressReaderAPI27D6A559": {
+      "Properties": {
+        "Description": "Serves data to Press Reader from an S3 bucket.",
+        "Name": "Press Reader API",
+        "Tags": [
+          {
+            "Key": "gu:cdk:version",
+            "Value": "TEST",
+          },
+          {
+            "Key": "gu:repo",
+            "Value": "guardian/pressreader",
+          },
+          {
+            "Key": "Stack",
+            "Value": "print-production",
+          },
+          {
+            "Key": "Stage",
+            "Value": "TEST",
+          },
+        ],
+      },
+      "Type": "AWS::ApiGateway::RestApi",
+    },
+    "PressReaderAPIAccount0348D010": {
+      "DeletionPolicy": "Retain",
+      "DependsOn": [
+        "PressReaderAPI27D6A559",
+      ],
+      "Properties": {
+        "CloudWatchRoleArn": {
+          "Fn::GetAtt": [
+            "PressReaderAPICloudWatchRole11526889",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::ApiGateway::Account",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "PressReaderAPICloudWatchRole11526889": {
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "apigateway.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs",
+              ],
+            ],
+          },
+        ],
+        "Tags": [
+          {
+            "Key": "gu:cdk:version",
+            "Value": "TEST",
+          },
+          {
+            "Key": "gu:repo",
+            "Value": "guardian/pressreader",
+          },
+          {
+            "Key": "Stack",
+            "Value": "print-production",
+          },
+          {
+            "Key": "Stage",
+            "Value": "TEST",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+      "UpdateReplacePolicy": "Retain",
+    },
+    "PressReaderAPICustomDomain01A52E88": {
+      "Properties": {
+        "DomainName": "pressreader.gutools.co.uk",
+        "EndpointConfiguration": {
+          "Types": [
+            "REGIONAL",
+          ],
+        },
+        "RegionalCertificateArn": {
+          "Ref": "CertificatePressreader5EF99BC2",
+        },
+        "Tags": [
+          {
+            "Key": "gu:cdk:version",
+            "Value": "TEST",
+          },
+          {
+            "Key": "gu:repo",
+            "Value": "guardian/pressreader",
+          },
+          {
+            "Key": "Stack",
+            "Value": "print-production",
+          },
+          {
+            "Key": "Stage",
+            "Value": "TEST",
+          },
+        ],
+      },
+      "Type": "AWS::ApiGateway::DomainName",
+    },
+    "PressReaderAPICustomDomainMapPressReaderPressReaderAPI9C38AEB65FDBC78E": {
+      "Properties": {
+        "DomainName": {
+          "Ref": "PressReaderAPICustomDomain01A52E88",
+        },
+        "RestApiId": {
+          "Ref": "PressReaderAPI27D6A559",
+        },
+        "Stage": {
+          "Ref": "PressReaderAPIDeploymentStageprod36351D7E",
+        },
+      },
+      "Type": "AWS::ApiGateway::BasePathMapping",
+    },
+    "PressReaderAPIDeployment76372679e3895ad93ebdd14299f5c92e17122e30": {
+      "DependsOn": [
+        "PressReaderAPIdatakeyGET902D4076",
+        "PressReaderAPIdatakey9D39D3B4",
+        "PressReaderAPIdata6C16C1E3",
+      ],
+      "Properties": {
+        "Description": "Serves data to Press Reader from an S3 bucket.",
+        "RestApiId": {
+          "Ref": "PressReaderAPI27D6A559",
+        },
+      },
+      "Type": "AWS::ApiGateway::Deployment",
+    },
+    "PressReaderAPIDeploymentStageprod36351D7E": {
+      "DependsOn": [
+        "PressReaderAPIAccount0348D010",
+      ],
+      "Properties": {
+        "DeploymentId": {
+          "Ref": "PressReaderAPIDeployment76372679e3895ad93ebdd14299f5c92e17122e30",
+        },
+        "RestApiId": {
+          "Ref": "PressReaderAPI27D6A559",
+        },
+        "StageName": "prod",
+        "Tags": [
+          {
+            "Key": "gu:cdk:version",
+            "Value": "TEST",
+          },
+          {
+            "Key": "gu:repo",
+            "Value": "guardian/pressreader",
+          },
+          {
+            "Key": "Stack",
+            "Value": "print-production",
+          },
+          {
+            "Key": "Stage",
+            "Value": "TEST",
+          },
+        ],
+      },
+      "Type": "AWS::ApiGateway::Stage",
+    },
+    "PressReaderAPIPressReaderAPIUsagePlan5896C6C0": {
+      "Properties": {
+        "ApiStages": [
+          {
+            "ApiId": {
+              "Ref": "PressReaderAPI27D6A559",
+            },
+            "Stage": {
+              "Ref": "PressReaderAPIDeploymentStageprod36351D7E",
+            },
+            "Throttle": {},
+          },
+        ],
+        "Tags": [
+          {
+            "Key": "gu:cdk:version",
+            "Value": "TEST",
+          },
+          {
+            "Key": "gu:repo",
+            "Value": "guardian/pressreader",
+          },
+          {
+            "Key": "Stack",
+            "Value": "print-production",
+          },
+          {
+            "Key": "Stage",
+            "Value": "TEST",
+          },
+        ],
+        "Throttle": {
+          "BurstLimit": 10,
+          "RateLimit": 10,
+        },
+      },
+      "Type": "AWS::ApiGateway::UsagePlan",
+    },
+    "PressReaderAPIPressReaderAPIUsagePlanUsagePlanKeyResourcePressReaderPressReaderAPIPressReaderClientApiKeyB938A4323A97BA22": {
+      "Properties": {
+        "KeyId": {
+          "Ref": "PressReaderAPIPressReaderClientApiKey193E0946",
+        },
+        "KeyType": "API_KEY",
+        "UsagePlanId": {
+          "Ref": "PressReaderAPIPressReaderAPIUsagePlan5896C6C0",
+        },
+      },
+      "Type": "AWS::ApiGateway::UsagePlanKey",
+    },
+    "PressReaderAPIPressReaderClientApiKey193E0946": {
+      "Properties": {
+        "Enabled": true,
+        "StageKeys": [
+          {
+            "RestApiId": {
+              "Ref": "PressReaderAPI27D6A559",
+            },
+            "StageName": {
+              "Ref": "PressReaderAPIDeploymentStageprod36351D7E",
+            },
+          },
+        ],
+        "Tags": [
+          {
+            "Key": "gu:cdk:version",
+            "Value": "TEST",
+          },
+          {
+            "Key": "gu:repo",
+            "Value": "guardian/pressreader",
+          },
+          {
+            "Key": "Stack",
+            "Value": "print-production",
+          },
+          {
+            "Key": "Stage",
+            "Value": "TEST",
+          },
+        ],
+      },
+      "Type": "AWS::ApiGateway::ApiKey",
+    },
+    "PressReaderAPIdata6C16C1E3": {
+      "Properties": {
+        "ParentId": {
+          "Fn::GetAtt": [
+            "PressReaderAPI27D6A559",
+            "RootResourceId",
+          ],
+        },
+        "PathPart": "data",
+        "RestApiId": {
+          "Ref": "PressReaderAPI27D6A559",
+        },
+      },
+      "Type": "AWS::ApiGateway::Resource",
+    },
+    "PressReaderAPIdatakey9D39D3B4": {
+      "Properties": {
+        "ParentId": {
+          "Ref": "PressReaderAPIdata6C16C1E3",
+        },
+        "PathPart": "{key}",
+        "RestApiId": {
+          "Ref": "PressReaderAPI27D6A559",
+        },
+      },
+      "Type": "AWS::ApiGateway::Resource",
+    },
+    "PressReaderAPIdatakeyGET902D4076": {
+      "Properties": {
+        "ApiKeyRequired": true,
+        "AuthorizationType": "NONE",
+        "HttpMethod": "GET",
+        "Integration": {
+          "Credentials": {
+            "Fn::GetAtt": [
+              "ApiGatewayS3AssumeRoleC6FF4BBF",
+              "Arn",
+            ],
+          },
+          "IntegrationHttpMethod": "GET",
+          "IntegrationResponses": [
+            {
+              "ResponseParameters": {
+                "method.response.header.Content-Type": "integration.response.header.Content-Type",
+              },
+              "StatusCode": "200",
+            },
+          ],
+          "RequestParameters": {
+            "integration.request.path.key": "method.request.path.key",
+          },
+          "Type": "AWS",
+          "Uri": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":apigateway:",
+                {
+                  "Ref": "AWS::Region",
+                },
+                ":s3:path/",
+                {
+                  "Ref": "PressreaderDataBucketPressreader48E10950",
+                },
+                "/data/{key}.json",
+              ],
+            ],
+          },
+        },
+        "MethodResponses": [
+          {
+            "ResponseParameters": {
+              "method.response.header.Content-Length": true,
+              "method.response.header.Content-Type": true,
+            },
+            "StatusCode": "200",
+          },
+        ],
+        "RequestParameters": {
+          "method.request.header.Content-Type": true,
+          "method.request.path.key": true,
+        },
+        "ResourceId": {
+          "Ref": "PressReaderAPIdatakey9D39D3B4",
+        },
+        "RestApiId": {
+          "Ref": "PressReaderAPI27D6A559",
+        },
+      },
+      "Type": "AWS::ApiGateway::Method",
     },
     "PressreaderDataBucketPressreader48E10950": {
       "DeletionPolicy": "Retain",
@@ -82,6 +581,23 @@ exports[`The PressReader stack matches the snapshot 1`] = `
       "Type": "AWS::S3::Bucket",
       "UpdateReplacePolicy": "Retain",
     },
+    "cname": {
+      "Properties": {
+        "Name": "pressreader.gutools.co.uk",
+        "RecordType": "CNAME",
+        "ResourceRecords": [
+          {
+            "Fn::GetAtt": [
+              "PressReaderAPICustomDomain01A52E88",
+              "RegionalDomainName",
+            ],
+          },
+        ],
+        "Stage": "TEST",
+        "TTL": 86400,
+      },
+      "Type": "Guardian::DNS::RecordSet",
+    },
     "pressreaderlambdaB481BEF0": {
       "DependsOn": [
         "pressreaderlambdaServiceRoleDefaultPolicy7471EACC",
@@ -99,6 +615,59 @@ exports[`The PressReader stack matches the snapshot 1`] = `
             "APP": "pressreader",
             "BUCKET_NAME": {
               "Ref": "PressreaderDataBucketPressreader48E10950",
+            },
+            "CAPI_SECRET_LOCATION": {
+              "Fn::Join": [
+                "-",
+                [
+                  {
+                    "Fn::Select": [
+                      0,
+                      {
+                        "Fn::Split": [
+                          "-",
+                          {
+                            "Fn::Select": [
+                              6,
+                              {
+                                "Fn::Split": [
+                                  ":",
+                                  {
+                                    "Ref": "CapiTokenSecret1D3F4E33",
+                                  },
+                                ],
+                              },
+                            ],
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                  {
+                    "Fn::Select": [
+                      1,
+                      {
+                        "Fn::Split": [
+                          "-",
+                          {
+                            "Fn::Select": [
+                              6,
+                              {
+                                "Fn::Split": [
+                                  ":",
+                                  {
+                                    "Ref": "CapiTokenSecret1D3F4E33",
+                                  },
+                                ],
+                              },
+                            ],
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                ],
+              ],
             },
             "STACK": "print-production",
             "STAGE": "TEST",
@@ -300,7 +869,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
                         "Arn",
                       ],
                     },
-                    "/*",
+                    "/data/*",
                   ],
                 ],
               },

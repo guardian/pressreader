@@ -13,7 +13,7 @@ export const putDataToS3 = async (dataToStore: string, date: Date) => {
 
 	const params = {
 		Bucket: bucketName,
-		Key: objectLocation,
+		Key: ['data', objectLocation].join('/'),
 		Body: dataToStore,
 		ContentType: 'application/json',
 	};
