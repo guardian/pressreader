@@ -138,9 +138,6 @@ exports[`The PressReader stack matches the snapshot 1`] = `
     },
     "PressReaderAPI27D6A559": {
       "Properties": {
-        "BinaryMediaTypes": [
-          "application/json",
-        ],
         "Description": "Serves data to Press Reader from an S3 bucket.",
         "MinimumCompressionSize": 0,
         "Name": "Press Reader API",
@@ -232,7 +229,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
       "Type": "AWS::IAM::Role",
       "UpdateReplacePolicy": "Retain",
     },
-    "PressReaderAPIDeployment763726798bf10020fb5e9c5cdf604cd172781332": {
+    "PressReaderAPIDeployment76372679e5f9cc7c2f05ed5f404ba8c9db4a6514": {
       "DependsOn": [
         "PressReaderAPIdatakeyGET902D4076",
         "PressReaderAPIdatakey9D39D3B4",
@@ -252,7 +249,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
       ],
       "Properties": {
         "DeploymentId": {
-          "Ref": "PressReaderAPIDeployment763726798bf10020fb5e9c5cdf604cd172781332",
+          "Ref": "PressReaderAPIDeployment76372679e5f9cc7c2f05ed5f404ba8c9db4a6514",
         },
         "RestApiId": {
           "Ref": "PressReaderAPI27D6A559",
@@ -278,6 +275,78 @@ exports[`The PressReader stack matches the snapshot 1`] = `
         ],
       },
       "Type": "AWS::ApiGateway::Stage",
+    },
+    "PressReaderAPIPressReaderAPIUsagePlan5896C6C0": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "gu:cdk:version",
+            "Value": "TEST",
+          },
+          {
+            "Key": "gu:repo",
+            "Value": "guardian/pressreader",
+          },
+          {
+            "Key": "Stack",
+            "Value": "print-production",
+          },
+          {
+            "Key": "Stage",
+            "Value": "TEST",
+          },
+        ],
+        "Throttle": {
+          "RateLimit": 5,
+        },
+      },
+      "Type": "AWS::ApiGateway::UsagePlan",
+    },
+    "PressReaderAPIPressReaderAPIUsagePlanUsagePlanKeyResourcePressReaderPressReaderAPIPressReaderClientApiKeyB938A4323A97BA22": {
+      "Properties": {
+        "KeyId": {
+          "Ref": "PressReaderAPIPressReaderClientApiKey193E0946",
+        },
+        "KeyType": "API_KEY",
+        "UsagePlanId": {
+          "Ref": "PressReaderAPIPressReaderAPIUsagePlan5896C6C0",
+        },
+      },
+      "Type": "AWS::ApiGateway::UsagePlanKey",
+    },
+    "PressReaderAPIPressReaderClientApiKey193E0946": {
+      "Properties": {
+        "Enabled": true,
+        "StageKeys": [
+          {
+            "RestApiId": {
+              "Ref": "PressReaderAPI27D6A559",
+            },
+            "StageName": {
+              "Ref": "PressReaderAPIDeploymentStageprod36351D7E",
+            },
+          },
+        ],
+        "Tags": [
+          {
+            "Key": "gu:cdk:version",
+            "Value": "TEST",
+          },
+          {
+            "Key": "gu:repo",
+            "Value": "guardian/pressreader",
+          },
+          {
+            "Key": "Stack",
+            "Value": "print-production",
+          },
+          {
+            "Key": "Stage",
+            "Value": "TEST",
+          },
+        ],
+      },
+      "Type": "AWS::ApiGateway::ApiKey",
     },
     "PressReaderAPIdata6C16C1E3": {
       "Properties": {
@@ -425,6 +494,59 @@ exports[`The PressReader stack matches the snapshot 1`] = `
             "APP": "pressreader",
             "BUCKET_NAME": {
               "Ref": "PressreaderDataBucketPressreader48E10950",
+            },
+            "CAPI_SECRET_LOCATION": {
+              "Fn::Join": [
+                "-",
+                [
+                  {
+                    "Fn::Select": [
+                      0,
+                      {
+                        "Fn::Split": [
+                          "-",
+                          {
+                            "Fn::Select": [
+                              6,
+                              {
+                                "Fn::Split": [
+                                  ":",
+                                  {
+                                    "Ref": "CapiTokenSecret1D3F4E33",
+                                  },
+                                ],
+                              },
+                            ],
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                  {
+                    "Fn::Select": [
+                      1,
+                      {
+                        "Fn::Split": [
+                          "-",
+                          {
+                            "Fn::Select": [
+                              6,
+                              {
+                                "Fn::Split": [
+                                  ":",
+                                  {
+                                    "Ref": "CapiTokenSecret1D3F4E33",
+                                  },
+                                ],
+                              },
+                            ],
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                ],
+              ],
             },
             "STACK": "print-production",
             "STAGE": "TEST",

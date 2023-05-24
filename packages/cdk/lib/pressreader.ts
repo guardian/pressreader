@@ -31,7 +31,6 @@ export class PressReader extends GuStack {
 		const apiGateway = new RestApi(this, 'PressReaderAPI', {
 			restApiName: 'Press Reader API',
 			description: 'Serves data to Press Reader from an S3 bucket.',
-			binaryMediaTypes: ['application/json'],
 			minCompressionSize: Size.bytes(0),
 		});
 
