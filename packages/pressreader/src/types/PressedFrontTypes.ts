@@ -14,7 +14,7 @@ interface CollectionType {
 	content: ContentType[];
 }
 
-interface ContentType {
+export interface ContentType {
 	id: string;
 	headline: string;
 	trailText: string;
