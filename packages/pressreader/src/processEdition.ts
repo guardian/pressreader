@@ -34,8 +34,6 @@ export function editionProcessor({ edition, capiConfig }: Props) {
 	return { run };
 
 	async function run() {
-		const USED_ARTICLE_IDS_STORE: string[] = [];
-
 		const sectionData = await Promise.all(
 			edition.sections.map(async (section) => {
 				const frontArticleIds = await getArticleIdsFromFronts(
@@ -60,7 +58,13 @@ export function editionProcessor({ edition, capiConfig }: Props) {
 				return { ...section, articleDetails };
 			}),
 		);
+		const USED_ARTICLE_IDS_STORE: string[] = [];
 		const OUTPUT_ACCUMULATOR: PressReaderEditionOutput = [];
+		/**
+		 * Build up the list of articles for each section, checking that they
+		 * pass meet the criteria for inclusion, and also making sure that we
+		 * don't include the same article more than once in the edition.
+		 */
 		for (const section of sectionData) {
 			const articleIdsForSection = section.articleDetails
 				.filter((article) => {
