@@ -28,17 +28,6 @@ type CapiConfig = {
 	capiKey: string;
 };
 
-function CapiSearchUrlFromQuery(query: string, capiConfig: CapiConfig): string {
-	return new URL(
-		`${query}&api-key=${capiConfig.capiKey}`,
-		capiConfig.baseCapiUrl,
-	).toString();
-}
-function CapiItemUrlFromId(id: string, capiConfig: CapiConfig): string {
-	const path = `${id}?show-tags=all&show-fields=wordcount&api-key=${capiConfig.capiKey}`;
-	return new URL(path, capiConfig.baseCapiUrl).toString();
-}
-
 export function editionProcessor({ edition, capiConfig }: Props) {
 	const MIN_WORDCOUNT = 200;
 
@@ -77,7 +66,11 @@ export function editionProcessor({ edition, capiConfig }: Props) {
 				.filter((article) => {
 					return (
 						!USED_ARTICLE_IDS_STORE.includes(article.id) &&
-						isValidArticle(article, edition.bannedTags ?? [], MIN_WORDCOUNT)
+						meetsInclusionCriteria(
+							article,
+							edition.bannedTags ?? [],
+							MIN_WORDCOUNT,
+						)
 					);
 				})
 				.slice(0, section.maximumArticleCount + 1)
@@ -92,7 +85,19 @@ export function editionProcessor({ edition, capiConfig }: Props) {
 	}
 }
 
-function isValidArticle(
+function CapiSearchUrlFromQuery(query: string, capiConfig: CapiConfig): string {
+	return new URL(
+		`${query}&api-key=${capiConfig.capiKey}`,
+		capiConfig.baseCapiUrl,
+	).toString();
+}
+
+function CapiItemUrlFromId(id: string, capiConfig: CapiConfig): string {
+	const path = `${id}?show-tags=all&show-fields=wordcount&api-key=${capiConfig.capiKey}`;
+	return new URL(path, capiConfig.baseCapiUrl).toString();
+}
+
+function meetsInclusionCriteria(
 	article: CapiItem,
 	bannedTags: string[],
 	minWordCount: number,
