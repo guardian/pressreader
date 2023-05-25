@@ -151,11 +151,13 @@ async function fetchArticleData(
 			return undefined;
 		}
 		throw new Error(
-			`CAPI error: ${data.message ?? 'no message set in CAPI response'}`,
+			`CAPI error: ${
+				data.message ?? 'no message set in CAPI response'
+			}. Requested item: ${id}`,
 		);
 	}
 	if (!isCapiItemResponse(data)) {
-		throw new Error(typeof data);
+		throw new Error(`CAPI response is not valid: ${id}`);
 	}
 	if (
 		data.content == undefined ||
