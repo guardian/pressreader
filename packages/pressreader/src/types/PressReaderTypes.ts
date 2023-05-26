@@ -18,7 +18,7 @@ export interface SectionConfig {
 	frontSources: FrontSource[];
 	/**
 	 * URLs for CAPI queries to be used as backfills for this section.
-	 * @example `["http://content.guardianapis.com/search?tag=science%2Fscience&production-office=us&order-by=newest&api-key=XXXXXXXXX"]`
+	 * @example `["search?tag=science%2Fscience&production-office=us&order-by=newest"]`
 	 */
 	capiSources: string[];
 }
