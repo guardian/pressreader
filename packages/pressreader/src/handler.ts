@@ -21,7 +21,7 @@ export const main = async () => {
 	});
 
 	const data = await processor.run();
-	console.table(data);
+
 	const dataToStore = JSON.stringify(data);
 
 	const currentDate = new Date();
