@@ -58,18 +58,21 @@ export function editionProcessor({ edition, capiConfig }: Props) {
 				return { ...section, articleDetails };
 			}),
 		);
-		const USED_ARTICLE_IDS_STORE: string[] = [];
-		const OUTPUT_ACCUMULATOR: PressReaderEditionOutput = [];
+		/**
+		 * These two lists will be mutated in the loop below.
+		 */
+		const usedArticleIdsStore: string[] = [];
+		const outputAccumulator: PressReaderEditionOutput = [];
 		/**
 		 * Build up the list of articles for each section, checking that they
-		 * pass meet the criteria for inclusion, and also making sure that we
+		 * meet the criteria for inclusion, and also making sure that we
 		 * don't include the same article more than once in the edition.
 		 */
 		for (const section of sectionData) {
 			const articleIdsForSection = section.articleDetails
 				.filter((article) => {
 					return (
-						!USED_ARTICLE_IDS_STORE.includes(article.id) &&
+						!usedArticleIdsStore.includes(article.id) &&
 						meetsInclusionCriteria(
 							article,
 							edition.bannedTags ?? [],
@@ -79,13 +82,13 @@ export function editionProcessor({ edition, capiConfig }: Props) {
 				})
 				.slice(0, section.maximumArticleCount + 1)
 				.map((article) => article.id);
-			USED_ARTICLE_IDS_STORE.push(...articleIdsForSection);
-			OUTPUT_ACCUMULATOR.push({
+			usedArticleIdsStore.push(...articleIdsForSection);
+			outputAccumulator.push({
 				section: section.displayName,
 				articles: articleIdsForSection,
 			});
 		}
-		return OUTPUT_ACCUMULATOR;
+		return outputAccumulator;
 	}
 }
 
