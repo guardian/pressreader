@@ -17,22 +17,24 @@ import {
 } from 'aws-cdk-lib/aws-iam';
 import { Runtime } from 'aws-cdk-lib/aws-lambda';
 import { Secret } from 'aws-cdk-lib/aws-secretsmanager';
+import { Topic } from 'aws-cdk-lib/aws-sns';
+import { EmailSubscription } from 'aws-cdk-lib/aws-sns-subscriptions';
 
 export class PressReader extends GuStack {
 	constructor(scope: App, id: string, props: GuStackProps) {
 		super(scope, id, props);
-		const pressReaderApp = 'pressreader';
+		const appName = 'pressreader';
 		const domainName = 'pressreader.gutools.co.uk';
 
 		// S3 Bucket
 		const dataBucket = new GuS3Bucket(this, 'PressreaderDataBucket', {
-			app: pressReaderApp,
+			app: appName,
 			bucketName: `gu-pressreader-data-${this.stage.toLowerCase()}`,
 		});
 
 		// ACM Certificate
 		const certificate = new GuCertificate(this, {
-			app: pressReaderApp,
+			app: appName,
 			domainName: domainName,
 		});
 
@@ -123,7 +125,7 @@ export class PressReader extends GuStack {
 		const apiDomainName = apiGateway.domainName as DomainName;
 
 		new GuCname(this, 'cname', {
-			app: pressReaderApp,
+			app: appName,
 			domainName: domainName,
 			ttl: Duration.days(1),
 			resourceRecord: apiDomainName.domainNameAliasDomainName,
@@ -131,11 +133,26 @@ export class PressReader extends GuStack {
 
 		// secrets
 		const capiSecret = new Secret(this, 'CapiTokenSecret', {
-			secretName: `/${this.stage}/${this.stack}/${pressReaderApp}/capiToken`,
+			secretName: `/${this.stage}/${this.stack}/${appName}/capiToken`,
 			description: 'The CAPI token used to retrieve content',
 		});
 
-		// scheduled Lambda
+		// alarms
+		const alarmSnsTopic = new Topic(this, `${appName}-email-alarm-topic`);
+		const alertEmail = `newsroom.resilience+alerts@guardian.co.uk`;
+		alarmSnsTopic.addSubscription(new EmailSubscription(alertEmail));
+
+		// monitoring config
+		const monitoringConfiguration = {
+			alarmName: `${appName}-${this.stage}-ErrorAlarm`,
+			alarmDescription: `Triggers if there are errors from ${appName} on ${this.stage}`,
+			snsTopicName: alarmSnsTopic.topicName,
+			toleratedErrorPercentage: 1,
+			// Requires 2 failures in a row based on lambda scheduled to run once an hour
+			numberOfMinutesAboveThresholdBeforeAlarm: 120,
+		};
+
+		// scheduled lambda
 		const capiSecretGetPolicyStatement = new PolicyStatement({
 			effect: Effect.ALLOW,
 			actions: ['secretsmanager:GetSecretValue'],
@@ -148,26 +165,20 @@ export class PressReader extends GuStack {
 			resources: [`${dataBucket.bucketArn}/data/*`],
 		});
 
-		const scheduledLambda = new GuScheduledLambda(
-			this,
-			`${pressReaderApp}-lambda`,
-			{
-				app: pressReaderApp,
-				runtime: Runtime.NODEJS_18_X,
-				memorySize: 512,
-				handler: 'handler.main',
-				environment: {
-					BUCKET_NAME: dataBucket.bucketName,
-					CAPI_SECRET_LOCATION: capiSecret.secretName,
-				},
-				fileName: `pressreader.zip`,
-				monitoringConfiguration: {
-					noMonitoring: true,
-				},
-				rules: [{ schedule: Schedule.rate(Duration.hours(1)) }],
-				timeout: Duration.seconds(300),
+		const scheduledLambda = new GuScheduledLambda(this, `${appName}-lambda`, {
+			app: appName,
+			runtime: Runtime.NODEJS_18_X,
+			memorySize: 512,
+			handler: 'handler.main',
+			environment: {
+				BUCKET_NAME: dataBucket.bucketName,
+				CAPI_SECRET_LOCATION: capiSecret.secretName,
 			},
-		);
+			fileName: `pressreader.zip`,
+			monitoringConfiguration,
+			rules: [{ schedule: Schedule.rate(Duration.hours(1)) }],
+			timeout: Duration.seconds(300),
+		});
 
 		scheduledLambda.addToRolePolicy(capiSecretGetPolicyStatement);
 		scheduledLambda.addToRolePolicy(s3PutPolicyStatement);
