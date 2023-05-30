@@ -248,7 +248,7 @@ async function fetchFrontData(
 	};
 }
 
-function processFrontData(front: FrontSourceWithData): string[] {
+export function processFrontData(front: FrontSourceWithData): string[] {
 	const collections = front.data.collections.filter((collection, index) => {
 		const targetNames = front.collectionNames.map((name) => name.toLowerCase());
 		return (
