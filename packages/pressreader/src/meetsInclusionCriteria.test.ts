@@ -38,6 +38,14 @@ describe('meetsInclusionCriteria', () => {
 		).toBe(true);
 	});
 
+	it('should return false if the item is not an article', () => {
+		const article: CapiItem = { ...passingArticle, type: '' };
+		const bannedTags: string[] = [];
+		expect(meetsInclusionCriteria(article, bannedTags, minWordCount)).toBe(
+			false,
+		);
+	});
+
 	it('should return false if the article was published more than 24 hours ago', () => {
 		const article: CapiItem = {
 			...passingArticle,
