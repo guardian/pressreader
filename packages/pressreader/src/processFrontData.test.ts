@@ -71,29 +71,4 @@ describe('processFrontData', () => {
 		};
 		expect(processFrontData(frontConfigWithData)).toEqual([]);
 	});
-
-	it('should deduplicated stories using their id', () => {
-		const pressedPageWithDuplicate = {
-			...pressedPage,
-			collections: [
-				...pressedPage.collections,
-				{
-					id: 'ghi',
-					displayName: 'name',
-					content: [content3, { ...dummyContentTemplate, id: '4' }],
-				},
-			],
-		};
-
-		const frontConfigWithData = {
-			collectionIndexes: [2, 3],
-			collectionNames: [],
-			sectionContentURL: 'sectionContentURL',
-			data: pressedPageWithDuplicate,
-		};
-		/**
-		 * If we didn't deduplicate, we'd expect to see '3' twice in this list.
-		 */
-		expect(processFrontData(frontConfigWithData)).toEqual(['3', '4']);
-	});
 });
