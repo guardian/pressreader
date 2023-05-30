@@ -1,4 +1,3 @@
-import type { CapiDateTime } from '@guardian/content-api-models/v1/capiDateTime';
 import type { Tag } from '@guardian/content-api-models/v1/tag';
 
 export interface CapiSearchResponse {
@@ -10,7 +9,7 @@ export interface CapiSearchResponse {
 export interface CapiItem {
 	id: string;
 	type: string;
-	webPublicationDate: CapiDateTime;
+	webPublicationDate: string;
 	tags: Tag[];
 	wordcount: number;
 }

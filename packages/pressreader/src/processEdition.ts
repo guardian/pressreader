@@ -104,7 +104,7 @@ function CapiItemUrlFromId(id: string, capiConfig: CapiConfig): string {
 	return new URL(path, capiConfig.baseCapiUrl).toString();
 }
 
-function meetsInclusionCriteria(
+export function meetsInclusionCriteria(
 	article: CapiItem,
 	bannedTags: string[],
 	minWordCount: number,
@@ -118,7 +118,7 @@ function meetsInclusionCriteria(
 
 		return false;
 	}
-	const publicationDate = new Date(article.webPublicationDate.iso8601);
+	const publicationDate = new Date(article.webPublicationDate);
 	const now = new Date();
 	if (publicationDate.getTime() < now.getTime() - 24 * 60 * 60 * 1000) {
 		console.log(`Article excluded [Too Old]: ${article.id}`);
@@ -178,7 +178,9 @@ async function fetchArticleData(
 			data.content.fields.wordcount as unknown as string,
 		);
 		const type = data.content.type as unknown as string;
-		return { ...data.content, wordcount, type } as CapiItem;
+		const webPublicationDate = data.content
+			.webPublicationDate as unknown as string;
+		return { ...data.content, webPublicationDate, wordcount, type } as CapiItem;
 	} catch (e) {
 		throw new Error('CAPI item has invalid wordcount value');
 	}
