@@ -49,6 +49,146 @@ export const editionConfig: PressReaderEditionConfig = {
 				'search?tag=australia-news%2Faustralian-politics&order-by=newest',
 			],
 		},
+		{
+			displayName: 'World News',
+			maximumArticleCount: 16,
+			frontSources: [
+				{
+					collectionIndexes: [],
+					collectionNames: ['Headlines', 'Around the world'],
+					sectionContentURL:
+						'http://api.nextgen.guardianapps.co.uk/international/lite.json',
+				},
+			],
+			capiSources: [],
+		},
+		{
+			displayName: 'The Long Read',
+			maximumArticleCount: 2,
+			frontSources: [],
+			capiSources: ['search?tag=news%2Fseries%2Fthe-long-read&order-by=newest'],
+		},
+		{
+			displayName: 'Opinion',
+			maximumArticleCount: 14,
+			frontSources: [
+				{
+					collectionIndexes: [],
+					collectionNames: ['Columnists', 'Indigenous Australia', 'Opinion'],
+					sectionContentURL:
+						'http://api.nextgen.guardianapps.co.uk/au/commentisfree/lite.json',
+				},
+				{
+					collectionIndexes: [],
+					collectionNames: ['Opinion'],
+					sectionContentURL:
+						'http://api.nextgen.guardianapps.co.uk/au/lite.json',
+				},
+				{
+					collectionIndexes: [],
+					collectionNames: ['World view'],
+					sectionContentURL:
+						'http://api.nextgen.guardianapps.co.uk/au/commentisfree/lite.json',
+				},
+			],
+			capiSources: [],
+		},
+		{
+			displayName: 'Finance',
+			maximumArticleCount: 6,
+			frontSources: [
+				{
+					collectionIndexes: [1, 3, 2, 4, 6],
+					collectionNames: [],
+					sectionContentURL:
+						'http://api.nextgen.guardianapps.co.uk/au/business/lite.json',
+				},
+			],
+			capiSources: [],
+		},
+		{
+			displayName: 'The Guardian View',
+			maximumArticleCount: 2,
+			frontSources: [],
+			capiSources: [
+				'search?tag=tone%2Feditorials&production-office=aus&order-by=newest',
+				'search?tag=tone%2Feditorials&order-by=newest',
+			],
+		},
+		{
+			displayName: 'Environment',
+			maximumArticleCount: 8,
+			frontSources: [
+				{
+					collectionIndexes: [],
+					collectionNames: [
+						'Environment',
+						'World news',
+						'Opinion',
+						'Global view',
+						'Investigations and analysis',
+					],
+					sectionContentURL:
+						'http://api.nextgen.guardianapps.co.uk/au/environment/lite.json',
+				},
+			],
+			capiSources: [],
+		},
+		{
+			displayName: 'Science',
+			maximumArticleCount: 8,
+			frontSources: [
+				{
+					collectionIndexes: [],
+					collectionNames: ['Science', 'News', 'Key issues'],
+					sectionContentURL:
+						'http://api.nextgen.guardianapps.co.uk/science/lite.json',
+				},
+			],
+			capiSources: [
+				'search?tag=science%2Fscience&production-office=aus&order-by=newest',
+				'search?tag=science%2Fscience&order-by=newest',
+			],
+		},
+		{
+			displayName: 'Technology',
+			maximumArticleCount: 8,
+			frontSources: [
+				{
+					collectionIndexes: [],
+					collectionNames: [
+						'Technology',
+						'Australian tech',
+						'In depth',
+						'Opinion & analysis',
+						'Inside Silicon Valley',
+						'Spotlight',
+					],
+					sectionContentURL:
+						'http://api.nextgen.guardianapps.co.uk/au/technology/lite.json',
+				},
+			],
+			capiSources: [],
+		},
+		{
+			displayName: 'Sport',
+			maximumArticleCount: 14,
+			frontSources: [
+				{
+					collectionIndexes: [],
+					collectionNames: ['Sport'],
+					sectionContentURL:
+						'http://api.nextgen.guardianapps.co.uk/au/lite.json',
+				},
+				{
+					collectionIndexes: [],
+					collectionNames: ['Sport', 'Features', 'International sport'],
+					sectionContentURL:
+						'http://api.nextgen.guardianapps.co.uk/au/sport/lite.json',
+				},
+			],
+			capiSources: [],
+		},
 	],
 	bannedTags: [
 		'sport/series/talking-horses',
