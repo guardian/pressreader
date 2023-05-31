@@ -7,7 +7,7 @@ export const putDataToS3 = async (dataToStore: string, date: Date) => {
 	const objectLocation = [
 		date.getFullYear(),
 		(date.getMonth() + 1).toString().padStart(2, '0'),
-		date.getDay().toString().padStart(2, '0'),
+		date.getDate().toString().padStart(2, '0'),
 		'.json',
 	].join('');
 
