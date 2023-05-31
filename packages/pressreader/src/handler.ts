@@ -26,7 +26,11 @@ export const main = async () => {
 
 	const currentDate = new Date();
 
-	const writtenToLocation = await putDataToS3(dataToStore, currentDate);
+	const writtenToLocation = await putDataToS3(
+		dataToStore,
+		currentDate,
+		editionConfig.editionId,
+	);
 	console.log(`Written data to: ${writtenToLocation}`);
 };
 

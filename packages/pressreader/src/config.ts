@@ -1,6 +1,7 @@
 import type { PressReaderEditionConfig } from './types/PressReaderTypes';
 
 export const editionConfig: PressReaderEditionConfig = {
+	editionId: 'AUS',
 	sections: [
 		{
 			displayName: 'Headlines',

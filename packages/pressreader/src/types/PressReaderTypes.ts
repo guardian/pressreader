@@ -1,4 +1,9 @@
 export interface PressReaderEditionConfig {
+	/**
+	 * A unique ID which can be used to identify the edition, which will be used
+	 * as part of the key in the S3 bucket where we store the edition outputs.
+	 */
+	editionId: string;
 	sections: SectionConfig[];
 	/**
 	 * A list of CAPI tags that is used to filter out articles from the section.
