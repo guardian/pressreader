@@ -12,9 +12,7 @@ export function isCapiSearchResponse(
 		// this is a type predicate and casting is recommended by the docs: https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates
 		// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- see comment above
 		(data as CapiSearchResponse).response !== undefined &&
-		// this is a type predicate and casting is recommended by the docs: https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates
-		// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- see comment above
-		(data as CapiSearchResponse).response.results !== undefined
+		Array.isArray((data as CapiSearchResponse).response.results)
 	);
 }
 
