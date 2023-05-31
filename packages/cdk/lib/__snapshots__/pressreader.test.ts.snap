@@ -9,6 +9,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
       "GuCname",
       "GuDistributionBucketParameter",
       "GuScheduledLambda",
+      "GuLambdaErrorPercentageAlarm",
     ],
     "gu:cdk:version": "TEST",
   },
@@ -598,6 +599,39 @@ exports[`The PressReader stack matches the snapshot 1`] = `
       },
       "Type": "Guardian::DNS::RecordSet",
     },
+    "pressreaderemailalarmtopic5E019B49": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "gu:cdk:version",
+            "Value": "TEST",
+          },
+          {
+            "Key": "gu:repo",
+            "Value": "guardian/pressreader",
+          },
+          {
+            "Key": "Stack",
+            "Value": "print-production",
+          },
+          {
+            "Key": "Stage",
+            "Value": "TEST",
+          },
+        ],
+      },
+      "Type": "AWS::SNS::Topic",
+    },
+    "pressreaderemailalarmtopicnewsroomresiliencealertsguardiancoukC7FA91A6": {
+      "Properties": {
+        "Endpoint": "newsroom.resilience+alerts@guardian.co.uk",
+        "Protocol": "email",
+        "TopicArn": {
+          "Ref": "pressreaderemailalarmtopic5E019B49",
+        },
+      },
+      "Type": "AWS::SNS::Subscription",
+    },
     "pressreaderlambdaB481BEF0": {
       "DependsOn": [
         "pressreaderlambdaServiceRoleDefaultPolicy7471EACC",
@@ -707,6 +741,99 @@ exports[`The PressReader stack matches the snapshot 1`] = `
         "Timeout": 300,
       },
       "Type": "AWS::Lambda::Function",
+    },
+    "pressreaderlambdaErrorPercentageAlarmForLambda62A3B054": {
+      "Properties": {
+        "ActionsEnabled": true,
+        "AlarmActions": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:aws:sns:",
+                {
+                  "Ref": "AWS::Region",
+                },
+                ":",
+                {
+                  "Ref": "AWS::AccountId",
+                },
+                ":",
+                {
+                  "Fn::GetAtt": [
+                    "pressreaderemailalarmtopic5E019B49",
+                    "TopicName",
+                  ],
+                },
+              ],
+            ],
+          },
+        ],
+        "AlarmDescription": "Triggers if there are errors from pressreader on TEST",
+        "AlarmName": "pressreader-TEST-ErrorAlarm",
+        "ComparisonOperator": "GreaterThanThreshold",
+        "EvaluationPeriods": 120,
+        "Metrics": [
+          {
+            "Expression": "100*m1/m2",
+            "Id": "expr_1",
+            "Label": {
+              "Fn::Join": [
+                "",
+                [
+                  "Error % of ",
+                  {
+                    "Ref": "pressreaderlambdaB481BEF0",
+                  },
+                ],
+              ],
+            },
+          },
+          {
+            "Id": "m1",
+            "MetricStat": {
+              "Metric": {
+                "Dimensions": [
+                  {
+                    "Name": "FunctionName",
+                    "Value": {
+                      "Ref": "pressreaderlambdaB481BEF0",
+                    },
+                  },
+                ],
+                "MetricName": "Errors",
+                "Namespace": "AWS/Lambda",
+              },
+              "Period": 60,
+              "Stat": "Sum",
+            },
+            "ReturnData": false,
+          },
+          {
+            "Id": "m2",
+            "MetricStat": {
+              "Metric": {
+                "Dimensions": [
+                  {
+                    "Name": "FunctionName",
+                    "Value": {
+                      "Ref": "pressreaderlambdaB481BEF0",
+                    },
+                  },
+                ],
+                "MetricName": "Invocations",
+                "Namespace": "AWS/Lambda",
+              },
+              "Period": 60,
+              "Stat": "Sum",
+            },
+            "ReturnData": false,
+          },
+        ],
+        "Threshold": 1,
+        "TreatMissingData": "notBreaching",
+      },
+      "Type": "AWS::CloudWatch::Alarm",
     },
     "pressreaderlambdaServiceRole68181491": {
       "Properties": {
