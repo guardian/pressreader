@@ -7,7 +7,7 @@ export const editionConfig: PressReaderEditionConfig = {
 			maximumArticleCount: 12,
 			frontSources: [
 				{
-					collectionIndexes: [1],
+					collectionIndexes: [0],
 					collectionNames: ['Headlines'],
 					sectionContentURL:
 						'http://api.nextgen.guardianapps.co.uk/au/lite.json',
@@ -20,7 +20,7 @@ export const editionConfig: PressReaderEditionConfig = {
 			maximumArticleCount: 14,
 			frontSources: [
 				{
-					collectionIndexes: [1],
+					collectionIndexes: [0],
 					collectionNames: ['Australia news'],
 					sectionContentURL:
 						'http://api.nextgen.guardianapps.co.uk/australia-news/lite.json',
@@ -98,7 +98,7 @@ export const editionConfig: PressReaderEditionConfig = {
 			maximumArticleCount: 6,
 			frontSources: [
 				{
-					collectionIndexes: [1, 3, 2, 4, 6],
+					collectionIndexes: [0, 2, 1, 3, 5],
 					collectionNames: [],
 					sectionContentURL:
 						'http://api.nextgen.guardianapps.co.uk/au/business/lite.json',

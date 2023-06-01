@@ -26,8 +26,11 @@ export interface SectionConfig {
 export interface FrontSource {
 	/**
 	 * The index of the collection as it occurs in the pressed front json.
-	 * (nb. not all collections are displayed on the web version of the front page,
-	 * so indexes should not be inferred from the position of a collection on the web)
+	 *
+	 * Notes:
+	 * - not all collections are displayed on the web version of the front page,
+	 *  so indexes should not be inferred from the position of a collection on the web
+	 * - collection indexes start at 0, rather than 1,
 	 */
 	collectionIndexes: number[];
 	/**
