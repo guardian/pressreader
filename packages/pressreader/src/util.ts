@@ -1,7 +1,7 @@
 import { PutObjectCommand } from '@aws-sdk/client-s3';
 import { GetSecretValueCommand } from '@aws-sdk/client-secrets-manager';
 import { s3, secretsManager } from './aws';
-import { bucketName, capiSecretLocation } from './constants';
+import { bucketName, capiSecretLocation, prefixPath } from './constants';
 
 export const putDataToS3 = async (dataToStore: string, date: Date) => {
 	const objectLocation = [
@@ -13,7 +13,7 @@ export const putDataToS3 = async (dataToStore: string, date: Date) => {
 
 	const params = {
 		Bucket: bucketName,
-		Key: ['data', objectLocation].join('/'),
+		Key: [prefixPath, objectLocation].join('/'),
 		Body: dataToStore,
 		ContentType: 'application/json',
 	};
