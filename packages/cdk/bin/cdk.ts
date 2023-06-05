@@ -21,12 +21,12 @@ new PressReader(app, 'PressReader-INFRA', {
 		/*
 		{
 			editionKey: 'AUS',
-			s3PrefixPath: ['data', 'AUS'],
+			s3PrefixPath: ['testing'],
 			bucketName: 'press-reader-aus-configs',
 		},
 		{
 			editionKey: 'US',
-			s3PrefixPath: ['data', 'US'],
+			s3PrefixPath: ['testing'],
 			bucketName: 'press-reader-us-configs',
 		},
 		*/
