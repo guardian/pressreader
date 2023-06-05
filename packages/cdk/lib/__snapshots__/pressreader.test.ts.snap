@@ -861,7 +861,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
           },
         ],
         "AlarmDescription": "Triggers if there are errors from pressreader on TEST",
-        "AlarmName": "pressreader-TEST-ErrorAlarm",
+        "AlarmName": "pressreader-AUS-TEST-ErrorAlarm",
         "ComparisonOperator": "GreaterThanThreshold",
         "EvaluationPeriods": 120,
         "Metrics": [
@@ -1242,7 +1242,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
           },
         ],
         "AlarmDescription": "Triggers if there are errors from pressreader on TEST",
-        "AlarmName": "pressreader-TEST-ErrorAlarm",
+        "AlarmName": "pressreader-AUS-old-TEST-ErrorAlarm",
         "ComparisonOperator": "GreaterThanThreshold",
         "EvaluationPeriods": 120,
         "Metrics": [
@@ -1697,7 +1697,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
           },
         ],
         "AlarmDescription": "Triggers if there are errors from pressreader on TEST",
-        "AlarmName": "pressreader-TEST-ErrorAlarm",
+        "AlarmName": "pressreader-US-TEST-ErrorAlarm",
         "ComparisonOperator": "GreaterThanThreshold",
         "EvaluationPeriods": 120,
         "Metrics": [
@@ -1968,7 +1968,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
           },
         ],
         "AlarmDescription": "Triggers if there are errors from pressreader on TEST",
-        "AlarmName": "pressreader-TEST-ErrorAlarm",
+        "AlarmName": "pressreader-US-old-TEST-ErrorAlarm",
         "ComparisonOperator": "GreaterThanThreshold",
         "EvaluationPeriods": 120,
         "Metrics": [

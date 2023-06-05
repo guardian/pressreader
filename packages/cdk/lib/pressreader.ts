@@ -164,16 +164,6 @@ export class PressReader extends GuStack {
 		const alertEmail = `newsroom.resilience+alerts@guardian.co.uk`;
 		alarmSnsTopic.addSubscription(new EmailSubscription(alertEmail));
 
-		// monitoring config
-		const monitoringConfiguration = {
-			alarmName: `${appName}-${this.stage}-ErrorAlarm`,
-			alarmDescription: `Triggers if there are errors from ${appName} on ${this.stage}`,
-			snsTopicName: alarmSnsTopic.topicName,
-			toleratedErrorPercentage: 1,
-			// Requires 2 failures in a row based on lambda scheduled to run once an hour
-			numberOfMinutesAboveThresholdBeforeAlarm: 120,
-		};
-
 		// scheduled lambda
 		const capiSecretGetPolicyStatement = new PolicyStatement({
 			effect: Effect.ALLOW,
@@ -195,6 +185,16 @@ export class PressReader extends GuStack {
 							`legacyDataBucket-${lambdaSuffix}`,
 							config.bucketName,
 					  );
+
+			// monitoring config
+			const monitoringConfiguration = {
+				alarmName: `${appName}-${lambdaSuffix}-${this.stage}-ErrorAlarm`,
+				alarmDescription: `Triggers if there are errors from ${appName} on ${this.stage}`,
+				snsTopicName: alarmSnsTopic.topicName,
+				toleratedErrorPercentage: 1,
+				// Requires 2 failures in a row based on lambda scheduled to run once an hour
+				numberOfMinutesAboveThresholdBeforeAlarm: 120,
+			};
 
 			const s3PutPolicyStatement = new PolicyStatement({
 				effect: Effect.ALLOW,
