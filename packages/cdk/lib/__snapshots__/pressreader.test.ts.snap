@@ -549,7 +549,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
     "PressreaderDataBucketPressreader48E10950": {
       "DeletionPolicy": "Retain",
       "Properties": {
-        "BucketName": "gu-pressreader-data-test",
+        "BucketName": "gu-pressreader-data-aus",
         "PublicAccessBlockConfiguration": {
           "BlockPublicAcls": true,
           "BlockPublicPolicy": true,
@@ -703,6 +703,8 @@ exports[`The PressReader stack matches the snapshot 1`] = `
                 ],
               ],
             },
+            "EDITION_KEY": "AUS",
+            "PREFIX_PATH": "data",
             "STACK": "print-production",
             "STAGE": "TEST",
           },

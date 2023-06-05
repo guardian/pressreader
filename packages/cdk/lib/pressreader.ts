@@ -20,17 +20,29 @@ import { Secret } from 'aws-cdk-lib/aws-secretsmanager';
 import { Topic } from 'aws-cdk-lib/aws-sns';
 import { EmailSubscription } from 'aws-cdk-lib/aws-sns-subscriptions';
 
+type EditionKey = 'AUS' | 'US';
+
+export interface PressReaderProps extends GuStackProps {
+	bucketName?: string;
+	editionKey: EditionKey;
+	prefixPath: string[];
+}
+
 export class PressReader extends GuStack {
-	constructor(scope: App, id: string, props: GuStackProps) {
+	constructor(scope: App, id: string, props: PressReaderProps) {
 		super(scope, id, props);
 		const appName = 'pressreader';
 		const domainName = 'pressreader.gutools.co.uk';
+		const { bucketName, editionKey, prefixPath } = props;
 
 		// S3 Bucket
-		const dataBucket = new GuS3Bucket(this, 'PressreaderDataBucket', {
-			app: appName,
-			bucketName: `gu-pressreader-data-${this.stage.toLowerCase()}`,
-		});
+		const dataBucket =
+			bucketName === undefined
+				? new GuS3Bucket(this, 'PressreaderDataBucket', {
+						app: appName,
+						bucketName: `gu-pressreader-data-${editionKey.toLowerCase()}`,
+				  })
+				: GuS3Bucket.fromBucketName(this, 'dataBucket', bucketName);
 
 		// ACM Certificate
 		const certificate = new GuCertificate(this, {
@@ -55,7 +67,7 @@ export class PressReader extends GuStack {
 
 		executeRole.addToPolicy(
 			new PolicyStatement({
-				resources: [`${dataBucket.bucketArn}/data/*`],
+				resources: [[dataBucket.bucketArn, ...prefixPath, '*'].join('/')],
 				actions: ['s3:GetObject'],
 			}),
 		);
@@ -63,7 +75,7 @@ export class PressReader extends GuStack {
 		const s3Integration = new AwsIntegration({
 			service: 's3',
 			integrationHttpMethod: 'GET',
-			path: `${dataBucket.bucketName}/data/{key}.json`,
+			path: [dataBucket.bucketName, ...prefixPath, '{key}.json'].join('/'),
 			options: {
 				credentialsRole: executeRole,
 				integrationResponses: [
@@ -162,7 +174,7 @@ export class PressReader extends GuStack {
 		const s3PutPolicyStatement = new PolicyStatement({
 			effect: Effect.ALLOW,
 			actions: ['s3:PutObject'],
-			resources: [`${dataBucket.bucketArn}/data/*`],
+			resources: [[dataBucket.bucketArn, ...prefixPath, '*'].join('/')],
 		});
 
 		const scheduledLambda = new GuScheduledLambda(this, `${appName}-lambda`, {
@@ -173,6 +185,8 @@ export class PressReader extends GuStack {
 			environment: {
 				BUCKET_NAME: dataBucket.bucketName,
 				CAPI_SECRET_LOCATION: capiSecret.secretName,
+				EDITION_KEY: editionKey,
+				PREFIX_PATH: prefixPath.join('/'),
 			},
 			fileName: `pressreader.zip`,
 			monitoringConfiguration,
