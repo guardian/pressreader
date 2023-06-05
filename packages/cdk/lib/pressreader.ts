@@ -182,13 +182,19 @@ export class PressReader extends GuStack {
 		});
 
 		props.lambdaConfigs.forEach((config) => {
-			const [lambdaBucket, lambdaSuffix] =
+			const lambdaSuffix =
 				config.bucketName === undefined
-					? [dataBucket, '']
-					: [
-							GuS3Bucket.fromBucketName(this, 'dataBucket', config.bucketName),
-							'-old',
-					  ];
+					? config.editionKey
+					: `${config.editionKey}-old`;
+
+			const lambdaBucket =
+				config.bucketName === undefined
+					? dataBucket
+					: GuS3Bucket.fromBucketName(
+							this,
+							`legacyDataBucket-${lambdaSuffix}`,
+							config.bucketName,
+					  );
 
 			const s3PutPolicyStatement = new PolicyStatement({
 				effect: Effect.ALLOW,
@@ -200,9 +206,9 @@ export class PressReader extends GuStack {
 
 			const scheduledLambda = new GuScheduledLambda(
 				this,
-				`${appName}-${config.editionKey}-lambda${lambdaSuffix}`,
+				`${appName}-${lambdaSuffix}`,
 				{
-					app: appName,
+					app: `${appName}-${lambdaSuffix}`,
 					runtime: Runtime.NODEJS_18_X,
 					memorySize: 512,
 					handler: 'handler.main',
