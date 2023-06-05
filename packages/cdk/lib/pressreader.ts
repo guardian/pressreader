@@ -19,8 +19,7 @@ import { Runtime } from 'aws-cdk-lib/aws-lambda';
 import { Secret } from 'aws-cdk-lib/aws-secretsmanager';
 import { Topic } from 'aws-cdk-lib/aws-sns';
 import { EmailSubscription } from 'aws-cdk-lib/aws-sns-subscriptions';
-
-type EditionKey = 'AUS' | 'US';
+import type { EditionKey } from 'packages/shared-types';
 
 export interface PressReaderProps extends GuStackProps {
 	lambdaConfigs: Array<{

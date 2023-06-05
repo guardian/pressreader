@@ -1,6 +1,6 @@
-import type { PressReaderEditionConfig } from './types/PressReaderTypes';
+import type { PressReaderEditionConfig } from '../types/PressReaderTypes';
 
-export const editionConfig: PressReaderEditionConfig = {
+export const ausConfig: PressReaderEditionConfig = {
 	sections: [
 		{
 			displayName: 'Headlines',
