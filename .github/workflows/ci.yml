@@ -47,5 +47,7 @@ jobs:
           contentDirectories: |
             cdk.out:
               - packages/cdk/cdk.out
-            pressreader:
+            pressreader-US:
+              - packages/pressreader/dist/pressreader.zip
+            pressreader-AUS:
               - packages/pressreader/dist/pressreader.zip
