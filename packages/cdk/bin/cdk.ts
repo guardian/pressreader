@@ -3,23 +3,20 @@ import { GuRootExperimental } from '@guardian/cdk/lib/experimental/constructs/ro
 import { PressReader } from '../lib/pressreader';
 
 const app = new GuRootExperimental();
-const ausEditionKey = 'AUS';
 
-new PressReader(app, 'PressReaderAus-INFRA', {
+new PressReader(app, 'PressReader-INFRA', {
 	env: { region: 'eu-west-1' },
 	app: 'pressreader',
 	stack: 'print-production',
 	stage: 'INFRA',
-	editionKey: ausEditionKey,
-	prefixPath: ['data', ausEditionKey],
-});
-
-new PressReader(app, 'PressReaderAusOld-INFRA', {
-	env: { region: 'eu-west-1' },
-	app: 'pressreader',
-	stack: 'print-production',
-	stage: 'INFRA',
-	editionKey: ausEditionKey,
-	bucketName: 'press-reader-aus-configs',
-	prefixPath: ['testing'],
+	lambdaConfigs: [
+		{
+			editionKey: 'AUS',
+			s3PrefixPath: ['data', 'AUS'],
+		},
+		{
+			editionKey: 'US',
+			s3PrefixPath: ['data', 'US'],
+		},
+	],
 });

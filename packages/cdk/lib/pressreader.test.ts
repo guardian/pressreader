@@ -8,8 +8,7 @@ describe('The PressReader stack', () => {
 		const stack = new PressReader(app, 'PressReader', {
 			stack: 'print-production',
 			stage: 'TEST',
-			editionKey: 'AUS',
-			prefixPath: ['data'],
+			lambdaConfigs: [{ editionKey: 'AUS', s3PrefixPath: ['data', 'AUS'] }],
 		});
 		const template = Template.fromStack(stack);
 		expect(template.toJSON()).toMatchSnapshot();
