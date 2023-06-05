@@ -1,6 +1,12 @@
-import { editionConfig } from './config';
+import type { EditionKey } from 'packages/shared-types';
+import { editionKey } from './constants';
+import { editionConfigs } from './editionConfigs';
 import { editionProcessor } from './processEdition';
 import { getCapiToken, putDataToS3 } from './util';
+
+function isEditionKey(key: string | undefined): key is EditionKey {
+	return !!key && ['AUS'].includes(key);
+}
 
 export const main = async () => {
 	console.log('Lambda handler called, processing request');
