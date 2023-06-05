@@ -18,5 +18,17 @@ new PressReader(app, 'PressReader-INFRA', {
 			editionKey: 'US',
 			s3PrefixPath: ['data', 'US'],
 		},
+		/*
+		{
+			editionKey: 'AUS',
+			s3PrefixPath: ['data', 'AUS'],
+			bucketName: 'press-reader-aus-configs',
+		},
+		{
+			editionKey: 'US',
+			s3PrefixPath: ['data', 'US'],
+			bucketName: 'press-reader-us-configs',
+		},
+		*/
 	],
 });

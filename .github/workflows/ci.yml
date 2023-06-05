@@ -51,3 +51,7 @@ jobs:
               - packages/pressreader/dist/pressreader.zip
             pressreader-AUS:
               - packages/pressreader/dist/pressreader.zip
+            # pressreader-US-old:
+            #   - packages/pressreader/dist/pressreader.zip
+            # pressreader-AUS-old:
+            #   - packages/pressreader/dist/pressreader.zip
