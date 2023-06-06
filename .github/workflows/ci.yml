@@ -32,7 +32,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version-file: '.nvmrc'
+          node-version-file: ".nvmrc"
 
       - name: Build
         run: |
@@ -51,7 +51,7 @@ jobs:
               - packages/pressreader/dist/pressreader.zip
             pressreader-AUS:
               - packages/pressreader/dist/pressreader.zip
-            # pressreader-US-old:
-            #   - packages/pressreader/dist/pressreader.zip
-            # pressreader-AUS-old:
-            #   - packages/pressreader/dist/pressreader.zip
+            pressreader-US-old:
+              - packages/pressreader/dist/pressreader.zip
+            pressreader-AUS-old:
+              - packages/pressreader/dist/pressreader.zip
