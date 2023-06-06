@@ -11,16 +11,16 @@ export const putDataToS3 = async (dataToStore: string, date: Date) => {
 		'.json',
 	].join('');
 
+	const key = [prefixPath, objectLocation].join('/');
+
 	const params = {
 		Bucket: bucketName,
-		Key: [prefixPath, objectLocation].join('/'),
+		Key: key,
 		Body: dataToStore,
 		ContentType: 'application/json',
 	};
 
-	return await s3
-		.send(new PutObjectCommand(params))
-		.then((_) => objectLocation);
+	return await s3.send(new PutObjectCommand(params)).then(() => key);
 };
 
 export const getCapiToken = async () =>
