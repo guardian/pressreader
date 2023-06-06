@@ -11,6 +11,12 @@ export const main = async () => {
 	const capiToken = await getCapiToken();
 	console.log(`Got capiToken (length): ${capiToken.length}`);
 
+	if (!isEditionKey(editionKey)) {
+		throw new Error(`Edition key ${editionKey ?? 'undefined'} is not valid`);
+	}
+
+	const editionConfig = editionConfigs[editionKey];
+
 	// TODO: Remove this log when consumed
 	console.log(`Got editionConfig: ${JSON.stringify(editionConfig)}`);
 
