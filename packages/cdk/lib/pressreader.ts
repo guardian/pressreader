@@ -207,6 +207,13 @@ export class PressReader extends GuStack {
 				this,
 				`${appName}-${lambdaSuffix}`,
 				{
+					// The riff-raff.yaml auto-generation incorporated
+					// by using GuRootExperimental, and outputting to
+					// cdk/cdk.out/riff-raff.yaml when the synth task is
+					// run uses this value to identify what to deploy.
+					//
+					// This value must match one of the contentDirectories
+					// identified in .github/workflows/ci.yml
 					app: `${appName}-${lambdaSuffix}`,
 					runtime: Runtime.NODEJS_18_X,
 					memorySize: 512,
