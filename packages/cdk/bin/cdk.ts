@@ -18,7 +18,6 @@ new PressReader(app, 'PressReader-INFRA', {
 			editionKey: 'US',
 			s3PrefixPath: ['data', 'US'],
 		},
-		/*
 		{
 			editionKey: 'AUS',
 			s3PrefixPath: ['testing'],
@@ -29,6 +28,5 @@ new PressReader(app, 'PressReader-INFRA', {
 			s3PrefixPath: ['testing'],
 			bucketName: 'press-reader-us-configs',
 		},
-		*/
 	],
 });
