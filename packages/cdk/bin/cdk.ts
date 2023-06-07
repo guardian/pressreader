@@ -20,7 +20,7 @@ new PressReader(app, 'PressReader-INFRA', {
 		},
 		{
 			editionKey: 'AUS',
-			s3PrefixPath: ['testing'],
+			s3PrefixPath: [],
 			bucketName: 'press-reader-aus-configs',
 		},
 		{
