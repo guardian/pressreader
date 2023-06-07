@@ -11,7 +11,8 @@ export const putDataToS3 = async (dataToStore: string, date: Date) => {
 		'.json',
 	].join('');
 
-	const key = [prefixPath, objectLocation].join('/');
+	const key =
+		prefixPath === '' ? objectLocation : [prefixPath, objectLocation].join('/');
 
 	const params = {
 		Bucket: bucketName,
