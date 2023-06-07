@@ -19,9 +19,18 @@ import { Runtime } from 'aws-cdk-lib/aws-lambda';
 import { Secret } from 'aws-cdk-lib/aws-secretsmanager';
 import { Topic } from 'aws-cdk-lib/aws-sns';
 import { EmailSubscription } from 'aws-cdk-lib/aws-sns-subscriptions';
+import type { EditionKey } from 'packages/shared-types';
+
+export interface PressReaderProps extends GuStackProps {
+	lambdaConfigs: Array<{
+		bucketName?: string;
+		editionKey: EditionKey;
+		s3PrefixPath: string[];
+	}>;
+}
 
 export class PressReader extends GuStack {
-	constructor(scope: App, id: string, props: GuStackProps) {
+	constructor(scope: App, id: string, props: PressReaderProps) {
 		super(scope, id, props);
 		const appName = 'pressreader';
 		const domainName = 'pressreader.gutools.co.uk';
@@ -31,6 +40,10 @@ export class PressReader extends GuStack {
 			app: appName,
 			bucketName: `gu-pressreader-data-${this.stage.toLowerCase()}`,
 		});
+
+		const lambdasUsingDataBucket = props.lambdaConfigs.filter(
+			(config) => config.bucketName === undefined,
+		);
 
 		// ACM Certificate
 		const certificate = new GuCertificate(this, {
@@ -53,53 +66,61 @@ export class PressReader extends GuStack {
 			roleName: 'APIGatewayS3IntegrationRole',
 		});
 
-		executeRole.addToPolicy(
-			new PolicyStatement({
-				resources: [`${dataBucket.bucketArn}/data/*`],
-				actions: ['s3:GetObject'],
-			}),
-		);
+		lambdasUsingDataBucket.forEach((lambdaConfig) => {
+			executeRole.addToPolicy(
+				new PolicyStatement({
+					resources: [
+						[dataBucket.bucketArn, ...lambdaConfig.s3PrefixPath, '*'].join('/'),
+					],
+					actions: ['s3:GetObject'],
+				}),
+			);
 
-		const s3Integration = new AwsIntegration({
-			service: 's3',
-			integrationHttpMethod: 'GET',
-			path: `${dataBucket.bucketName}/data/{key}.json`,
-			options: {
-				credentialsRole: executeRole,
-				integrationResponses: [
-					{
-						statusCode: '200',
-						responseParameters: {
-							'method.response.header.Content-Type':
-								'integration.response.header.Content-Type',
+			const s3Integration = new AwsIntegration({
+				service: 's3',
+				integrationHttpMethod: 'GET',
+				path: [
+					dataBucket.bucketName,
+					...lambdaConfig.s3PrefixPath,
+					'{key}.json',
+				].join('/'),
+				options: {
+					credentialsRole: executeRole,
+					integrationResponses: [
+						{
+							statusCode: '200',
+							responseParameters: {
+								'method.response.header.Content-Type':
+									'integration.response.header.Content-Type',
+							},
 						},
+					],
+					requestParameters: {
+						'integration.request.path.key': 'method.request.path.key',
 					},
-				],
-				requestParameters: {
-					'integration.request.path.key': 'method.request.path.key',
 				},
-			},
-		});
-
-		apiGateway.root
-			.addResource('data')
-			.addResource('{key}')
-			.addMethod('GET', s3Integration, {
-				methodResponses: [
-					{
-						statusCode: '200',
-						responseParameters: {
-							'method.response.header.Content-Length': true,
-							'method.response.header.Content-Type': true,
-						},
-					},
-				],
-				requestParameters: {
-					'method.request.path.key': true,
-					'method.request.header.Content-Type': true,
-				},
-				apiKeyRequired: true,
 			});
+
+			apiGateway.root
+				.addResource(lambdaConfig.editionKey)
+				.addResource('{key}')
+				.addMethod('GET', s3Integration, {
+					methodResponses: [
+						{
+							statusCode: '200',
+							responseParameters: {
+								'method.response.header.Content-Length': true,
+								'method.response.header.Content-Type': true,
+							},
+						},
+					],
+					requestParameters: {
+						'method.request.path.key': true,
+						'method.request.header.Content-Type': true,
+					},
+					apiKeyRequired: true,
+				});
+		});
 
 		// create usage plan
 		const usagePlan = apiGateway.addUsagePlan('PressReaderAPIUsagePlan', {
@@ -142,16 +163,6 @@ export class PressReader extends GuStack {
 		const alertEmail = `newsroom.resilience+alerts@guardian.co.uk`;
 		alarmSnsTopic.addSubscription(new EmailSubscription(alertEmail));
 
-		// monitoring config
-		const monitoringConfiguration = {
-			alarmName: `${appName}-${this.stage}-ErrorAlarm`,
-			alarmDescription: `Triggers if there are errors from ${appName} on ${this.stage}`,
-			snsTopicName: alarmSnsTopic.topicName,
-			toleratedErrorPercentage: 1,
-			// Requires 2 failures in a row based on lambda scheduled to run once an hour
-			numberOfMinutesAboveThresholdBeforeAlarm: 120,
-		};
-
 		// scheduled lambda
 		const capiSecretGetPolicyStatement = new PolicyStatement({
 			effect: Effect.ALLOW,
@@ -159,28 +170,69 @@ export class PressReader extends GuStack {
 			resources: [capiSecret.secretArn],
 		});
 
-		const s3PutPolicyStatement = new PolicyStatement({
-			effect: Effect.ALLOW,
-			actions: ['s3:PutObject'],
-			resources: [`${dataBucket.bucketArn}/data/*`],
-		});
+		props.lambdaConfigs.forEach((config) => {
+			const lambdaSuffix =
+				config.bucketName === undefined
+					? config.editionKey
+					: `${config.editionKey}-old`;
 
-		const scheduledLambda = new GuScheduledLambda(this, `${appName}-lambda`, {
-			app: appName,
-			runtime: Runtime.NODEJS_18_X,
-			memorySize: 512,
-			handler: 'handler.main',
-			environment: {
-				BUCKET_NAME: dataBucket.bucketName,
-				CAPI_SECRET_LOCATION: capiSecret.secretName,
-			},
-			fileName: `pressreader.zip`,
-			monitoringConfiguration,
-			rules: [{ schedule: Schedule.rate(Duration.hours(1)) }],
-			timeout: Duration.seconds(300),
-		});
+			const lambdaBucket =
+				config.bucketName === undefined
+					? dataBucket
+					: GuS3Bucket.fromBucketName(
+							this,
+							`legacyDataBucket-${lambdaSuffix}`,
+							config.bucketName,
+					  );
 
-		scheduledLambda.addToRolePolicy(capiSecretGetPolicyStatement);
-		scheduledLambda.addToRolePolicy(s3PutPolicyStatement);
+			// monitoring config
+			const monitoringConfiguration = {
+				alarmName: `${appName}-${lambdaSuffix}-${this.stage}-ErrorAlarm`,
+				alarmDescription: `Triggers if there are errors from ${appName} on ${this.stage}`,
+				snsTopicName: alarmSnsTopic.topicName,
+				toleratedErrorPercentage: 1,
+				// Requires 2 failures in a row based on lambda scheduled to run once an hour
+				numberOfMinutesAboveThresholdBeforeAlarm: 120,
+			};
+
+			const s3PutPolicyStatement = new PolicyStatement({
+				effect: Effect.ALLOW,
+				actions: ['s3:PutObject'],
+				resources: [
+					[lambdaBucket.bucketArn, ...config.s3PrefixPath, '*'].join('/'),
+				],
+			});
+
+			const scheduledLambda = new GuScheduledLambda(
+				this,
+				`${appName}-${lambdaSuffix}`,
+				{
+					// The riff-raff.yaml auto-generation incorporated
+					// by using GuRootExperimental, and outputting to
+					// cdk/cdk.out/riff-raff.yaml when the synth task is
+					// run uses this value to identify what to deploy.
+					//
+					// This value must match one of the contentDirectories
+					// identified in .github/workflows/ci.yml
+					app: `${appName}-${lambdaSuffix}`,
+					runtime: Runtime.NODEJS_18_X,
+					memorySize: 512,
+					handler: 'handler.main',
+					environment: {
+						BUCKET_NAME: lambdaBucket.bucketName,
+						CAPI_SECRET_LOCATION: capiSecret.secretName,
+						EDITION_KEY: config.editionKey,
+						PREFIX_PATH: config.s3PrefixPath.join('/'),
+					},
+					fileName: `pressreader.zip`,
+					monitoringConfiguration,
+					rules: [{ schedule: Schedule.rate(Duration.hours(1)) }],
+					timeout: Duration.seconds(300),
+				},
+			);
+
+			scheduledLambda.addToRolePolicy(capiSecretGetPolicyStatement);
+			scheduledLambda.addToRolePolicy(s3PutPolicyStatement);
+		});
 	}
 }

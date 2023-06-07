@@ -10,6 +10,12 @@ exports[`The PressReader stack matches the snapshot 1`] = `
       "GuDistributionBucketParameter",
       "GuScheduledLambda",
       "GuLambdaErrorPercentageAlarm",
+      "GuScheduledLambda",
+      "GuLambdaErrorPercentageAlarm",
+      "GuScheduledLambda",
+      "GuLambdaErrorPercentageAlarm",
+      "GuScheduledLambda",
+      "GuLambdaErrorPercentageAlarm",
     ],
     "gu:cdk:version": "TEST",
   },
@@ -102,7 +108,25 @@ exports[`The PressReader stack matches the snapshot 1`] = `
                         "Arn",
                       ],
                     },
-                    "/data/*",
+                    "/data/AUS/*",
+                  ],
+                ],
+              },
+            },
+            {
+              "Action": "s3:GetObject",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    {
+                      "Fn::GetAtt": [
+                        "PressreaderDataBucketPressreader48E10950",
+                        "Arn",
+                      ],
+                    },
+                    "/data/US/*",
                   ],
                 ],
               },
@@ -206,6 +230,101 @@ exports[`The PressReader stack matches the snapshot 1`] = `
         ],
       },
       "Type": "AWS::ApiGateway::RestApi",
+    },
+    "PressReaderAPIAUS34ADC021": {
+      "Properties": {
+        "ParentId": {
+          "Fn::GetAtt": [
+            "PressReaderAPI27D6A559",
+            "RootResourceId",
+          ],
+        },
+        "PathPart": "AUS",
+        "RestApiId": {
+          "Ref": "PressReaderAPI27D6A559",
+        },
+      },
+      "Type": "AWS::ApiGateway::Resource",
+    },
+    "PressReaderAPIAUSkeyA35B3B3C": {
+      "Properties": {
+        "ParentId": {
+          "Ref": "PressReaderAPIAUS34ADC021",
+        },
+        "PathPart": "{key}",
+        "RestApiId": {
+          "Ref": "PressReaderAPI27D6A559",
+        },
+      },
+      "Type": "AWS::ApiGateway::Resource",
+    },
+    "PressReaderAPIAUSkeyGET6D653F26": {
+      "Properties": {
+        "ApiKeyRequired": true,
+        "AuthorizationType": "NONE",
+        "HttpMethod": "GET",
+        "Integration": {
+          "Credentials": {
+            "Fn::GetAtt": [
+              "ApiGatewayS3AssumeRoleC6FF4BBF",
+              "Arn",
+            ],
+          },
+          "IntegrationHttpMethod": "GET",
+          "IntegrationResponses": [
+            {
+              "ResponseParameters": {
+                "method.response.header.Content-Type": "integration.response.header.Content-Type",
+              },
+              "StatusCode": "200",
+            },
+          ],
+          "RequestParameters": {
+            "integration.request.path.key": "method.request.path.key",
+          },
+          "Type": "AWS",
+          "Uri": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":apigateway:",
+                {
+                  "Ref": "AWS::Region",
+                },
+                ":s3:path/",
+                {
+                  "Ref": "PressreaderDataBucketPressreader48E10950",
+                },
+                "/data/AUS/{key}.json",
+              ],
+            ],
+          },
+        },
+        "MethodResponses": [
+          {
+            "ResponseParameters": {
+              "method.response.header.Content-Length": true,
+              "method.response.header.Content-Type": true,
+            },
+            "StatusCode": "200",
+          },
+        ],
+        "RequestParameters": {
+          "method.request.header.Content-Type": true,
+          "method.request.path.key": true,
+        },
+        "ResourceId": {
+          "Ref": "PressReaderAPIAUSkeyA35B3B3C",
+        },
+        "RestApiId": {
+          "Ref": "PressReaderAPI27D6A559",
+        },
+      },
+      "Type": "AWS::ApiGateway::Method",
     },
     "PressReaderAPIAccount0348D010": {
       "DeletionPolicy": "Retain",
@@ -320,11 +439,14 @@ exports[`The PressReader stack matches the snapshot 1`] = `
       },
       "Type": "AWS::ApiGateway::BasePathMapping",
     },
-    "PressReaderAPIDeployment76372679e3895ad93ebdd14299f5c92e17122e30": {
+    "PressReaderAPIDeployment76372679c63aecad3660742617189f6d49cb6d19": {
       "DependsOn": [
-        "PressReaderAPIdatakeyGET902D4076",
-        "PressReaderAPIdatakey9D39D3B4",
-        "PressReaderAPIdata6C16C1E3",
+        "PressReaderAPIAUSkeyGET6D653F26",
+        "PressReaderAPIAUSkeyA35B3B3C",
+        "PressReaderAPIAUS34ADC021",
+        "PressReaderAPIUSkeyGET413633C4",
+        "PressReaderAPIUSkey4F426D58",
+        "PressReaderAPIUSED3F75B1",
       ],
       "Properties": {
         "Description": "Serves data to Press Reader from an S3 bucket.",
@@ -340,7 +462,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
       ],
       "Properties": {
         "DeploymentId": {
-          "Ref": "PressReaderAPIDeployment76372679e3895ad93ebdd14299f5c92e17122e30",
+          "Ref": "PressReaderAPIDeployment76372679c63aecad3660742617189f6d49cb6d19",
         },
         "RestApiId": {
           "Ref": "PressReaderAPI27D6A559",
@@ -451,7 +573,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
       },
       "Type": "AWS::ApiGateway::ApiKey",
     },
-    "PressReaderAPIdata6C16C1E3": {
+    "PressReaderAPIUSED3F75B1": {
       "Properties": {
         "ParentId": {
           "Fn::GetAtt": [
@@ -459,17 +581,17 @@ exports[`The PressReader stack matches the snapshot 1`] = `
             "RootResourceId",
           ],
         },
-        "PathPart": "data",
+        "PathPart": "US",
         "RestApiId": {
           "Ref": "PressReaderAPI27D6A559",
         },
       },
       "Type": "AWS::ApiGateway::Resource",
     },
-    "PressReaderAPIdatakey9D39D3B4": {
+    "PressReaderAPIUSkey4F426D58": {
       "Properties": {
         "ParentId": {
-          "Ref": "PressReaderAPIdata6C16C1E3",
+          "Ref": "PressReaderAPIUSED3F75B1",
         },
         "PathPart": "{key}",
         "RestApiId": {
@@ -478,7 +600,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
       },
       "Type": "AWS::ApiGateway::Resource",
     },
-    "PressReaderAPIdatakeyGET902D4076": {
+    "PressReaderAPIUSkeyGET413633C4": {
       "Properties": {
         "ApiKeyRequired": true,
         "AuthorizationType": "NONE",
@@ -519,7 +641,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
                 {
                   "Ref": "PressreaderDataBucketPressreader48E10950",
                 },
-                "/data/{key}.json",
+                "/data/US/{key}.json",
               ],
             ],
           },
@@ -538,7 +660,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
           "method.request.path.key": true,
         },
         "ResourceId": {
-          "Ref": "PressReaderAPIdatakey9D39D3B4",
+          "Ref": "PressReaderAPIUSkey4F426D58",
         },
         "RestApiId": {
           "Ref": "PressReaderAPI27D6A559",
@@ -599,54 +721,21 @@ exports[`The PressReader stack matches the snapshot 1`] = `
       },
       "Type": "Guardian::DNS::RecordSet",
     },
-    "pressreaderemailalarmtopic5E019B49": {
-      "Properties": {
-        "Tags": [
-          {
-            "Key": "gu:cdk:version",
-            "Value": "TEST",
-          },
-          {
-            "Key": "gu:repo",
-            "Value": "guardian/pressreader",
-          },
-          {
-            "Key": "Stack",
-            "Value": "print-production",
-          },
-          {
-            "Key": "Stage",
-            "Value": "TEST",
-          },
-        ],
-      },
-      "Type": "AWS::SNS::Topic",
-    },
-    "pressreaderemailalarmtopicnewsroomresiliencealertsguardiancoukC7FA91A6": {
-      "Properties": {
-        "Endpoint": "newsroom.resilience+alerts@guardian.co.uk",
-        "Protocol": "email",
-        "TopicArn": {
-          "Ref": "pressreaderemailalarmtopic5E019B49",
-        },
-      },
-      "Type": "AWS::SNS::Subscription",
-    },
-    "pressreaderlambdaB481BEF0": {
+    "pressreaderAUS6886FE30": {
       "DependsOn": [
-        "pressreaderlambdaServiceRoleDefaultPolicy7471EACC",
-        "pressreaderlambdaServiceRole68181491",
+        "pressreaderAUSServiceRoleDefaultPolicy7524F0C8",
+        "pressreaderAUSServiceRole2C141000",
       ],
       "Properties": {
         "Code": {
           "S3Bucket": {
             "Ref": "DistributionBucketName",
           },
-          "S3Key": "print-production/TEST/pressreader/pressreader.zip",
+          "S3Key": "print-production/TEST/pressreader-AUS/pressreader.zip",
         },
         "Environment": {
           "Variables": {
-            "APP": "pressreader",
+            "APP": "pressreader-AUS",
             "BUCKET_NAME": {
               "Ref": "PressreaderDataBucketPressreader48E10950",
             },
@@ -703,6 +792,8 @@ exports[`The PressReader stack matches the snapshot 1`] = `
                 ],
               ],
             },
+            "EDITION_KEY": "AUS",
+            "PREFIX_PATH": "data/AUS",
             "STACK": "print-production",
             "STAGE": "TEST",
           },
@@ -711,7 +802,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
         "MemorySize": 512,
         "Role": {
           "Fn::GetAtt": [
-            "pressreaderlambdaServiceRole68181491",
+            "pressreaderAUSServiceRole2C141000",
             "Arn",
           ],
         },
@@ -719,7 +810,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
         "Tags": [
           {
             "Key": "App",
-            "Value": "pressreader",
+            "Value": "pressreader-AUS",
           },
           {
             "Key": "gu:cdk:version",
@@ -742,7 +833,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
       },
       "Type": "AWS::Lambda::Function",
     },
-    "pressreaderlambdaErrorPercentageAlarmForLambda62A3B054": {
+    "pressreaderAUSErrorPercentageAlarmForLambda163DFFB6": {
       "Properties": {
         "ActionsEnabled": true,
         "AlarmActions": [
@@ -770,7 +861,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
           },
         ],
         "AlarmDescription": "Triggers if there are errors from pressreader on TEST",
-        "AlarmName": "pressreader-TEST-ErrorAlarm",
+        "AlarmName": "pressreader-AUS-TEST-ErrorAlarm",
         "ComparisonOperator": "GreaterThanThreshold",
         "EvaluationPeriods": 120,
         "Metrics": [
@@ -783,7 +874,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
                 [
                   "Error % of ",
                   {
-                    "Ref": "pressreaderlambdaB481BEF0",
+                    "Ref": "pressreaderAUS6886FE30",
                   },
                 ],
               ],
@@ -797,7 +888,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
                   {
                     "Name": "FunctionName",
                     "Value": {
-                      "Ref": "pressreaderlambdaB481BEF0",
+                      "Ref": "pressreaderAUS6886FE30",
                     },
                   },
                 ],
@@ -817,7 +908,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
                   {
                     "Name": "FunctionName",
                     "Value": {
-                      "Ref": "pressreaderlambdaB481BEF0",
+                      "Ref": "pressreaderAUS6886FE30",
                     },
                   },
                 ],
@@ -835,7 +926,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
       },
       "Type": "AWS::CloudWatch::Alarm",
     },
-    "pressreaderlambdaServiceRole68181491": {
+    "pressreaderAUSServiceRole2C141000": {
       "Properties": {
         "AssumeRolePolicyDocument": {
           "Statement": [
@@ -866,7 +957,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
         "Tags": [
           {
             "Key": "App",
-            "Value": "pressreader",
+            "Value": "pressreader-AUS",
           },
           {
             "Key": "gu:cdk:version",
@@ -888,7 +979,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
       },
       "Type": "AWS::IAM::Role",
     },
-    "pressreaderlambdaServiceRoleDefaultPolicy7471EACC": {
+    "pressreaderAUSServiceRoleDefaultPolicy7524F0C8": {
       "Properties": {
         "PolicyDocument": {
           "Statement": [
@@ -927,7 +1018,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
                       {
                         "Ref": "DistributionBucketName",
                       },
-                      "/print-production/TEST/pressreader/pressreader.zip",
+                      "/print-production/TEST/pressreader-AUS/pressreader.zip",
                     ],
                   ],
                 },
@@ -948,7 +1039,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
                     {
                       "Ref": "AWS::AccountId",
                     },
-                    ":parameter/TEST/print-production/pressreader",
+                    ":parameter/TEST/print-production/pressreader-AUS",
                   ],
                 ],
               },
@@ -971,7 +1062,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
                     {
                       "Ref": "AWS::AccountId",
                     },
-                    ":parameter/TEST/print-production/pressreader/*",
+                    ":parameter/TEST/print-production/pressreader-AUS/*",
                   ],
                 ],
               },
@@ -996,7 +1087,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
                         "Arn",
                       ],
                     },
-                    "/data/*",
+                    "/data/AUS/*",
                   ],
                 ],
               },
@@ -1004,16 +1095,395 @@ exports[`The PressReader stack matches the snapshot 1`] = `
           ],
           "Version": "2012-10-17",
         },
-        "PolicyName": "pressreaderlambdaServiceRoleDefaultPolicy7471EACC",
+        "PolicyName": "pressreaderAUSServiceRoleDefaultPolicy7524F0C8",
         "Roles": [
           {
-            "Ref": "pressreaderlambdaServiceRole68181491",
+            "Ref": "pressreaderAUSServiceRole2C141000",
           },
         ],
       },
       "Type": "AWS::IAM::Policy",
     },
-    "pressreaderlambdapressreaderlambdarate1hour050777DAB": {
+    "pressreaderAUSold903A9CEE": {
+      "DependsOn": [
+        "pressreaderAUSoldServiceRoleDefaultPolicy820D82A8",
+        "pressreaderAUSoldServiceRoleF5EDA110",
+      ],
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "DistributionBucketName",
+          },
+          "S3Key": "print-production/TEST/pressreader-AUS-old/pressreader.zip",
+        },
+        "Environment": {
+          "Variables": {
+            "APP": "pressreader-AUS-old",
+            "BUCKET_NAME": "press-reader-aus-configs",
+            "CAPI_SECRET_LOCATION": {
+              "Fn::Join": [
+                "-",
+                [
+                  {
+                    "Fn::Select": [
+                      0,
+                      {
+                        "Fn::Split": [
+                          "-",
+                          {
+                            "Fn::Select": [
+                              6,
+                              {
+                                "Fn::Split": [
+                                  ":",
+                                  {
+                                    "Ref": "CapiTokenSecret1D3F4E33",
+                                  },
+                                ],
+                              },
+                            ],
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                  {
+                    "Fn::Select": [
+                      1,
+                      {
+                        "Fn::Split": [
+                          "-",
+                          {
+                            "Fn::Select": [
+                              6,
+                              {
+                                "Fn::Split": [
+                                  ":",
+                                  {
+                                    "Ref": "CapiTokenSecret1D3F4E33",
+                                  },
+                                ],
+                              },
+                            ],
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                ],
+              ],
+            },
+            "EDITION_KEY": "AUS",
+            "PREFIX_PATH": "",
+            "STACK": "print-production",
+            "STAGE": "TEST",
+          },
+        },
+        "Handler": "handler.main",
+        "MemorySize": 512,
+        "Role": {
+          "Fn::GetAtt": [
+            "pressreaderAUSoldServiceRoleF5EDA110",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs18.x",
+        "Tags": [
+          {
+            "Key": "App",
+            "Value": "pressreader-AUS-old",
+          },
+          {
+            "Key": "gu:cdk:version",
+            "Value": "TEST",
+          },
+          {
+            "Key": "gu:repo",
+            "Value": "guardian/pressreader",
+          },
+          {
+            "Key": "Stack",
+            "Value": "print-production",
+          },
+          {
+            "Key": "Stage",
+            "Value": "TEST",
+          },
+        ],
+        "Timeout": 300,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "pressreaderAUSoldErrorPercentageAlarmForLambdaACAD7657": {
+      "Properties": {
+        "ActionsEnabled": true,
+        "AlarmActions": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:aws:sns:",
+                {
+                  "Ref": "AWS::Region",
+                },
+                ":",
+                {
+                  "Ref": "AWS::AccountId",
+                },
+                ":",
+                {
+                  "Fn::GetAtt": [
+                    "pressreaderemailalarmtopic5E019B49",
+                    "TopicName",
+                  ],
+                },
+              ],
+            ],
+          },
+        ],
+        "AlarmDescription": "Triggers if there are errors from pressreader on TEST",
+        "AlarmName": "pressreader-AUS-old-TEST-ErrorAlarm",
+        "ComparisonOperator": "GreaterThanThreshold",
+        "EvaluationPeriods": 120,
+        "Metrics": [
+          {
+            "Expression": "100*m1/m2",
+            "Id": "expr_1",
+            "Label": {
+              "Fn::Join": [
+                "",
+                [
+                  "Error % of ",
+                  {
+                    "Ref": "pressreaderAUSold903A9CEE",
+                  },
+                ],
+              ],
+            },
+          },
+          {
+            "Id": "m1",
+            "MetricStat": {
+              "Metric": {
+                "Dimensions": [
+                  {
+                    "Name": "FunctionName",
+                    "Value": {
+                      "Ref": "pressreaderAUSold903A9CEE",
+                    },
+                  },
+                ],
+                "MetricName": "Errors",
+                "Namespace": "AWS/Lambda",
+              },
+              "Period": 60,
+              "Stat": "Sum",
+            },
+            "ReturnData": false,
+          },
+          {
+            "Id": "m2",
+            "MetricStat": {
+              "Metric": {
+                "Dimensions": [
+                  {
+                    "Name": "FunctionName",
+                    "Value": {
+                      "Ref": "pressreaderAUSold903A9CEE",
+                    },
+                  },
+                ],
+                "MetricName": "Invocations",
+                "Namespace": "AWS/Lambda",
+              },
+              "Period": 60,
+              "Stat": "Sum",
+            },
+            "ReturnData": false,
+          },
+        ],
+        "Threshold": 1,
+        "TreatMissingData": "notBreaching",
+      },
+      "Type": "AWS::CloudWatch::Alarm",
+    },
+    "pressreaderAUSoldServiceRoleDefaultPolicy820D82A8": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "s3:GetObject*",
+                "s3:GetBucket*",
+                "s3:List*",
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":s3:::",
+                      {
+                        "Ref": "DistributionBucketName",
+                      },
+                    ],
+                  ],
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":s3:::",
+                      {
+                        "Ref": "DistributionBucketName",
+                      },
+                      "/print-production/TEST/pressreader-AUS-old/pressreader.zip",
+                    ],
+                  ],
+                },
+              ],
+            },
+            {
+              "Action": "ssm:GetParametersByPath",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:aws:ssm:",
+                    {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":parameter/TEST/print-production/pressreader-AUS-old",
+                  ],
+                ],
+              },
+            },
+            {
+              "Action": [
+                "ssm:GetParameters",
+                "ssm:GetParameter",
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:aws:ssm:",
+                    {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":parameter/TEST/print-production/pressreader-AUS-old/*",
+                  ],
+                ],
+              },
+            },
+            {
+              "Action": "secretsmanager:GetSecretValue",
+              "Effect": "Allow",
+              "Resource": {
+                "Ref": "CapiTokenSecret1D3F4E33",
+              },
+            },
+            {
+              "Action": "s3:PutObject",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":s3:::press-reader-aus-configs/*",
+                  ],
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "pressreaderAUSoldServiceRoleDefaultPolicy820D82A8",
+        "Roles": [
+          {
+            "Ref": "pressreaderAUSoldServiceRoleF5EDA110",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "pressreaderAUSoldServiceRoleF5EDA110": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+        "Tags": [
+          {
+            "Key": "App",
+            "Value": "pressreader-AUS-old",
+          },
+          {
+            "Key": "gu:cdk:version",
+            "Value": "TEST",
+          },
+          {
+            "Key": "gu:repo",
+            "Value": "guardian/pressreader",
+          },
+          {
+            "Key": "Stack",
+            "Value": "print-production",
+          },
+          {
+            "Key": "Stage",
+            "Value": "TEST",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "pressreaderAUSoldpressreaderAUSoldrate1hour00BA33D45": {
       "Properties": {
         "ScheduleExpression": "rate(1 hour)",
         "State": "ENABLED",
@@ -1021,7 +1491,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
           {
             "Arn": {
               "Fn::GetAtt": [
-                "pressreaderlambdaB481BEF0",
+                "pressreaderAUSold903A9CEE",
                 "Arn",
               ],
             },
@@ -1031,24 +1501,930 @@ exports[`The PressReader stack matches the snapshot 1`] = `
       },
       "Type": "AWS::Events::Rule",
     },
-    "pressreaderlambdapressreaderlambdarate1hour0AllowEventRulePressReaderpressreaderlambda88EE711E7334912E": {
+    "pressreaderAUSoldpressreaderAUSoldrate1hour0AllowEventRulePressReaderpressreaderAUSoldCA113CF63CD0929A": {
       "Properties": {
         "Action": "lambda:InvokeFunction",
         "FunctionName": {
           "Fn::GetAtt": [
-            "pressreaderlambdaB481BEF0",
+            "pressreaderAUSold903A9CEE",
             "Arn",
           ],
         },
         "Principal": "events.amazonaws.com",
         "SourceArn": {
           "Fn::GetAtt": [
-            "pressreaderlambdapressreaderlambdarate1hour050777DAB",
+            "pressreaderAUSoldpressreaderAUSoldrate1hour00BA33D45",
             "Arn",
           ],
         },
       },
       "Type": "AWS::Lambda::Permission",
+    },
+    "pressreaderAUSpressreaderAUSrate1hour0AllowEventRulePressReaderpressreaderAUSF42A35B90A948F31": {
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "pressreaderAUS6886FE30",
+            "Arn",
+          ],
+        },
+        "Principal": "events.amazonaws.com",
+        "SourceArn": {
+          "Fn::GetAtt": [
+            "pressreaderAUSpressreaderAUSrate1hour0FE217D2C",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "pressreaderAUSpressreaderAUSrate1hour0FE217D2C": {
+      "Properties": {
+        "ScheduleExpression": "rate(1 hour)",
+        "State": "ENABLED",
+        "Targets": [
+          {
+            "Arn": {
+              "Fn::GetAtt": [
+                "pressreaderAUS6886FE30",
+                "Arn",
+              ],
+            },
+            "Id": "Target0",
+          },
+        ],
+      },
+      "Type": "AWS::Events::Rule",
+    },
+    "pressreaderUS45258E18": {
+      "DependsOn": [
+        "pressreaderUSServiceRoleDefaultPolicyE1F8503D",
+        "pressreaderUSServiceRoleB97C448A",
+      ],
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "DistributionBucketName",
+          },
+          "S3Key": "print-production/TEST/pressreader-US/pressreader.zip",
+        },
+        "Environment": {
+          "Variables": {
+            "APP": "pressreader-US",
+            "BUCKET_NAME": {
+              "Ref": "PressreaderDataBucketPressreader48E10950",
+            },
+            "CAPI_SECRET_LOCATION": {
+              "Fn::Join": [
+                "-",
+                [
+                  {
+                    "Fn::Select": [
+                      0,
+                      {
+                        "Fn::Split": [
+                          "-",
+                          {
+                            "Fn::Select": [
+                              6,
+                              {
+                                "Fn::Split": [
+                                  ":",
+                                  {
+                                    "Ref": "CapiTokenSecret1D3F4E33",
+                                  },
+                                ],
+                              },
+                            ],
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                  {
+                    "Fn::Select": [
+                      1,
+                      {
+                        "Fn::Split": [
+                          "-",
+                          {
+                            "Fn::Select": [
+                              6,
+                              {
+                                "Fn::Split": [
+                                  ":",
+                                  {
+                                    "Ref": "CapiTokenSecret1D3F4E33",
+                                  },
+                                ],
+                              },
+                            ],
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                ],
+              ],
+            },
+            "EDITION_KEY": "US",
+            "PREFIX_PATH": "data/US",
+            "STACK": "print-production",
+            "STAGE": "TEST",
+          },
+        },
+        "Handler": "handler.main",
+        "MemorySize": 512,
+        "Role": {
+          "Fn::GetAtt": [
+            "pressreaderUSServiceRoleB97C448A",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs18.x",
+        "Tags": [
+          {
+            "Key": "App",
+            "Value": "pressreader-US",
+          },
+          {
+            "Key": "gu:cdk:version",
+            "Value": "TEST",
+          },
+          {
+            "Key": "gu:repo",
+            "Value": "guardian/pressreader",
+          },
+          {
+            "Key": "Stack",
+            "Value": "print-production",
+          },
+          {
+            "Key": "Stage",
+            "Value": "TEST",
+          },
+        ],
+        "Timeout": 300,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "pressreaderUSErrorPercentageAlarmForLambda42ECEB9A": {
+      "Properties": {
+        "ActionsEnabled": true,
+        "AlarmActions": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:aws:sns:",
+                {
+                  "Ref": "AWS::Region",
+                },
+                ":",
+                {
+                  "Ref": "AWS::AccountId",
+                },
+                ":",
+                {
+                  "Fn::GetAtt": [
+                    "pressreaderemailalarmtopic5E019B49",
+                    "TopicName",
+                  ],
+                },
+              ],
+            ],
+          },
+        ],
+        "AlarmDescription": "Triggers if there are errors from pressreader on TEST",
+        "AlarmName": "pressreader-US-TEST-ErrorAlarm",
+        "ComparisonOperator": "GreaterThanThreshold",
+        "EvaluationPeriods": 120,
+        "Metrics": [
+          {
+            "Expression": "100*m1/m2",
+            "Id": "expr_1",
+            "Label": {
+              "Fn::Join": [
+                "",
+                [
+                  "Error % of ",
+                  {
+                    "Ref": "pressreaderUS45258E18",
+                  },
+                ],
+              ],
+            },
+          },
+          {
+            "Id": "m1",
+            "MetricStat": {
+              "Metric": {
+                "Dimensions": [
+                  {
+                    "Name": "FunctionName",
+                    "Value": {
+                      "Ref": "pressreaderUS45258E18",
+                    },
+                  },
+                ],
+                "MetricName": "Errors",
+                "Namespace": "AWS/Lambda",
+              },
+              "Period": 60,
+              "Stat": "Sum",
+            },
+            "ReturnData": false,
+          },
+          {
+            "Id": "m2",
+            "MetricStat": {
+              "Metric": {
+                "Dimensions": [
+                  {
+                    "Name": "FunctionName",
+                    "Value": {
+                      "Ref": "pressreaderUS45258E18",
+                    },
+                  },
+                ],
+                "MetricName": "Invocations",
+                "Namespace": "AWS/Lambda",
+              },
+              "Period": 60,
+              "Stat": "Sum",
+            },
+            "ReturnData": false,
+          },
+        ],
+        "Threshold": 1,
+        "TreatMissingData": "notBreaching",
+      },
+      "Type": "AWS::CloudWatch::Alarm",
+    },
+    "pressreaderUSServiceRoleB97C448A": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+        "Tags": [
+          {
+            "Key": "App",
+            "Value": "pressreader-US",
+          },
+          {
+            "Key": "gu:cdk:version",
+            "Value": "TEST",
+          },
+          {
+            "Key": "gu:repo",
+            "Value": "guardian/pressreader",
+          },
+          {
+            "Key": "Stack",
+            "Value": "print-production",
+          },
+          {
+            "Key": "Stage",
+            "Value": "TEST",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "pressreaderUSServiceRoleDefaultPolicyE1F8503D": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "s3:GetObject*",
+                "s3:GetBucket*",
+                "s3:List*",
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":s3:::",
+                      {
+                        "Ref": "DistributionBucketName",
+                      },
+                    ],
+                  ],
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":s3:::",
+                      {
+                        "Ref": "DistributionBucketName",
+                      },
+                      "/print-production/TEST/pressreader-US/pressreader.zip",
+                    ],
+                  ],
+                },
+              ],
+            },
+            {
+              "Action": "ssm:GetParametersByPath",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:aws:ssm:",
+                    {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":parameter/TEST/print-production/pressreader-US",
+                  ],
+                ],
+              },
+            },
+            {
+              "Action": [
+                "ssm:GetParameters",
+                "ssm:GetParameter",
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:aws:ssm:",
+                    {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":parameter/TEST/print-production/pressreader-US/*",
+                  ],
+                ],
+              },
+            },
+            {
+              "Action": "secretsmanager:GetSecretValue",
+              "Effect": "Allow",
+              "Resource": {
+                "Ref": "CapiTokenSecret1D3F4E33",
+              },
+            },
+            {
+              "Action": "s3:PutObject",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    {
+                      "Fn::GetAtt": [
+                        "PressreaderDataBucketPressreader48E10950",
+                        "Arn",
+                      ],
+                    },
+                    "/data/US/*",
+                  ],
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "pressreaderUSServiceRoleDefaultPolicyE1F8503D",
+        "Roles": [
+          {
+            "Ref": "pressreaderUSServiceRoleB97C448A",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "pressreaderUSoldErrorPercentageAlarmForLambdaF82C074F": {
+      "Properties": {
+        "ActionsEnabled": true,
+        "AlarmActions": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:aws:sns:",
+                {
+                  "Ref": "AWS::Region",
+                },
+                ":",
+                {
+                  "Ref": "AWS::AccountId",
+                },
+                ":",
+                {
+                  "Fn::GetAtt": [
+                    "pressreaderemailalarmtopic5E019B49",
+                    "TopicName",
+                  ],
+                },
+              ],
+            ],
+          },
+        ],
+        "AlarmDescription": "Triggers if there are errors from pressreader on TEST",
+        "AlarmName": "pressreader-US-old-TEST-ErrorAlarm",
+        "ComparisonOperator": "GreaterThanThreshold",
+        "EvaluationPeriods": 120,
+        "Metrics": [
+          {
+            "Expression": "100*m1/m2",
+            "Id": "expr_1",
+            "Label": {
+              "Fn::Join": [
+                "",
+                [
+                  "Error % of ",
+                  {
+                    "Ref": "pressreaderUSoldF30522C8",
+                  },
+                ],
+              ],
+            },
+          },
+          {
+            "Id": "m1",
+            "MetricStat": {
+              "Metric": {
+                "Dimensions": [
+                  {
+                    "Name": "FunctionName",
+                    "Value": {
+                      "Ref": "pressreaderUSoldF30522C8",
+                    },
+                  },
+                ],
+                "MetricName": "Errors",
+                "Namespace": "AWS/Lambda",
+              },
+              "Period": 60,
+              "Stat": "Sum",
+            },
+            "ReturnData": false,
+          },
+          {
+            "Id": "m2",
+            "MetricStat": {
+              "Metric": {
+                "Dimensions": [
+                  {
+                    "Name": "FunctionName",
+                    "Value": {
+                      "Ref": "pressreaderUSoldF30522C8",
+                    },
+                  },
+                ],
+                "MetricName": "Invocations",
+                "Namespace": "AWS/Lambda",
+              },
+              "Period": 60,
+              "Stat": "Sum",
+            },
+            "ReturnData": false,
+          },
+        ],
+        "Threshold": 1,
+        "TreatMissingData": "notBreaching",
+      },
+      "Type": "AWS::CloudWatch::Alarm",
+    },
+    "pressreaderUSoldF30522C8": {
+      "DependsOn": [
+        "pressreaderUSoldServiceRoleDefaultPolicyE849A76E",
+        "pressreaderUSoldServiceRole06560AC9",
+      ],
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "DistributionBucketName",
+          },
+          "S3Key": "print-production/TEST/pressreader-US-old/pressreader.zip",
+        },
+        "Environment": {
+          "Variables": {
+            "APP": "pressreader-US-old",
+            "BUCKET_NAME": "press-reader-us-configs",
+            "CAPI_SECRET_LOCATION": {
+              "Fn::Join": [
+                "-",
+                [
+                  {
+                    "Fn::Select": [
+                      0,
+                      {
+                        "Fn::Split": [
+                          "-",
+                          {
+                            "Fn::Select": [
+                              6,
+                              {
+                                "Fn::Split": [
+                                  ":",
+                                  {
+                                    "Ref": "CapiTokenSecret1D3F4E33",
+                                  },
+                                ],
+                              },
+                            ],
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                  {
+                    "Fn::Select": [
+                      1,
+                      {
+                        "Fn::Split": [
+                          "-",
+                          {
+                            "Fn::Select": [
+                              6,
+                              {
+                                "Fn::Split": [
+                                  ":",
+                                  {
+                                    "Ref": "CapiTokenSecret1D3F4E33",
+                                  },
+                                ],
+                              },
+                            ],
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                ],
+              ],
+            },
+            "EDITION_KEY": "US",
+            "PREFIX_PATH": "",
+            "STACK": "print-production",
+            "STAGE": "TEST",
+          },
+        },
+        "Handler": "handler.main",
+        "MemorySize": 512,
+        "Role": {
+          "Fn::GetAtt": [
+            "pressreaderUSoldServiceRole06560AC9",
+            "Arn",
+          ],
+        },
+        "Runtime": "nodejs18.x",
+        "Tags": [
+          {
+            "Key": "App",
+            "Value": "pressreader-US-old",
+          },
+          {
+            "Key": "gu:cdk:version",
+            "Value": "TEST",
+          },
+          {
+            "Key": "gu:repo",
+            "Value": "guardian/pressreader",
+          },
+          {
+            "Key": "Stack",
+            "Value": "print-production",
+          },
+          {
+            "Key": "Stage",
+            "Value": "TEST",
+          },
+        ],
+        "Timeout": 300,
+      },
+      "Type": "AWS::Lambda::Function",
+    },
+    "pressreaderUSoldServiceRole06560AC9": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition",
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+              ],
+            ],
+          },
+        ],
+        "Tags": [
+          {
+            "Key": "App",
+            "Value": "pressreader-US-old",
+          },
+          {
+            "Key": "gu:cdk:version",
+            "Value": "TEST",
+          },
+          {
+            "Key": "gu:repo",
+            "Value": "guardian/pressreader",
+          },
+          {
+            "Key": "Stack",
+            "Value": "print-production",
+          },
+          {
+            "Key": "Stage",
+            "Value": "TEST",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "pressreaderUSoldServiceRoleDefaultPolicyE849A76E": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "s3:GetObject*",
+                "s3:GetBucket*",
+                "s3:List*",
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":s3:::",
+                      {
+                        "Ref": "DistributionBucketName",
+                      },
+                    ],
+                  ],
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition",
+                      },
+                      ":s3:::",
+                      {
+                        "Ref": "DistributionBucketName",
+                      },
+                      "/print-production/TEST/pressreader-US-old/pressreader.zip",
+                    ],
+                  ],
+                },
+              ],
+            },
+            {
+              "Action": "ssm:GetParametersByPath",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:aws:ssm:",
+                    {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":parameter/TEST/print-production/pressreader-US-old",
+                  ],
+                ],
+              },
+            },
+            {
+              "Action": [
+                "ssm:GetParameters",
+                "ssm:GetParameter",
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:aws:ssm:",
+                    {
+                      "Ref": "AWS::Region",
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId",
+                    },
+                    ":parameter/TEST/print-production/pressreader-US-old/*",
+                  ],
+                ],
+              },
+            },
+            {
+              "Action": "secretsmanager:GetSecretValue",
+              "Effect": "Allow",
+              "Resource": {
+                "Ref": "CapiTokenSecret1D3F4E33",
+              },
+            },
+            {
+              "Action": "s3:PutObject",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition",
+                    },
+                    ":s3:::press-reader-us-configs/*",
+                  ],
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "pressreaderUSoldServiceRoleDefaultPolicyE849A76E",
+        "Roles": [
+          {
+            "Ref": "pressreaderUSoldServiceRole06560AC9",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "pressreaderUSoldpressreaderUSoldrate1hour04CD2FA55": {
+      "Properties": {
+        "ScheduleExpression": "rate(1 hour)",
+        "State": "ENABLED",
+        "Targets": [
+          {
+            "Arn": {
+              "Fn::GetAtt": [
+                "pressreaderUSoldF30522C8",
+                "Arn",
+              ],
+            },
+            "Id": "Target0",
+          },
+        ],
+      },
+      "Type": "AWS::Events::Rule",
+    },
+    "pressreaderUSoldpressreaderUSoldrate1hour0AllowEventRulePressReaderpressreaderUSoldA7BBDD877B3212F7": {
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "pressreaderUSoldF30522C8",
+            "Arn",
+          ],
+        },
+        "Principal": "events.amazonaws.com",
+        "SourceArn": {
+          "Fn::GetAtt": [
+            "pressreaderUSoldpressreaderUSoldrate1hour04CD2FA55",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "pressreaderUSpressreaderUSrate1hour0AllowEventRulePressReaderpressreaderUS9932EDA5A4CFE4A7": {
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "pressreaderUS45258E18",
+            "Arn",
+          ],
+        },
+        "Principal": "events.amazonaws.com",
+        "SourceArn": {
+          "Fn::GetAtt": [
+            "pressreaderUSpressreaderUSrate1hour0DCE77B96",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
+    },
+    "pressreaderUSpressreaderUSrate1hour0DCE77B96": {
+      "Properties": {
+        "ScheduleExpression": "rate(1 hour)",
+        "State": "ENABLED",
+        "Targets": [
+          {
+            "Arn": {
+              "Fn::GetAtt": [
+                "pressreaderUS45258E18",
+                "Arn",
+              ],
+            },
+            "Id": "Target0",
+          },
+        ],
+      },
+      "Type": "AWS::Events::Rule",
+    },
+    "pressreaderemailalarmtopic5E019B49": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "gu:cdk:version",
+            "Value": "TEST",
+          },
+          {
+            "Key": "gu:repo",
+            "Value": "guardian/pressreader",
+          },
+          {
+            "Key": "Stack",
+            "Value": "print-production",
+          },
+          {
+            "Key": "Stage",
+            "Value": "TEST",
+          },
+        ],
+      },
+      "Type": "AWS::SNS::Topic",
+    },
+    "pressreaderemailalarmtopicnewsroomresiliencealertsguardiancoukC7FA91A6": {
+      "Properties": {
+        "Endpoint": "newsroom.resilience+alerts@guardian.co.uk",
+        "Protocol": "email",
+        "TopicArn": {
+          "Ref": "pressreaderemailalarmtopic5E019B49",
+        },
+      },
+      "Type": "AWS::SNS::Subscription",
     },
   },
 }

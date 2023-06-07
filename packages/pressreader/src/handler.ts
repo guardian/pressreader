@@ -1,4 +1,6 @@
-import { editionConfig } from './config';
+import { isEditionKey } from 'packages/shared-types';
+import { editionKey } from './constants';
+import { editionConfigs } from './editionConfigs';
 import { editionProcessor } from './processEdition';
 import { getCapiToken, putDataToS3 } from './util';
 
@@ -8,6 +10,12 @@ export const main = async () => {
 	// TODO: Remove this log when consumed
 	const capiToken = await getCapiToken();
 	console.log(`Got capiToken (length): ${capiToken.length}`);
+
+	if (!isEditionKey(editionKey)) {
+		throw new Error(`Edition key ${editionKey ?? 'undefined'} is not valid`);
+	}
+
+	const editionConfig = editionConfigs[editionKey];
 
 	// TODO: Remove this log when consumed
 	console.log(`Got editionConfig: ${JSON.stringify(editionConfig)}`);
