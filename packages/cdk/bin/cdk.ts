@@ -25,7 +25,7 @@ new PressReader(app, 'PressReader-INFRA', {
 		},
 		{
 			editionKey: 'US',
-			s3PrefixPath: ['testing'],
+			s3PrefixPath: [],
 			bucketName: 'press-reader-us-configs',
 		},
 	],
