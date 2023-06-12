@@ -74,5 +74,7 @@ Articles are also excluded if:
 
 1. They were published more than 24 hours ago
 1. They have a word count that's shorter than the `MIN_WORDCOUNT` that's set globally
-
-If an article has already been included in a section then it is ignored. If the content type is not an article, it is ignored. Once the maximum article count has been met, or the sources exhausted we move on to the next section.
+2. If an article has already been included in a section
+3. If the content type is not an article
+   
+Once the maximum article count has been met, or the sources exhausted we move on to the next section.
