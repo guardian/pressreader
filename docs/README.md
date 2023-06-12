@@ -22,7 +22,7 @@ which is extended from the [AWS Cloud Development Kit (CDK)](https://aws.amazon.
 
 The Pressreader lambdas configuration is in the [Pressreader GitHub repository](https://github.com/guardian/pressreader/tree/main/packages/pressreader/src/editionConfigs), and configuration changes are rolled out by creating a PR for changes, merging that PR and having the changes by released by continuous delivery.
 
-There is further documentation on [how the configuration effects what is published](./pressreader-config.md).
+There is further documentation on [how the configuration affects what is published](./pressreader-config.md).
 
 ## Logs & Monitoring
 
