@@ -249,13 +249,38 @@ async function fetchFrontData(
 }
 
 export function processFrontData(front: FrontSourceWithData): string[] {
-	const collections = front.data.collections.filter((collection, index) => {
-		const targetNames = front.collectionNames.map((name) => name.toLowerCase());
-		return (
-			front.collectionIndexes.includes(index) ||
-			targetNames.includes(collection.displayName.toLowerCase())
+	/**
+	 * Mapping over both names and indexes requires a lot more looping in the
+	 * filtering steps, but it allows us to easily log which names and indexes
+	 * we fail to find matches for, without adding extra complexity.
+	 * We also know that all of the relevant lists are small, so the performance
+	 * impact should be negligible.
+	 */
+	const collectionsByName = front.collectionNames.map((name) => {
+		const targetName = name.trim().toLowerCase();
+		const collection = front.data.collections.find(
+			(collection) =>
+				collection.displayName.trim().toLowerCase() === targetName,
 		);
+		if (collection === undefined) {
+			console.error(
+				`No collection found for name ${targetName} for ${front.sectionContentURL}`,
+			);
+		}
+		return collection;
 	});
+	const collectionsByIndex = front.collectionIndexes.map((index) => {
+		const collection = front.data.collections.find((_, i) => i === index);
+		if (collection === undefined) {
+			console.error(
+				`No collection found at index ${index} for ${front.sectionContentURL}`,
+			);
+		}
+		return collection;
+	});
+	const collections = [...collectionsByName, ...collectionsByIndex].filter(
+		isNotUndefined,
+	);
 	const articles = collections.flatMap((collection) => {
 		return collection.content.map((article) => article.id);
 	});
