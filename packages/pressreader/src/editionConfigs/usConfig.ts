@@ -10,7 +10,7 @@ export const usConfig: PressReaderEditionConfig = {
 					collectionIndexes: [0],
 					collectionNames: ['headlines'],
 					sectionContentURL:
-						'http://api.nextgen.guardianapps.co.uk/us/lite.json',
+						'https://api.nextgen.guardianapps.co.uk/us/lite.json',
 				},
 			],
 			capiSources: [],
@@ -23,13 +23,13 @@ export const usConfig: PressReaderEditionConfig = {
 					collectionIndexes: [],
 					collectionNames: ['US news'],
 					sectionContentURL:
-						'http://api.nextgen.guardianapps.co.uk/us-news/lite.json',
+						'https://api.nextgen.guardianapps.co.uk/us-news/lite.json',
 				},
 				{
 					collectionIndexes: [],
 					collectionNames: ['across the country'],
 					sectionContentURL:
-						'http://api.nextgen.guardianapps.co.uk/us/lite.json',
+						'https://api.nextgen.guardianapps.co.uk/us/lite.json',
 				},
 			],
 			capiSources: [],
@@ -42,13 +42,13 @@ export const usConfig: PressReaderEditionConfig = {
 					collectionIndexes: [],
 					collectionNames: ['headlines'],
 					sectionContentURL:
-						'http://api.nextgen.guardianapps.co.uk/us-news/us-politics/lite.json',
+						'https://api.nextgen.guardianapps.co.uk/us-news/us-politics/lite.json',
 				},
 				{
 					collectionIndexes: [],
 					collectionNames: ['US politics'],
 					sectionContentURL:
-						'http://api.nextgen.guardianapps.co.uk/us-news/lite.json',
+						'https://api.nextgen.guardianapps.co.uk/us-news/lite.json',
 				},
 				{
 					collectionIndexes: [],
@@ -59,7 +59,7 @@ export const usConfig: PressReaderEditionConfig = {
 						'policy',
 					],
 					sectionContentURL:
-						'http://api.nextgen.guardianapps.co.uk/us-news/us-politics/lite.json',
+						'https://api.nextgen.guardianapps.co.uk/us-news/us-politics/lite.json',
 				},
 			],
 			capiSources: [],
@@ -72,19 +72,19 @@ export const usConfig: PressReaderEditionConfig = {
 					collectionIndexes: [],
 					collectionNames: ['world news'],
 					sectionContentURL:
-						'http://api.nextgen.guardianapps.co.uk/world/lite.json',
+						'https://api.nextgen.guardianapps.co.uk/world/lite.json',
 				},
 				{
 					collectionIndexes: [],
 					collectionNames: ['around the world'],
 					sectionContentURL:
-						'http://api.nextgen.guardianapps.co.uk/us/lite.json',
+						'https://api.nextgen.guardianapps.co.uk/us/lite.json',
 				},
 				{
 					collectionIndexes: [],
 					collectionNames: ['around the world'],
 					sectionContentURL:
-						'http://api.nextgen.guardianapps.co.uk/world/lite.json',
+						'https://api.nextgen.guardianapps.co.uk/world/lite.json',
 				},
 			],
 			capiSources: [],
@@ -97,43 +97,43 @@ export const usConfig: PressReaderEditionConfig = {
 					collectionIndexes: [],
 					collectionNames: ['opinion', 'spotlight'],
 					sectionContentURL:
-						'http://api.nextgen.guardianapps.co.uk/us/lite.json',
+						'https://api.nextgen.guardianapps.co.uk/us/lite.json',
 				},
 				{
 					collectionIndexes: [],
 					collectionNames: ['columnists & contributors', 'opinion'],
 					sectionContentURL:
-						'http://api.nextgen.guardianapps.co.uk/us/commentisfree/lite.json',
+						'https://api.nextgen.guardianapps.co.uk/us/commentisfree/lite.json',
 				},
 				{
 					collectionIndexes: [],
 					collectionNames: ['opinion & analysis'],
 					sectionContentURL:
-						'http://api.nextgen.guardianapps.co.uk/us-news/lite.json',
+						'https://api.nextgen.guardianapps.co.uk/us-news/lite.json',
 				},
 				{
 					collectionIndexes: [],
 					collectionNames: ['opinion'],
 					sectionContentURL:
-						'http://api.nextgen.guardianapps.co.uk/us-news/us-politics/lite.json',
+						'https://api.nextgen.guardianapps.co.uk/us-news/us-politics/lite.json',
 				},
 				{
 					collectionIndexes: [],
 					collectionNames: ['opinion & analysis'],
 					sectionContentURL:
-						'http://api.nextgen.guardianapps.co.uk/world/lite.json',
+						'https://api.nextgen.guardianapps.co.uk/world/lite.json',
 				},
 				{
 					collectionIndexes: [],
 					collectionNames: ['explore'],
 					sectionContentURL:
-						'http://api.nextgen.guardianapps.co.uk/us/lite.json',
+						'https://api.nextgen.guardianapps.co.uk/us/lite.json',
 				},
 				{
 					collectionIndexes: [],
 					collectionNames: ['spotlight', 'you may have missed'],
 					sectionContentURL:
-						'http://api.nextgen.guardianapps.co.uk/us/commentisfree/lite.json',
+						'https://api.nextgen.guardianapps.co.uk/us/commentisfree/lite.json',
 				},
 			],
 			capiSources: [],
@@ -152,25 +152,25 @@ export const usConfig: PressReaderEditionConfig = {
 					collectionIndexes: [],
 					collectionNames: ['US business'],
 					sectionContentURL:
-						'http://api.nextgen.guardianapps.co.uk/us-news/lite.json',
+						'https://api.nextgen.guardianapps.co.uk/us-news/lite.json',
 				},
 				{
 					collectionIndexes: [],
 					collectionNames: ['business ', 'in depth'],
 					sectionContentURL:
-						'http://api.nextgen.guardianapps.co.uk/us/business/lite.json',
+						'https://api.nextgen.guardianapps.co.uk/us/business/lite.json',
 				},
 				{
 					collectionIndexes: [],
 					collectionNames: ['sustainable business', 'featured series '],
 					sectionContentURL:
-						'http://api.nextgen.guardianapps.co.uk/us/sustainable-business/lite.json',
+						'https://api.nextgen.guardianapps.co.uk/us/sustainable-business/lite.json',
 				},
 				{
 					collectionIndexes: [],
 					collectionNames: ['around the world'],
 					sectionContentURL:
-						'http://api.nextgen.guardianapps.co.uk/us/business/lite.json',
+						'https://api.nextgen.guardianapps.co.uk/us/business/lite.json',
 				},
 			],
 			capiSources: [],
@@ -192,19 +192,19 @@ export const usConfig: PressReaderEditionConfig = {
 					collectionIndexes: [],
 					collectionNames: ['arts', 'talking points', 'people'],
 					sectionContentURL:
-						'http://api.nextgen.guardianapps.co.uk/us/culture/lite.json',
+						'https://api.nextgen.guardianapps.co.uk/us/culture/lite.json',
 				},
 				{
 					collectionIndexes: [],
 					collectionNames: ['film', 'talking points', 'news'],
 					sectionContentURL:
-						'http://api.nextgen.guardianapps.co.uk/us/film/lite.json',
+						'https://api.nextgen.guardianapps.co.uk/us/film/lite.json',
 				},
 				{
 					collectionIndexes: [],
 					collectionNames: ['music', 'talking points', 'news'],
 					sectionContentURL:
-						'http://api.nextgen.guardianapps.co.uk/music/lite.json',
+						'https://api.nextgen.guardianapps.co.uk/music/lite.json',
 				},
 			],
 			capiSources: [],
@@ -223,7 +223,7 @@ export const usConfig: PressReaderEditionConfig = {
 						'the shows',
 					],
 					sectionContentURL:
-						'http://api.nextgen.guardianapps.co.uk/fashion/lite.json',
+						'https://api.nextgen.guardianapps.co.uk/fashion/lite.json',
 				},
 			],
 			capiSources: [],
@@ -243,7 +243,7 @@ export const usConfig: PressReaderEditionConfig = {
 						'energy',
 					],
 					sectionContentURL:
-						'http://api.nextgen.guardianapps.co.uk/us/environment/lite.json',
+						'https://api.nextgen.guardianapps.co.uk/us/environment/lite.json',
 				},
 			],
 			capiSources: [],
@@ -256,7 +256,7 @@ export const usConfig: PressReaderEditionConfig = {
 					collectionIndexes: [],
 					collectionNames: ['science', 'blog network', 'news', 'key issues'],
 					sectionContentURL:
-						'http://api.nextgen.guardianapps.co.uk/science/lite.json',
+						'https://api.nextgen.guardianapps.co.uk/science/lite.json',
 				},
 			],
 			capiSources: [
@@ -272,7 +272,7 @@ export const usConfig: PressReaderEditionConfig = {
 					collectionIndexes: [],
 					collectionNames: ['technology', 'in depth'],
 					sectionContentURL:
-						'http://api.nextgen.guardianapps.co.uk/us/technology/lite.json',
+						'https://api.nextgen.guardianapps.co.uk/us/technology/lite.json',
 				},
 			],
 			capiSources: [],
@@ -285,25 +285,25 @@ export const usConfig: PressReaderEditionConfig = {
 					collectionIndexes: [],
 					collectionNames: ['US sports'],
 					sectionContentURL:
-						'http://api.nextgen.guardianapps.co.uk/us-news/lite.json',
+						'https://api.nextgen.guardianapps.co.uk/us-news/lite.json',
 				},
 				{
 					collectionIndexes: [],
 					collectionNames: ['across the country', 'sports'],
 					sectionContentURL:
-						'http://api.nextgen.guardianapps.co.uk/us/sport/lite.json',
+						'https://api.nextgen.guardianapps.co.uk/us/sport/lite.json',
 				},
 				{
 					collectionIndexes: [],
 					collectionNames: ['sports'],
 					sectionContentURL:
-						'http://api.nextgen.guardianapps.co.uk/us/lite.json',
+						'https://api.nextgen.guardianapps.co.uk/us/lite.json',
 				},
 				{
 					collectionIndexes: [],
 					collectionNames: ['around the world'],
 					sectionContentURL:
-						'http://api.nextgen.guardianapps.co.uk/us/sport/lite.json',
+						'https://api.nextgen.guardianapps.co.uk/us/sport/lite.json',
 				},
 			],
 			capiSources: [
@@ -321,7 +321,7 @@ export const usConfig: PressReaderEditionConfig = {
 					collectionIndexes: [],
 					collectionNames: ['football'],
 					sectionContentURL:
-						'http://api.nextgen.guardianapps.co.uk/football/lite.json',
+						'https://api.nextgen.guardianapps.co.uk/football/lite.json',
 				},
 			],
 			capiSources: ['search?tag=football%2Fmls&order-by=newest'],
