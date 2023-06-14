@@ -863,7 +863,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
         "AlarmDescription": "Triggers if there are errors from pressreader on TEST",
         "AlarmName": "pressreader-AUS-TEST-ErrorAlarm",
         "ComparisonOperator": "GreaterThanThreshold",
-        "EvaluationPeriods": 120,
+        "EvaluationPeriods": 1,
         "Metrics": [
           {
             "Expression": "100*m1/m2",
@@ -1244,7 +1244,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
         "AlarmDescription": "Triggers if there are errors from pressreader on TEST",
         "AlarmName": "pressreader-AUS-old-TEST-ErrorAlarm",
         "ComparisonOperator": "GreaterThanThreshold",
-        "EvaluationPeriods": 120,
+        "EvaluationPeriods": 1,
         "Metrics": [
           {
             "Expression": "100*m1/m2",
@@ -1699,7 +1699,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
         "AlarmDescription": "Triggers if there are errors from pressreader on TEST",
         "AlarmName": "pressreader-US-TEST-ErrorAlarm",
         "ComparisonOperator": "GreaterThanThreshold",
-        "EvaluationPeriods": 120,
+        "EvaluationPeriods": 1,
         "Metrics": [
           {
             "Expression": "100*m1/m2",
@@ -1970,7 +1970,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
         "AlarmDescription": "Triggers if there are errors from pressreader on TEST",
         "AlarmName": "pressreader-US-old-TEST-ErrorAlarm",
         "ComparisonOperator": "GreaterThanThreshold",
-        "EvaluationPeriods": 120,
+        "EvaluationPeriods": 1,
         "Metrics": [
           {
             "Expression": "100*m1/m2",
