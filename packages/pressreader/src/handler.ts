@@ -7,9 +7,7 @@ import { getCapiToken, putDataToS3 } from './util';
 export const main = async () => {
 	console.log('Lambda handler called, processing request');
 
-	// TODO: Remove this log when consumed
 	const capiToken = await getCapiToken();
-	console.log(`Got capiToken (length): ${capiToken.length}`);
 
 	if (!isEditionKey(editionKey)) {
 		throw new Error(`Edition key ${editionKey ?? 'undefined'} is not valid`);
@@ -17,7 +15,6 @@ export const main = async () => {
 
 	const editionConfig = editionConfigs[editionKey];
 
-	// TODO: Remove this log when consumed
 	console.log(`Got editionConfig: ${JSON.stringify(editionConfig)}`);
 
 	const processor = editionProcessor({

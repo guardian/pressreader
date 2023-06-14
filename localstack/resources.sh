@@ -6,7 +6,6 @@ awslocal secretsmanager delete-secret \
   --secret-id "/DEV/print-production/pressreader/capiToken" \
   --force-delete-without-recovery || true
 
-# Add a hmac secret
 awslocal secretsmanager create-secret \
   --name /DEV/print-production/pressreader/capiToken \
   --secret-string changeme 
