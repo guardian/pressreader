@@ -191,8 +191,8 @@ export class PressReader extends GuStack {
 				alarmDescription: `Triggers if there are errors from ${appName} on ${this.stage}`,
 				snsTopicName: alarmSnsTopic.topicName,
 				toleratedErrorPercentage: 1,
-				// Requires 2 failures in a row based on lambda scheduled to run once an hour
-				numberOfMinutesAboveThresholdBeforeAlarm: 120,
+				// Notify immediately if any failure occurs
+				numberOfMinutesAboveThresholdBeforeAlarm: 1,
 			};
 
 			const s3PutPolicyStatement = new PolicyStatement({
