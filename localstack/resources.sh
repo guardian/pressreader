@@ -3,11 +3,7 @@
 export AWS_DEFAULT_REGION=eu-west-1
 
 # Set CAPI_API_KEY from real AWS values
-CAPI_API_KEY=$(AWS_REGION=eu-west-1 AWS_PROFILE=printProd \
-  aws secretsmanager get-secret-value \
-  --secret-id /DEV/print-production/pressreader/capiToken \
-  --query "SecretString" \
-  --output text)
+CAPI_API_KEY=$(cat ~/.gu/pressreader/capiKey)
 
 awslocal secretsmanager delete-secret \
   --secret-id "/DEV/print-production/pressreader/capiToken" \

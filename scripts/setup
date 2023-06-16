@@ -4,6 +4,7 @@ set -e
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 ROOT_DIR=${DIR}/..
+GU_CONFIG_LOCATION=~/.gu/pressreader/
 
 setup_git_hook() {
   echo "Setting up pre-push hook"
@@ -41,6 +42,19 @@ check_node_version() {
   fi
 }
 
+create_gu_config() {
+  echo "Creating config in $GU_CONFIG_LOCATION"
+  mkdir -p $GU_CONFIG_LOCATION
+
+  CAPI_API_KEY=$(AWS_REGION=eu-west-1 AWS_PROFILE=printProd \
+    aws secretsmanager get-secret-value \
+    --secret-id /DEV/print-production/pressreader/capiToken \
+    --query "SecretString" \
+    --output text)
+
+  echo $CAPI_API_KEY > $GU_CONFIG_LOCATION/capiKey
+}
+
 install_node_deps() {
   echo "Installing node dependencies"
   npm i
@@ -49,5 +63,6 @@ install_node_deps() {
 setup_git_hook
 check_node_version
 install_node_deps
+create_gu_config
 
 echo "You're all set up!"
