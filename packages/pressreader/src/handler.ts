@@ -1,4 +1,4 @@
-import { isEditionKey } from 'packages/shared-types';
+import { isEditionKey } from '../../shared-types';
 import { editionKey } from './constants';
 import { editionConfigs } from './editionConfigs';
 import { editionProcessor } from './processEdition';
