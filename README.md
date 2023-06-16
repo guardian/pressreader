@@ -15,4 +15,8 @@ Further documentation is available in the [`/docs` folder](./docs/).
 - `docker-compose up` to start [localstack](https://localstack.cloud/)
 - `npm run dev -w pressreader`
 
+> **Note** 
+> 
+> The setup script will attempt to place a developer CAPI key into `./gu/pressreader`, which is used by default when running the lambda locally, it requires print-production Janus credentials to do so.
+
 _This is a project by the Newsroom Resilience team_
