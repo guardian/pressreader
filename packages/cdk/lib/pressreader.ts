@@ -1,4 +1,5 @@
 import { GuCertificate } from '@guardian/cdk/lib/constructs/acm';
+import { GuAlarm } from '@guardian/cdk/lib/constructs/cloudwatch/alarm';
 import type { GuStackProps } from '@guardian/cdk/lib/constructs/core';
 import { GuStack } from '@guardian/cdk/lib/constructs/core';
 import { GuCname } from '@guardian/cdk/lib/constructs/dns/';
@@ -8,6 +9,7 @@ import type { App } from 'aws-cdk-lib';
 import { Duration } from 'aws-cdk-lib';
 import type { DomainName } from 'aws-cdk-lib/aws-apigateway';
 import { AwsIntegration, RestApi } from 'aws-cdk-lib/aws-apigateway';
+import { Metric } from 'aws-cdk-lib/aws-cloudwatch';
 import { Schedule } from 'aws-cdk-lib/aws-events';
 import {
 	Effect,
@@ -158,10 +160,25 @@ export class PressReader extends GuStack {
 			description: 'The CAPI token used to retrieve content',
 		});
 
+		// metrics
+		const collectionLookupFailureMetric = new Metric({
+			namespace: 'AWS/Lambda',
+			metricName: 'CollectionLookupFailure',
+		});
+
 		// alarms
 		const alarmSnsTopic = new Topic(this, `${appName}-email-alarm-topic`);
 		const alertEmail = `newsroom.resilience+alerts@guardian.co.uk`;
 		alarmSnsTopic.addSubscription(new EmailSubscription(alertEmail));
+
+		new GuAlarm(this, 'CollectionLookupFailureAlarm', {
+			app: appName,
+			metric: collectionLookupFailureMetric,
+			threshold: 1,
+			evaluationPeriods: 1,
+			datapointsToAlarm: 1,
+			snsTopicName: alarmSnsTopic.topicName,
+		});
 
 		// scheduled lambda
 		const capiSecretGetPolicyStatement = new PolicyStatement({
@@ -222,6 +239,7 @@ export class PressReader extends GuStack {
 						BUCKET_NAME: lambdaBucket.bucketName,
 						CAPI_SECRET_LOCATION: capiSecret.secretName,
 						EDITION_KEY: config.editionKey,
+						FAILURE_METRIC_NAME: collectionLookupFailureMetric.metricName,
 						PREFIX_PATH: config.s3PrefixPath.join('/'),
 					},
 					fileName: `pressreader.zip`,
@@ -233,6 +251,8 @@ export class PressReader extends GuStack {
 
 			scheduledLambda.addToRolePolicy(capiSecretGetPolicyStatement);
 			scheduledLambda.addToRolePolicy(s3PutPolicyStatement);
+
+			Metric.grantPutMetricData(scheduledLambda);
 		});
 	}
 }
