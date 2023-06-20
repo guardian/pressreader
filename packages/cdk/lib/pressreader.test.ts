@@ -1,5 +1,6 @@
-import { App } from 'aws-cdk-lib';
+import { App, Duration } from 'aws-cdk-lib';
 import { Template } from 'aws-cdk-lib/assertions';
+import { Schedule } from 'aws-cdk-lib/aws-events';
 import { PressReader } from './pressreader';
 
 describe('The PressReader stack', () => {
@@ -22,6 +23,7 @@ describe('The PressReader stack', () => {
 					bucketName: 'press-reader-us-configs',
 				},
 			],
+			schedule: Schedule.rate(Duration.minutes(15)),
 		});
 		const template = Template.fromStack(stack);
 		expect(template.toJSON()).toMatchSnapshot();
