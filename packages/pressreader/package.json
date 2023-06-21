@@ -9,7 +9,7 @@
 		"@types/node": "18.13.0"
 	},
 	"scripts": {
-		"dev": "EDITION_KEY=US ts-node-dev src/handler.ts",
+		"dev": "EDITION_KEY=US PREFIX_PATH=us/data ts-node-dev src/handler.ts",
 		"typecheck": "tsc -noEmit",
 		"format": "prettier --write \"src/**/*.ts\"",
 		"build": "esbuild src/handler.ts --bundle --minify --outfile=dist/handler.js --external:aws-sdk --platform=node",
