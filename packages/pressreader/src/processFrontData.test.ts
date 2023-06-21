@@ -41,34 +41,85 @@ const pressedPage: PressedFrontPage = {
 	collections: [collection1, collection2],
 };
 
+function collectionMismatchAlarm() {
+	console.warn('collection mismatch alarm');
+}
+
 describe('processFrontData', () => {
 	it('should get stories from each of the matching collections', () => {
 		const frontConfigWithData = {
-			collectionIndexes: [0],
-			collectionNames: ['my container'],
 			sectionContentURL: 'sectionContentURL',
+			collectionIds: [
+				{
+					id: 'abc',
+					name: 'name',
+				},
+				{
+					id: 'def',
+					name: 'my container',
+				},
+			],
 			data: pressedPage,
 		};
-		expect(processFrontData(frontConfigWithData)).toEqual(['1', '2', '3']);
+		expect(
+			processFrontData(frontConfigWithData, collectionMismatchAlarm),
+		).toEqual(['1', '2', '3']);
 	});
 
-	it('should match a collection by name even if capitalisation differs', () => {
+	it('should match a collection by id even if capitalisation differs', () => {
 		const frontConfigWithData = {
-			collectionIndexes: [],
-			collectionNames: ['My Container'],
 			sectionContentURL: 'sectionContentURL',
 			data: pressedPage,
+			collectionIds: [
+				{
+					id: 'DEF',
+					name: 'my container',
+				},
+			],
 		};
-		expect(processFrontData(frontConfigWithData)).toEqual(['3']);
+		expect(
+			processFrontData(frontConfigWithData, collectionMismatchAlarm),
+		).toEqual(['3']);
 	});
 
 	it('should ignore unmatched collections', () => {
 		const frontConfigWithData = {
-			collectionIndexes: [],
-			collectionNames: ['not a match'],
 			sectionContentURL: 'sectionContentURL',
 			data: pressedPage,
+			collectionIds: [
+				{
+					id: 'non-existent-colection-id',
+					name: 'n/a',
+				},
+			],
 		};
-		expect(processFrontData(frontConfigWithData)).toEqual([]);
+		expect(
+			processFrontData(frontConfigWithData, collectionMismatchAlarm),
+		).toEqual([]);
+	});
+
+	it('should call the alarm function when a collection is not found', () => {
+		let alarmHasBeenCalled = false;
+
+		function alarmFunction() {
+			alarmHasBeenCalled = true;
+		}
+
+		const frontConfigWithData = {
+			sectionContentURL: 'sectionContentURL',
+			data: pressedPage,
+			collectionIds: [
+				{
+					id: 'def',
+					name: 'My Container',
+				},
+				{
+					id: 'non-existent-colection-id',
+					name: 'n/a',
+				},
+			],
+		};
+		processFrontData(frontConfigWithData, alarmFunction);
+		expect(alarmHasBeenCalled).toEqual(true);
 	});
 });
