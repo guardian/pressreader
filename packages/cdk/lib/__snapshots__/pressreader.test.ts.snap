@@ -903,7 +903,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
         "AlarmDescription": "Triggers if there are errors from pressreader on TEST",
         "AlarmName": "pressreader-AUS-TEST-ErrorAlarm",
         "ComparisonOperator": "GreaterThanThreshold",
-        "EvaluationPeriods": 1,
+        "EvaluationPeriods": 45,
         "Metrics": [
           {
             "Expression": "100*m1/m2",
@@ -1290,7 +1290,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
         "AlarmDescription": "Triggers if there are errors from pressreader on TEST",
         "AlarmName": "pressreader-AUS-old-TEST-ErrorAlarm",
         "ComparisonOperator": "GreaterThanThreshold",
-        "EvaluationPeriods": 1,
+        "EvaluationPeriods": 45,
         "Metrics": [
           {
             "Expression": "100*m1/m2",
@@ -1534,9 +1534,9 @@ exports[`The PressReader stack matches the snapshot 1`] = `
       },
       "Type": "AWS::IAM::Role",
     },
-    "pressreaderAUSoldpressreaderAUSoldrate1hour00BA33D45": {
+    "pressreaderAUSoldpressreaderAUSoldrate15minutes071CE71C7": {
       "Properties": {
-        "ScheduleExpression": "rate(1 hour)",
+        "ScheduleExpression": "rate(15 minutes)",
         "State": "ENABLED",
         "Targets": [
           {
@@ -1552,7 +1552,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
       },
       "Type": "AWS::Events::Rule",
     },
-    "pressreaderAUSoldpressreaderAUSoldrate1hour0AllowEventRulePressReaderpressreaderAUSoldCA113CF63CD0929A": {
+    "pressreaderAUSoldpressreaderAUSoldrate15minutes0AllowEventRulePressReaderpressreaderAUSoldCA113CF65F6E34CE": {
       "Properties": {
         "Action": "lambda:InvokeFunction",
         "FunctionName": {
@@ -1564,35 +1564,16 @@ exports[`The PressReader stack matches the snapshot 1`] = `
         "Principal": "events.amazonaws.com",
         "SourceArn": {
           "Fn::GetAtt": [
-            "pressreaderAUSoldpressreaderAUSoldrate1hour00BA33D45",
+            "pressreaderAUSoldpressreaderAUSoldrate15minutes071CE71C7",
             "Arn",
           ],
         },
       },
       "Type": "AWS::Lambda::Permission",
     },
-    "pressreaderAUSpressreaderAUSrate1hour0AllowEventRulePressReaderpressreaderAUSF42A35B90A948F31": {
+    "pressreaderAUSpressreaderAUSrate15minutes0951494C0": {
       "Properties": {
-        "Action": "lambda:InvokeFunction",
-        "FunctionName": {
-          "Fn::GetAtt": [
-            "pressreaderAUS6886FE30",
-            "Arn",
-          ],
-        },
-        "Principal": "events.amazonaws.com",
-        "SourceArn": {
-          "Fn::GetAtt": [
-            "pressreaderAUSpressreaderAUSrate1hour0FE217D2C",
-            "Arn",
-          ],
-        },
-      },
-      "Type": "AWS::Lambda::Permission",
-    },
-    "pressreaderAUSpressreaderAUSrate1hour0FE217D2C": {
-      "Properties": {
-        "ScheduleExpression": "rate(1 hour)",
+        "ScheduleExpression": "rate(15 minutes)",
         "State": "ENABLED",
         "Targets": [
           {
@@ -1607,6 +1588,25 @@ exports[`The PressReader stack matches the snapshot 1`] = `
         ],
       },
       "Type": "AWS::Events::Rule",
+    },
+    "pressreaderAUSpressreaderAUSrate15minutes0AllowEventRulePressReaderpressreaderAUSF42A35B99AA8A79D": {
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "pressreaderAUS6886FE30",
+            "Arn",
+          ],
+        },
+        "Principal": "events.amazonaws.com",
+        "SourceArn": {
+          "Fn::GetAtt": [
+            "pressreaderAUSpressreaderAUSrate15minutes0951494C0",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
     },
     "pressreaderUS45258E18": {
       "DependsOn": [
@@ -1751,7 +1751,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
         "AlarmDescription": "Triggers if there are errors from pressreader on TEST",
         "AlarmName": "pressreader-US-TEST-ErrorAlarm",
         "ComparisonOperator": "GreaterThanThreshold",
-        "EvaluationPeriods": 1,
+        "EvaluationPeriods": 45,
         "Metrics": [
           {
             "Expression": "100*m1/m2",
@@ -2027,7 +2027,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
         "AlarmDescription": "Triggers if there are errors from pressreader on TEST",
         "AlarmName": "pressreader-US-old-TEST-ErrorAlarm",
         "ComparisonOperator": "GreaterThanThreshold",
-        "EvaluationPeriods": 1,
+        "EvaluationPeriods": 45,
         "Metrics": [
           {
             "Expression": "100*m1/m2",
@@ -2382,9 +2382,9 @@ exports[`The PressReader stack matches the snapshot 1`] = `
       },
       "Type": "AWS::IAM::Policy",
     },
-    "pressreaderUSoldpressreaderUSoldrate1hour04CD2FA55": {
+    "pressreaderUSoldpressreaderUSoldrate15minutes079876FA8": {
       "Properties": {
-        "ScheduleExpression": "rate(1 hour)",
+        "ScheduleExpression": "rate(15 minutes)",
         "State": "ENABLED",
         "Targets": [
           {
@@ -2400,7 +2400,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
       },
       "Type": "AWS::Events::Rule",
     },
-    "pressreaderUSoldpressreaderUSoldrate1hour0AllowEventRulePressReaderpressreaderUSoldA7BBDD877B3212F7": {
+    "pressreaderUSoldpressreaderUSoldrate15minutes0AllowEventRulePressReaderpressreaderUSoldA7BBDD87A51ED820": {
       "Properties": {
         "Action": "lambda:InvokeFunction",
         "FunctionName": {
@@ -2412,35 +2412,16 @@ exports[`The PressReader stack matches the snapshot 1`] = `
         "Principal": "events.amazonaws.com",
         "SourceArn": {
           "Fn::GetAtt": [
-            "pressreaderUSoldpressreaderUSoldrate1hour04CD2FA55",
+            "pressreaderUSoldpressreaderUSoldrate15minutes079876FA8",
             "Arn",
           ],
         },
       },
       "Type": "AWS::Lambda::Permission",
     },
-    "pressreaderUSpressreaderUSrate1hour0AllowEventRulePressReaderpressreaderUS9932EDA5A4CFE4A7": {
+    "pressreaderUSpressreaderUSrate15minutes032600D47": {
       "Properties": {
-        "Action": "lambda:InvokeFunction",
-        "FunctionName": {
-          "Fn::GetAtt": [
-            "pressreaderUS45258E18",
-            "Arn",
-          ],
-        },
-        "Principal": "events.amazonaws.com",
-        "SourceArn": {
-          "Fn::GetAtt": [
-            "pressreaderUSpressreaderUSrate1hour0DCE77B96",
-            "Arn",
-          ],
-        },
-      },
-      "Type": "AWS::Lambda::Permission",
-    },
-    "pressreaderUSpressreaderUSrate1hour0DCE77B96": {
-      "Properties": {
-        "ScheduleExpression": "rate(1 hour)",
+        "ScheduleExpression": "rate(15 minutes)",
         "State": "ENABLED",
         "Targets": [
           {
@@ -2455,6 +2436,25 @@ exports[`The PressReader stack matches the snapshot 1`] = `
         ],
       },
       "Type": "AWS::Events::Rule",
+    },
+    "pressreaderUSpressreaderUSrate15minutes0AllowEventRulePressReaderpressreaderUS9932EDA53FB760F3": {
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "pressreaderUS45258E18",
+            "Arn",
+          ],
+        },
+        "Principal": "events.amazonaws.com",
+        "SourceArn": {
+          "Fn::GetAtt": [
+            "pressreaderUSpressreaderUSrate15minutes032600D47",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::Lambda::Permission",
     },
     "pressreaderemailalarmtopic5E019B49": {
       "Properties": {

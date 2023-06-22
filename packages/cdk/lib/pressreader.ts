@@ -209,7 +209,7 @@ export class PressReader extends GuStack {
 				snsTopicName: alarmSnsTopic.topicName,
 				toleratedErrorPercentage: 1,
 				// Notify immediately if any failure occurs
-				numberOfMinutesAboveThresholdBeforeAlarm: 1,
+				numberOfMinutesAboveThresholdBeforeAlarm: 45,
 			};
 
 			const s3PutPolicyStatement = new PolicyStatement({
@@ -244,7 +244,7 @@ export class PressReader extends GuStack {
 					},
 					fileName: `pressreader.zip`,
 					monitoringConfiguration,
-					rules: [{ schedule: Schedule.rate(Duration.hours(1)) }],
+					rules: [{ schedule: Schedule.rate(Duration.minutes(15)) }],
 					timeout: Duration.seconds(300),
 				},
 			);
