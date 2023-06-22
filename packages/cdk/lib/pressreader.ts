@@ -208,7 +208,7 @@ export class PressReader extends GuStack {
 				alarmDescription: `Triggers if there are errors from ${appName} on ${this.stage}`,
 				snsTopicName: alarmSnsTopic.topicName,
 				toleratedErrorPercentage: 1,
-				// Notify immediately if any failure occurs
+				// Notify if we see enough errors over this period
 				numberOfMinutesAboveThresholdBeforeAlarm: 45,
 			};
 
