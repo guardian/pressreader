@@ -22,6 +22,7 @@ import { Secret } from 'aws-cdk-lib/aws-secretsmanager';
 import { Topic } from 'aws-cdk-lib/aws-sns';
 import { EmailSubscription } from 'aws-cdk-lib/aws-sns-subscriptions';
 import type { EditionKey } from 'packages/shared-types';
+import { GuScheduledLambdaErrorPercentageAlarm } from './constructs/GuLambdaErrorPercentageAlarm';
 
 export interface PressReaderProps extends GuStackProps {
 	lambdaConfigs: Array<{
@@ -202,16 +203,6 @@ export class PressReader extends GuStack {
 							config.bucketName,
 					  );
 
-			// monitoring config
-			const monitoringConfiguration = {
-				alarmName: `${appName}-${lambdaSuffix}-${this.stage}-ErrorAlarm`,
-				alarmDescription: `Triggers if there are errors from ${appName} on ${this.stage}`,
-				snsTopicName: alarmSnsTopic.topicName,
-				toleratedErrorPercentage: 1,
-				// Notify if we see enough errors over this period
-				numberOfMinutesAboveThresholdBeforeAlarm: 45,
-			};
-
 			const s3PutPolicyStatement = new PolicyStatement({
 				effect: Effect.ALLOW,
 				actions: ['s3:PutObject'],
@@ -243,7 +234,8 @@ export class PressReader extends GuStack {
 						PREFIX_PATH: config.s3PrefixPath.join('/'),
 					},
 					fileName: `pressreader.zip`,
-					monitoringConfiguration,
+					// Do our own monitoring here (see below)
+					monitoringConfiguration: { noMonitoring: true },
 					rules: [{ schedule: Schedule.rate(Duration.minutes(15)) }],
 					timeout: Duration.seconds(300),
 				},
@@ -253,6 +245,21 @@ export class PressReader extends GuStack {
 			scheduledLambda.addToRolePolicy(s3PutPolicyStatement);
 
 			Metric.grantPutMetricData(scheduledLambda);
+
+			// Custom monitoring to allow for longer evaluation periods
+			new GuScheduledLambdaErrorPercentageAlarm(
+				this,
+				`${appName}-${lambdaSuffix}-${this.stage}-ScheduledLambdaErrorAlarm`,
+				{
+					alarmName: `${appName}-${lambdaSuffix}-${this.stage}-ScheduledLambdaErrorAlarm`,
+					alarmDescription: `Triggers if there are errors from ${appName} on ${this.stage}`,
+					snsTopicName: alarmSnsTopic.topicName,
+					toleratedErrorPercentage: 1,
+					lambda: scheduledLambda,
+					lengthOfEvaluationPeriod: Duration.minutes(15),
+					numberOfEvaluationPeriodsAboveThresholdBeforeAlarm: 2,
+				},
+			);
 		});
 	}
 }
