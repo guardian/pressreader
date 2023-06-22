@@ -770,11 +770,11 @@ exports[`The PressReader stack matches the snapshot 1`] = `
           "S3Bucket": {
             "Ref": "DistributionBucketName",
           },
-          "S3Key": "print-production/TEST/pressreader-TEST-AUS/pressreader.zip",
+          "S3Key": "print-production/TEST/pressreader-AUS/pressreader.zip",
         },
         "Environment": {
           "Variables": {
-            "APP": "pressreader-TEST-AUS",
+            "APP": "pressreader-AUS",
             "BUCKET_NAME": {
               "Ref": "PressreaderDataBucketPressreader48E10950",
             },
@@ -850,7 +850,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
         "Tags": [
           {
             "Key": "App",
-            "Value": "pressreader-TEST-AUS",
+            "Value": "pressreader-AUS",
           },
           {
             "Key": "gu:cdk:version",
@@ -997,7 +997,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
         "Tags": [
           {
             "Key": "App",
-            "Value": "pressreader-TEST-AUS",
+            "Value": "pressreader-AUS",
           },
           {
             "Key": "gu:cdk:version",
@@ -1058,7 +1058,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
                       {
                         "Ref": "DistributionBucketName",
                       },
-                      "/print-production/TEST/pressreader-TEST-AUS/pressreader.zip",
+                      "/print-production/TEST/pressreader-AUS/pressreader.zip",
                     ],
                   ],
                 },
@@ -1079,7 +1079,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
                     {
                       "Ref": "AWS::AccountId",
                     },
-                    ":parameter/TEST/print-production/pressreader-TEST-AUS",
+                    ":parameter/TEST/print-production/pressreader-AUS",
                   ],
                 ],
               },
@@ -1102,7 +1102,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
                     {
                       "Ref": "AWS::AccountId",
                     },
-                    ":parameter/TEST/print-production/pressreader-TEST-AUS/*",
+                    ":parameter/TEST/print-production/pressreader-AUS/*",
                   ],
                 ],
               },
@@ -1159,11 +1159,11 @@ exports[`The PressReader stack matches the snapshot 1`] = `
           "S3Bucket": {
             "Ref": "DistributionBucketName",
           },
-          "S3Key": "print-production/TEST/pressreader-TEST-AUS-old/pressreader.zip",
+          "S3Key": "print-production/TEST/pressreader-AUS-old/pressreader.zip",
         },
         "Environment": {
           "Variables": {
-            "APP": "pressreader-TEST-AUS-old",
+            "APP": "pressreader-AUS-old",
             "BUCKET_NAME": "press-reader-aus-configs",
             "CAPI_SECRET_LOCATION": {
               "Fn::Join": [
@@ -1237,7 +1237,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
         "Tags": [
           {
             "Key": "App",
-            "Value": "pressreader-TEST-AUS-old",
+            "Value": "pressreader-AUS-old",
           },
           {
             "Key": "gu:cdk:version",
@@ -1384,7 +1384,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
         "Tags": [
           {
             "Key": "App",
-            "Value": "pressreader-TEST-AUS-old",
+            "Value": "pressreader-AUS-old",
           },
           {
             "Key": "gu:cdk:version",
@@ -1445,7 +1445,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
                       {
                         "Ref": "DistributionBucketName",
                       },
-                      "/print-production/TEST/pressreader-TEST-AUS-old/pressreader.zip",
+                      "/print-production/TEST/pressreader-AUS-old/pressreader.zip",
                     ],
                   ],
                 },
@@ -1466,7 +1466,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
                     {
                       "Ref": "AWS::AccountId",
                     },
-                    ":parameter/TEST/print-production/pressreader-TEST-AUS-old",
+                    ":parameter/TEST/print-production/pressreader-AUS-old",
                   ],
                 ],
               },
@@ -1489,7 +1489,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
                     {
                       "Ref": "AWS::AccountId",
                     },
-                    ":parameter/TEST/print-production/pressreader-TEST-AUS-old/*",
+                    ":parameter/TEST/print-production/pressreader-AUS-old/*",
                   ],
                 ],
               },
@@ -1618,11 +1618,11 @@ exports[`The PressReader stack matches the snapshot 1`] = `
           "S3Bucket": {
             "Ref": "DistributionBucketName",
           },
-          "S3Key": "print-production/TEST/pressreader-TEST-US/pressreader.zip",
+          "S3Key": "print-production/TEST/pressreader-US/pressreader.zip",
         },
         "Environment": {
           "Variables": {
-            "APP": "pressreader-TEST-US",
+            "APP": "pressreader-US",
             "BUCKET_NAME": {
               "Ref": "PressreaderDataBucketPressreader48E10950",
             },
@@ -1698,7 +1698,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
         "Tags": [
           {
             "Key": "App",
-            "Value": "pressreader-TEST-US",
+            "Value": "pressreader-US",
           },
           {
             "Key": "gu:cdk:version",
@@ -1845,7 +1845,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
         "Tags": [
           {
             "Key": "App",
-            "Value": "pressreader-TEST-US",
+            "Value": "pressreader-US",
           },
           {
             "Key": "gu:cdk:version",
@@ -1906,7 +1906,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
                       {
                         "Ref": "DistributionBucketName",
                       },
-                      "/print-production/TEST/pressreader-TEST-US/pressreader.zip",
+                      "/print-production/TEST/pressreader-US/pressreader.zip",
                     ],
                   ],
                 },
@@ -1927,7 +1927,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
                     {
                       "Ref": "AWS::AccountId",
                     },
-                    ":parameter/TEST/print-production/pressreader-TEST-US",
+                    ":parameter/TEST/print-production/pressreader-US",
                   ],
                 ],
               },
@@ -1950,7 +1950,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
                     {
                       "Ref": "AWS::AccountId",
                     },
-                    ":parameter/TEST/print-production/pressreader-TEST-US/*",
+                    ":parameter/TEST/print-production/pressreader-US/*",
                   ],
                 ],
               },
@@ -2007,11 +2007,11 @@ exports[`The PressReader stack matches the snapshot 1`] = `
           "S3Bucket": {
             "Ref": "DistributionBucketName",
           },
-          "S3Key": "print-production/TEST/pressreader-TEST-US-old/pressreader.zip",
+          "S3Key": "print-production/TEST/pressreader-US-old/pressreader.zip",
         },
         "Environment": {
           "Variables": {
-            "APP": "pressreader-TEST-US-old",
+            "APP": "pressreader-US-old",
             "BUCKET_NAME": "press-reader-us-configs",
             "CAPI_SECRET_LOCATION": {
               "Fn::Join": [
@@ -2085,7 +2085,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
         "Tags": [
           {
             "Key": "App",
-            "Value": "pressreader-TEST-US-old",
+            "Value": "pressreader-US-old",
           },
           {
             "Key": "gu:cdk:version",
@@ -2232,7 +2232,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
         "Tags": [
           {
             "Key": "App",
-            "Value": "pressreader-TEST-US-old",
+            "Value": "pressreader-US-old",
           },
           {
             "Key": "gu:cdk:version",
@@ -2293,7 +2293,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
                       {
                         "Ref": "DistributionBucketName",
                       },
-                      "/print-production/TEST/pressreader-TEST-US-old/pressreader.zip",
+                      "/print-production/TEST/pressreader-US-old/pressreader.zip",
                     ],
                   ],
                 },
@@ -2314,7 +2314,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
                     {
                       "Ref": "AWS::AccountId",
                     },
-                    ":parameter/TEST/print-production/pressreader-TEST-US-old",
+                    ":parameter/TEST/print-production/pressreader-US-old",
                   ],
                 ],
               },
@@ -2337,7 +2337,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
                     {
                       "Ref": "AWS::AccountId",
                     },
-                    ":parameter/TEST/print-production/pressreader-TEST-US-old/*",
+                    ":parameter/TEST/print-production/pressreader-US-old/*",
                   ],
                 ],
               },
