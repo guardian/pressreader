@@ -10,7 +10,7 @@ import { Duration } from 'aws-cdk-lib';
 import type { DomainName } from 'aws-cdk-lib/aws-apigateway';
 import { AwsIntegration, RestApi } from 'aws-cdk-lib/aws-apigateway';
 import { Metric } from 'aws-cdk-lib/aws-cloudwatch';
-import type { Schedule } from 'aws-cdk-lib/aws-events';
+import { Schedule } from 'aws-cdk-lib/aws-events';
 import {
 	Effect,
 	PolicyStatement,
@@ -29,7 +29,6 @@ export interface PressReaderProps extends GuStackProps {
 		editionKey: EditionKey;
 		s3PrefixPath: string[];
 	}>;
-	schedule: Schedule;
 }
 
 export class PressReader extends GuStack {
@@ -223,7 +222,7 @@ export class PressReader extends GuStack {
 
 			const scheduledLambda = new GuScheduledLambda(
 				this,
-				`${appName}-${this.stage}-${lambdaSuffix}`,
+				`${appName}-${lambdaSuffix}`,
 				{
 					// The riff-raff.yaml auto-generation incorporated
 					// by using GuRootExperimental, and outputting to
@@ -245,7 +244,7 @@ export class PressReader extends GuStack {
 					},
 					fileName: `pressreader.zip`,
 					monitoringConfiguration,
-					rules: [{ schedule: props.schedule }],
+					rules: [{ schedule: Schedule.rate(Duration.minutes(15)) }],
 					timeout: Duration.seconds(300),
 				},
 			);
