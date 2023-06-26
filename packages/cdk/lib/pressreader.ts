@@ -68,7 +68,7 @@ export class PressReader extends GuStack {
 
 		const executeRole = new Role(this, 'ApiGatewayS3AssumeRole', {
 			assumedBy: new ServicePrincipal('apigateway.amazonaws.com'),
-			roleName: 'APIGatewayS3IntegrationRole',
+			roleName: `APIGatewayS3IntegrationRole${this.stage}`,
 		});
 
 		lambdasUsingDataBucket.forEach((lambdaConfig) => {
