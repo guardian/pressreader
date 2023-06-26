@@ -24,6 +24,7 @@ describe('The PressReader stack', () => {
 				},
 			],
 			schedule: Schedule.rate(Duration.minutes(15)),
+			domainName: 'pressreader.test.dev-gutools.co.uk',
 		});
 		const template = Template.fromStack(stack);
 		expect(template.toJSON()).toMatchSnapshot();

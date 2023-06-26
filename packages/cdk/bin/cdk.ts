@@ -32,6 +32,7 @@ new PressReader(app, 'PressReader-INFRA', {
 		},
 	],
 	schedule: Schedule.rate(Duration.minutes(15)),
+	domainName: 'pressreader.gutools.co.uk',
 });
 
 new PressReader(app, 'PressReader-CODE', {
@@ -50,4 +51,5 @@ new PressReader(app, 'PressReader-CODE', {
 		},
 	],
 	schedule: Schedule.rate(Duration.days(1)),
+	domainName: 'pressreader.code.dev-gutools.co.uk',
 });

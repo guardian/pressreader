@@ -175,7 +175,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
     "CertificatePressreader5EF99BC2": {
       "DeletionPolicy": "Retain",
       "Properties": {
-        "DomainName": "pressreader.gutools.co.uk",
+        "DomainName": "pressreader.test.dev-gutools.co.uk",
         "Tags": [
           {
             "Key": "App",
@@ -434,7 +434,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
     },
     "PressReaderAPICustomDomain01A52E88": {
       "Properties": {
-        "DomainName": "pressreader.gutools.co.uk",
+        "DomainName": "pressreader.test.dev-gutools.co.uk",
         "EndpointConfiguration": {
           "Types": [
             "REGIONAL",
@@ -745,7 +745,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
     },
     "cname": {
       "Properties": {
-        "Name": "pressreader.gutools.co.uk",
+        "Name": "pressreader.test.dev-gutools.co.uk",
         "RecordType": "CNAME",
         "ResourceRecords": [
           {

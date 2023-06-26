@@ -31,13 +31,14 @@ export interface PressReaderProps extends GuStackProps {
 		s3PrefixPath: string[];
 	}>;
 	schedule: Schedule;
+	domainName: string;
 }
 
 export class PressReader extends GuStack {
 	constructor(scope: App, id: string, props: PressReaderProps) {
 		super(scope, id, props);
 		const appName = 'pressreader';
-		const domainName = 'pressreader.gutools.co.uk';
+		const domainName = props.domainName;
 
 		// S3 Bucket
 		const dataBucket = new GuS3Bucket(this, 'PressreaderDataBucket', {
@@ -52,7 +53,7 @@ export class PressReader extends GuStack {
 		// ACM Certificate
 		const certificate = new GuCertificate(this, {
 			app: appName,
-			domainName: domainName,
+			domainName,
 		});
 
 		// API Gateway
