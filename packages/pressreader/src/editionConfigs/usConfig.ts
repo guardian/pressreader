@@ -10,10 +10,6 @@ export const usConfig: PressReaderEditionConfig = {
 					sectionContentURL:
 						'https://api.nextgen.guardianapps.co.uk/us/lite.json',
 					collectionIds: [
-						{
-							id: '7c0f56e8-d4c4-408f-ba58-c29508c8cf5e',
-							name: 'Palette styles new do not delete',
-						},
 						{ id: 'c5cad9ee-584d-4e85-85cd-bf8ee481b026', name: 'Headlines' },
 					],
 				},
