@@ -49,6 +49,16 @@ new PressReader(app, 'PressReader-CODE', {
 			editionKey: 'US',
 			s3PrefixPath: ['data', 'US'],
 		},
+		{
+			editionKey: 'AUS',
+			s3PrefixPath: ['old-data', 'AUS'],
+			bucketName: 'gu-pressreader-data-code',
+		},
+		{
+			editionKey: 'US',
+			s3PrefixPath: ['old-data', 'US'],
+			bucketName: 'gu-pressreader-data-code',
+		},
 	],
 	schedule: Schedule.rate(Duration.days(1)),
 	domainName: 'pressreader.code.dev-gutools.co.uk',
