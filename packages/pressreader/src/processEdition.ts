@@ -21,6 +21,7 @@ interface FrontSourceWithData extends FrontSource {
 type Props = {
 	edition: PressReaderEditionConfig;
 	capiConfig: CapiConfig;
+	collectionMismatchAlarm: () => void;
 };
 
 type CapiConfig = {
@@ -28,7 +29,11 @@ type CapiConfig = {
 	capiKey: string;
 };
 
-export function editionProcessor({ edition, capiConfig }: Props) {
+export function editionProcessor({
+	edition,
+	capiConfig,
+	collectionMismatchAlarm,
+}: Props) {
 	const MIN_WORDCOUNT = 200;
 
 	return { run };
@@ -36,9 +41,13 @@ export function editionProcessor({ edition, capiConfig }: Props) {
 	async function run() {
 		const sectionData = await Promise.all(
 			edition.sections.map(async (section) => {
-				const frontArticleIds = await getArticleIdsFromFronts(
-					section.frontSources,
+				const frontData = await Promise.all(
+					section.frontSources.map(fetchFrontData),
 				);
+				const frontArticleIds = frontData
+					.filter(isNotUndefined)
+					.flatMap((front) => processFrontData(front, collectionMismatchAlarm));
+
 				const capiArticleIds = await getArticleIdsFromCapi(
 					section.capiSources,
 					capiConfig,
@@ -214,13 +223,6 @@ async function fetchCapiSearchData(
 	return data.response.results.map((article) => article.id);
 }
 
-async function getArticleIdsFromFronts(
-	frontSources: FrontSource[],
-): Promise<string[]> {
-	const frontData = await Promise.all(frontSources.map(fetchFrontData));
-	return frontData.filter(isNotUndefined).flatMap(processFrontData);
-}
-
 async function fetchFrontData(
 	front: FrontSource,
 ): Promise<FrontSourceWithData | undefined> {
@@ -248,14 +250,30 @@ async function fetchFrontData(
 	};
 }
 
-export function processFrontData(front: FrontSourceWithData): string[] {
-	const collections = front.data.collections.filter((collection, index) => {
-		const targetNames = front.collectionNames.map((name) => name.toLowerCase());
-		return (
-			front.collectionIndexes.includes(index) ||
-			targetNames.includes(collection.displayName.toLowerCase())
-		);
-	});
+export function processFrontData(
+	front: FrontSourceWithData,
+	collectionMismatchAlarm: () => void,
+): string[] {
+	const collections = front.collectionIds
+		.map((targetCollection) => {
+			const targetId = targetCollection.id.trim().toLowerCase();
+			const targetName = targetCollection.name.trim().toLowerCase();
+			const maybeCollection = front.data.collections.find(
+				(collection) => collection.id.trim().toLowerCase() === targetId,
+			);
+			if (maybeCollection === undefined) {
+				console.error(`Collection not found: ${targetId}`);
+				collectionMismatchAlarm();
+			} else if (
+				maybeCollection.displayName.trim().toLowerCase() !== targetName
+			) {
+				console.warn(
+					`Collection name mismatch. Expected: ${targetName}. Found: ${maybeCollection.displayName}`,
+				);
+			}
+			return maybeCollection;
+		})
+		.filter(isNotUndefined);
 	const articles = collections.flatMap((collection) => {
 		return collection.content.map((article) => article.id);
 	});

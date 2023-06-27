@@ -23,21 +23,34 @@ export interface SectionConfig {
 	capiSources: string[];
 }
 
+export interface CollectionIdentifiers {
+	/**
+	 * The unique id of a collection as it occurs in the pressed front json.
+	 * Usually this is a 'UUID'-style string (e.g.
+	 * `"ffe273ef-8e3e-43eb-a96a-fa528e0f57d1/"`), but occasionally it will be a
+	 * more human readable string (e.g. `"uk-alpha")
+	 */
+	id: string;
+	/**
+	 Collection names are used to identify a collection in the pressed front
+	 page via its `displayName` property. This is used here for two purposes:
+
+	 1. To provide a more human readable way of identifying a collection.
+	 2. We know that a given collection can have its name changed without the id
+	    changing, so if there's a mismatch between the expected collection name
+	    and the actual collection name then this is a signal that we should
+	    review the config to make sure that the id still refers to an
+	    appropriate collection.
+
+	 */
+	name: string;
+}
+
 export interface FrontSource {
 	/**
-	 * The index of the collection as it occurs in the pressed front json.
-	 *
-	 * Notes:
-	 * - not all collections are displayed on the web version of the front page,
-	 *  so indexes should not be inferred from the position of a collection on the web
-	 * - collection indexes start at 0, rather than 1,
+	 * Ids of the collections from the front json that we want to extract articles from.
 	 */
-	collectionIndexes: number[];
-	/**
-	 * Collection names are used to identify a collection in the pressed front page
-	 * via its `displayName` property.
-	 */
-	collectionNames: string[];
+	collectionIds: CollectionIdentifiers[];
 	/**
 	 * Path to the 'lite' json version of a pressed front page.
 	 * @example `"http://api.nextgen.guardianapps.co.uk/science/lite.json"`

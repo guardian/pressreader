@@ -23,6 +23,7 @@ export const main = async () => {
 			capiKey: capiToken,
 			baseCapiUrl: 'https://content.guardianapis.com',
 		},
+		collectionMismatchAlarm: () => null,
 	});
 
 	const data = await processor.run();
