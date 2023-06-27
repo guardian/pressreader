@@ -28,10 +28,6 @@ export const ausConfig: PressReaderEditionConfig = {
 							id: 'ee319aab-a40c-4bc5-a40d-fa8f0b8f2b88',
 							name: 'Australia news',
 						},
-						{
-							id: 'ee319aab-a40c-4bc5-a40d-fa8f0b8f2b88',
-							name: 'Australia news',
-						},
 					],
 				},
 				{
