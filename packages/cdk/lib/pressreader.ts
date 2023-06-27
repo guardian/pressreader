@@ -10,7 +10,7 @@ import { Duration } from 'aws-cdk-lib';
 import type { DomainName } from 'aws-cdk-lib/aws-apigateway';
 import { AwsIntegration, RestApi } from 'aws-cdk-lib/aws-apigateway';
 import { Metric } from 'aws-cdk-lib/aws-cloudwatch';
-import { Schedule } from 'aws-cdk-lib/aws-events';
+import type { Schedule } from 'aws-cdk-lib/aws-events';
 import {
 	Effect,
 	PolicyStatement,
@@ -30,13 +30,15 @@ export interface PressReaderProps extends GuStackProps {
 		editionKey: EditionKey;
 		s3PrefixPath: string[];
 	}>;
+	schedule: Schedule;
+	domainName: string;
 }
 
 export class PressReader extends GuStack {
 	constructor(scope: App, id: string, props: PressReaderProps) {
 		super(scope, id, props);
 		const appName = 'pressreader';
-		const domainName = 'pressreader.gutools.co.uk';
+		const domainName = props.domainName;
 
 		// S3 Bucket
 		const dataBucket = new GuS3Bucket(this, 'PressreaderDataBucket', {
@@ -51,7 +53,7 @@ export class PressReader extends GuStack {
 		// ACM Certificate
 		const certificate = new GuCertificate(this, {
 			app: appName,
-			domainName: domainName,
+			domainName,
 		});
 
 		// API Gateway
@@ -66,7 +68,7 @@ export class PressReader extends GuStack {
 
 		const executeRole = new Role(this, 'ApiGatewayS3AssumeRole', {
 			assumedBy: new ServicePrincipal('apigateway.amazonaws.com'),
-			roleName: 'APIGatewayS3IntegrationRole',
+			roleName: `APIGatewayS3IntegrationRole${this.stage}`,
 		});
 
 		lambdasUsingDataBucket.forEach((lambdaConfig) => {
@@ -213,7 +215,7 @@ export class PressReader extends GuStack {
 
 			const scheduledLambda = new GuScheduledLambda(
 				this,
-				`${appName}-${lambdaSuffix}`,
+				`${appName}-${this.stage}-${lambdaSuffix}`,
 				{
 					// The riff-raff.yaml auto-generation incorporated
 					// by using GuRootExperimental, and outputting to
@@ -234,9 +236,10 @@ export class PressReader extends GuStack {
 						PREFIX_PATH: config.s3PrefixPath.join('/'),
 					},
 					fileName: `pressreader.zip`,
+
 					// Do our own monitoring here (see below)
 					monitoringConfiguration: { noMonitoring: true },
-					rules: [{ schedule: Schedule.rate(Duration.minutes(15)) }],
+					rules: [{ schedule: props.schedule }],
 					timeout: Duration.seconds(300),
 				},
 			);
