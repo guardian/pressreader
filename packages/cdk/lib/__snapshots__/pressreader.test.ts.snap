@@ -226,7 +226,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
                 ":",
                 {
                   "Fn::GetAtt": [
-                    "pressreaderemailalarmtopic5E019B49",
+                    "pressreaderTESTemailnotificationstopic55C74525",
                     "TopicName",
                   ],
                 },
@@ -237,7 +237,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
         "ComparisonOperator": "GreaterThanOrEqualToThreshold",
         "DatapointsToAlarm": 1,
         "EvaluationPeriods": 1,
-        "MetricName": "CollectionLookupFailure",
+        "MetricName": "CollectionLookupFailure-TEST",
         "Namespace": "AWS/Lambda",
         "Period": 300,
         "Statistic": "Average",
@@ -779,7 +779,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
                 ":",
                 {
                   "Fn::GetAtt": [
-                    "pressreaderemailalarmtopic5E019B49",
+                    "pressreaderTESTemailalarmtopicE3E05C64",
                     "TopicName",
                   ],
                 },
@@ -872,7 +872,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
                 ":",
                 {
                   "Fn::GetAtt": [
-                    "pressreaderemailalarmtopic5E019B49",
+                    "pressreaderTESTemailalarmtopicE3E05C64",
                     "TopicName",
                   ],
                 },
@@ -1018,7 +1018,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
               ],
             },
             "EDITION_KEY": "AUS",
-            "FAILURE_METRIC_NAME": "CollectionLookupFailure",
+            "FAILURE_METRIC_NAME": "CollectionLookupFailure-TEST",
             "PREFIX_PATH": "data/AUS",
             "STACK": "print-production",
             "STAGE": "TEST",
@@ -1312,7 +1312,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
               ],
             },
             "EDITION_KEY": "AUS",
-            "FAILURE_METRIC_NAME": "CollectionLookupFailure",
+            "FAILURE_METRIC_NAME": "CollectionLookupFailure-TEST",
             "PREFIX_PATH": "",
             "STACK": "print-production",
             "STAGE": "TEST",
@@ -1680,7 +1680,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
               ],
             },
             "EDITION_KEY": "US",
-            "FAILURE_METRIC_NAME": "CollectionLookupFailure",
+            "FAILURE_METRIC_NAME": "CollectionLookupFailure-TEST",
             "PREFIX_PATH": "data/US",
             "STACK": "print-production",
             "STAGE": "TEST",
@@ -1974,7 +1974,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
               ],
             },
             "EDITION_KEY": "US",
-            "FAILURE_METRIC_NAME": "CollectionLookupFailure",
+            "FAILURE_METRIC_NAME": "CollectionLookupFailure-TEST",
             "PREFIX_PATH": "",
             "STACK": "print-production",
             "STAGE": "TEST",
@@ -2270,6 +2270,72 @@ exports[`The PressReader stack matches the snapshot 1`] = `
       },
       "Type": "AWS::Lambda::Permission",
     },
+    "pressreaderTESTemailalarmtopicE3E05C64": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "gu:cdk:version",
+            "Value": "TEST",
+          },
+          {
+            "Key": "gu:repo",
+            "Value": "guardian/pressreader",
+          },
+          {
+            "Key": "Stack",
+            "Value": "print-production",
+          },
+          {
+            "Key": "Stage",
+            "Value": "TEST",
+          },
+        ],
+      },
+      "Type": "AWS::SNS::Topic",
+    },
+    "pressreaderTESTemailalarmtopicnewsroomresiliencealertsguardiancouk46957B5A": {
+      "Properties": {
+        "Endpoint": "newsroom.resilience+alerts@guardian.co.uk",
+        "Protocol": "email",
+        "TopicArn": {
+          "Ref": "pressreaderTESTemailalarmtopicE3E05C64",
+        },
+      },
+      "Type": "AWS::SNS::Subscription",
+    },
+    "pressreaderTESTemailnotificationstopic55C74525": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "gu:cdk:version",
+            "Value": "TEST",
+          },
+          {
+            "Key": "gu:repo",
+            "Value": "guardian/pressreader",
+          },
+          {
+            "Key": "Stack",
+            "Value": "print-production",
+          },
+          {
+            "Key": "Stage",
+            "Value": "TEST",
+          },
+        ],
+      },
+      "Type": "AWS::SNS::Topic",
+    },
+    "pressreaderTESTemailnotificationstopicnewsroomresiliencenotificationsguardiancouk2730C2EB": {
+      "Properties": {
+        "Endpoint": "newsroom.resilience+notifications@guardian.co.uk",
+        "Protocol": "email",
+        "TopicArn": {
+          "Ref": "pressreaderTESTemailnotificationstopic55C74525",
+        },
+      },
+      "Type": "AWS::SNS::Subscription",
+    },
     "pressreaderUSTESTScheduledLambdaErrorAlarm5159CCA4": {
       "Properties": {
         "ActionsEnabled": true,
@@ -2289,7 +2355,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
                 ":",
                 {
                   "Fn::GetAtt": [
-                    "pressreaderemailalarmtopic5E019B49",
+                    "pressreaderTESTemailalarmtopicE3E05C64",
                     "TopicName",
                   ],
                 },
@@ -2382,7 +2448,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
                 ":",
                 {
                   "Fn::GetAtt": [
-                    "pressreaderemailalarmtopic5E019B49",
+                    "pressreaderTESTemailalarmtopicE3E05C64",
                     "TopicName",
                   ],
                 },
@@ -2455,39 +2521,6 @@ exports[`The PressReader stack matches the snapshot 1`] = `
         "TreatMissingData": "notBreaching",
       },
       "Type": "AWS::CloudWatch::Alarm",
-    },
-    "pressreaderemailalarmtopic5E019B49": {
-      "Properties": {
-        "Tags": [
-          {
-            "Key": "gu:cdk:version",
-            "Value": "TEST",
-          },
-          {
-            "Key": "gu:repo",
-            "Value": "guardian/pressreader",
-          },
-          {
-            "Key": "Stack",
-            "Value": "print-production",
-          },
-          {
-            "Key": "Stage",
-            "Value": "TEST",
-          },
-        ],
-      },
-      "Type": "AWS::SNS::Topic",
-    },
-    "pressreaderemailalarmtopicnewsroomresiliencealertsguardiancoukC7FA91A6": {
-      "Properties": {
-        "Endpoint": "newsroom.resilience+alerts@guardian.co.uk",
-        "Protocol": "email",
-        "TopicArn": {
-          "Ref": "pressreaderemailalarmtopic5E019B49",
-        },
-      },
-      "Type": "AWS::SNS::Subscription",
     },
   },
 }
