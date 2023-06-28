@@ -1,4 +1,5 @@
 import { isEditionKey } from '../../shared-types';
+import { sendCollectionMismatchMetric } from './aws';
 import { editionKey } from './constants';
 import { editionConfigs } from './editionConfigs';
 import { editionProcessor } from './processEdition';
@@ -23,7 +24,7 @@ export const main = async () => {
 			capiKey: capiToken,
 			baseCapiUrl: 'https://content.guardianapis.com',
 		},
-		collectionMismatchAlarm: () => null,
+		collectionMismatchAlarm: sendCollectionMismatchMetric,
 	});
 
 	const data = await processor.run();
