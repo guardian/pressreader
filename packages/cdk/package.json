@@ -9,10 +9,10 @@
     "synth": "cdk synth --path-metadata false --version-reporting false"
   },
   "devDependencies": {
-    "@guardian/cdk": "50.3.3",
-    "aws-cdk": "2.77.0",
-    "aws-cdk-lib": "2.77.0",
-    "constructs": "10.2.8",
+    "@guardian/cdk": "guardian/cdk#rk/vary-evaluation-period-lambda-alarm",
+    "aws-cdk": "2.78.0",
+    "aws-cdk-lib": "2.78.0",
+    "constructs": "10.2.18",
     "source-map-support": "^0.5.21"
   }
 }

@@ -1,5 +1,6 @@
 import { GuCertificate } from '@guardian/cdk/lib/constructs/acm';
 import { GuAlarm } from '@guardian/cdk/lib/constructs/cloudwatch/alarm';
+import { GuLambdaErrorPercentageAlarm } from '@guardian/cdk/lib/constructs/cloudwatch/lambda-alarms';
 import type { GuStackProps } from '@guardian/cdk/lib/constructs/core';
 import { GuStack } from '@guardian/cdk/lib/constructs/core';
 import { GuCname } from '@guardian/cdk/lib/constructs/dns/';
@@ -22,7 +23,6 @@ import { Secret } from 'aws-cdk-lib/aws-secretsmanager';
 import { Topic } from 'aws-cdk-lib/aws-sns';
 import { EmailSubscription } from 'aws-cdk-lib/aws-sns-subscriptions';
 import type { EditionKey } from 'packages/shared-types';
-import { GuScheduledLambdaErrorPercentageAlarm } from './constructs/GuLambdaErrorPercentageAlarm';
 
 export interface PressReaderProps extends GuStackProps {
 	lambdaConfigs: Array<{
@@ -262,7 +262,7 @@ export class PressReader extends GuStack {
 			Metric.grantPutMetricData(scheduledLambda);
 
 			// Custom monitoring to allow for longer evaluation periods
-			new GuScheduledLambdaErrorPercentageAlarm(
+			new GuLambdaErrorPercentageAlarm(
 				this,
 				`${appName}-${lambdaSuffix}-${this.stage}-ScheduledLambdaErrorAlarm`,
 				{
