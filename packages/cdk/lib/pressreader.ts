@@ -166,22 +166,34 @@ export class PressReader extends GuStack {
 		// metrics
 		const collectionLookupFailureMetric = new Metric({
 			namespace: 'AWS/Lambda',
-			metricName: 'CollectionLookupFailure',
+			metricName: `CollectionLookupFailure-${this.stage}`,
 		});
 
-		// alarms
-		const alarmSnsTopic = new Topic(this, `${appName}-email-alarm-topic`);
-		const alertEmail = `newsroom.resilience+alerts@guardian.co.uk`;
-		alarmSnsTopic.addSubscription(new EmailSubscription(alertEmail));
-
+		// non-critical alarms
+		const notificationsSnsTopic = new Topic(
+			this,
+			`${appName}-${this.stage}-email-notifications-topic`,
+		);
+		const notificationsEmail = `newsroom.resilience+notifications@guardian.co.uk`;
+		notificationsSnsTopic.addSubscription(
+			new EmailSubscription(notificationsEmail),
+		);
 		new GuAlarm(this, 'CollectionLookupFailureAlarm', {
 			app: appName,
 			metric: collectionLookupFailureMetric,
 			threshold: 1,
 			evaluationPeriods: 1,
 			datapointsToAlarm: 1,
-			snsTopicName: alarmSnsTopic.topicName,
+			snsTopicName: notificationsSnsTopic.topicName,
 		});
+
+		// alarms
+		const alarmSnsTopic = new Topic(
+			this,
+			`${appName}-${this.stage}-email-alarm-topic`,
+		);
+		const alertEmail = `newsroom.resilience+alerts@guardian.co.uk`;
+		alarmSnsTopic.addSubscription(new EmailSubscription(alertEmail));
 
 		// scheduled lambda
 		const capiSecretGetPolicyStatement = new PolicyStatement({
