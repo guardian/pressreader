@@ -15,6 +15,15 @@ export const ausConfig: PressReaderEditionConfig = {
 							lookupType: 'id',
 							name: 'Headlines',
 						},
+						{
+							lookupType: 'index',
+							/**
+							 * aiming to target the first actual collection on the page, below the hidden
+							 * 'palette styles' collection.  This will often be the same as 'Headlines', but
+							 * headlines might be pushed down if there's a special event.
+							 * */
+							index: 1,
+						},
 					],
 				},
 			],
