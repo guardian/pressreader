@@ -18,7 +18,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
       "GuScheduledLambda",
       "GuLambdaErrorPercentageAlarm",
     ],
-    "gu:cdk:version": "0.0.0",
+    "gu:cdk:version": "50.8.2",
   },
   "Outputs": {
     "PressReaderAPIEndpointC91EED74": {
@@ -74,7 +74,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
         "Tags": [
           {
             "Key": "gu:cdk:version",
-            "Value": "0.0.0",
+            "Value": "50.8.2",
           },
           {
             "Key": "gu:repo",
@@ -153,7 +153,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
         "Tags": [
           {
             "Key": "gu:cdk:version",
-            "Value": "0.0.0",
+            "Value": "50.8.2",
           },
           {
             "Key": "gu:repo",
@@ -183,7 +183,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
           },
           {
             "Key": "gu:cdk:version",
-            "Value": "0.0.0",
+            "Value": "50.8.2",
           },
           {
             "Key": "gu:repo",
@@ -252,7 +252,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
         "Tags": [
           {
             "Key": "gu:cdk:version",
-            "Value": "0.0.0",
+            "Value": "50.8.2",
           },
           {
             "Key": "gu:repo",
@@ -413,7 +413,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
         "Tags": [
           {
             "Key": "gu:cdk:version",
-            "Value": "0.0.0",
+            "Value": "50.8.2",
           },
           {
             "Key": "gu:repo",
@@ -446,7 +446,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
         "Tags": [
           {
             "Key": "gu:cdk:version",
-            "Value": "0.0.0",
+            "Value": "50.8.2",
           },
           {
             "Key": "gu:repo",
@@ -478,7 +478,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
       },
       "Type": "AWS::ApiGateway::BasePathMapping",
     },
-    "PressReaderAPIDeployment763726790f6b23f2feb3cf3925555638168a0f1b": {
+    "PressReaderAPIDeployment76372679f7b23a4623db5ed41c4fb97f26412ed2": {
       "DependsOn": [
         "PressReaderAPIAUSkeyGET6D653F26",
         "PressReaderAPIAUSkeyA35B3B3C",
@@ -501,7 +501,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
       ],
       "Properties": {
         "DeploymentId": {
-          "Ref": "PressReaderAPIDeployment763726790f6b23f2feb3cf3925555638168a0f1b",
+          "Ref": "PressReaderAPIDeployment76372679f7b23a4623db5ed41c4fb97f26412ed2",
         },
         "RestApiId": {
           "Ref": "PressReaderAPI27D6A559",
@@ -510,7 +510,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
         "Tags": [
           {
             "Key": "gu:cdk:version",
-            "Value": "0.0.0",
+            "Value": "50.8.2",
           },
           {
             "Key": "gu:repo",
@@ -544,7 +544,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
         "Tags": [
           {
             "Key": "gu:cdk:version",
-            "Value": "0.0.0",
+            "Value": "50.8.2",
           },
           {
             "Key": "gu:repo",
@@ -594,7 +594,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
         "Tags": [
           {
             "Key": "gu:cdk:version",
-            "Value": "0.0.0",
+            "Value": "50.8.2",
           },
           {
             "Key": "gu:repo",
@@ -724,7 +724,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
           },
           {
             "Key": "gu:cdk:version",
-            "Value": "0.0.0",
+            "Value": "50.8.2",
           },
           {
             "Key": "gu:repo",
@@ -1040,7 +1040,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
           },
           {
             "Key": "gu:cdk:version",
-            "Value": "0.0.0",
+            "Value": "50.8.2",
           },
           {
             "Key": "gu:repo",
@@ -1094,7 +1094,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
           },
           {
             "Key": "gu:cdk:version",
-            "Value": "0.0.0",
+            "Value": "50.8.2",
           },
           {
             "Key": "gu:repo",
@@ -1334,7 +1334,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
           },
           {
             "Key": "gu:cdk:version",
-            "Value": "0.0.0",
+            "Value": "50.8.2",
           },
           {
             "Key": "gu:repo",
@@ -1388,7 +1388,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
           },
           {
             "Key": "gu:cdk:version",
-            "Value": "0.0.0",
+            "Value": "50.8.2",
           },
           {
             "Key": "gu:repo",
@@ -1702,7 +1702,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
           },
           {
             "Key": "gu:cdk:version",
-            "Value": "0.0.0",
+            "Value": "50.8.2",
           },
           {
             "Key": "gu:repo",
@@ -1756,7 +1756,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
           },
           {
             "Key": "gu:cdk:version",
-            "Value": "0.0.0",
+            "Value": "50.8.2",
           },
           {
             "Key": "gu:repo",
@@ -1996,7 +1996,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
           },
           {
             "Key": "gu:cdk:version",
-            "Value": "0.0.0",
+            "Value": "50.8.2",
           },
           {
             "Key": "gu:repo",
@@ -2050,7 +2050,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
           },
           {
             "Key": "gu:cdk:version",
-            "Value": "0.0.0",
+            "Value": "50.8.2",
           },
           {
             "Key": "gu:repo",
@@ -2275,7 +2275,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
         "Tags": [
           {
             "Key": "gu:cdk:version",
-            "Value": "0.0.0",
+            "Value": "50.8.2",
           },
           {
             "Key": "gu:repo",
@@ -2308,7 +2308,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
         "Tags": [
           {
             "Key": "gu:cdk:version",
-            "Value": "0.0.0",
+            "Value": "50.8.2",
           },
           {
             "Key": "gu:repo",
