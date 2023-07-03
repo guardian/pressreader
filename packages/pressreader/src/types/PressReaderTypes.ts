@@ -23,7 +23,8 @@ export interface SectionConfig {
 	capiSources: string[];
 }
 
-export interface CollectionIdentifiers {
+interface IdLookupConfig {
+	lookupType: 'id';
 	/**
 	 * The unique id of a collection as it occurs in the pressed front json.
 	 * Usually this is a 'UUID'-style string (e.g.
@@ -45,6 +46,21 @@ export interface CollectionIdentifiers {
 	 */
 	name: string;
 }
+
+interface IndexLookupConfig {
+	lookupType: 'index';
+	/**
+	 * The index of the collection in the pressed front json.
+	 * Nb. this is zero-indexed, and the collections may not be in the same order
+	 * in the pressed front json as they are on the corresponding webpage for the same front.
+	 * For example, currently there is a hidden collection on the UK front page called
+	 * 'palette styles new do not delete' which is the first collection on each page.
+	 * While that collection is there, it's unlikely that the value of `index` should be `0`.
+	 */
+	index: number;
+}
+
+export type CollectionIdentifiers = IdLookupConfig | IndexLookupConfig;
 
 export interface FrontSource {
 	/**

@@ -8,7 +8,7 @@ export interface PressedFrontPage {
 	collections: CollectionType[];
 }
 
-interface CollectionType {
+export interface CollectionType {
 	id: string;
 	displayName: string;
 	content: ContentType[];

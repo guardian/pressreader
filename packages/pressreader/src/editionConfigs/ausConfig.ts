@@ -10,7 +10,11 @@ export const ausConfig: PressReaderEditionConfig = {
 					sectionContentURL:
 						'https://api.nextgen.guardianapps.co.uk/au/lite.json',
 					collectionIds: [
-						{ id: 'a22fa7fc-684f-484a-90bf-3f5aa4b711f7', name: 'Headlines' },
+						{
+							id: 'a22fa7fc-684f-484a-90bf-3f5aa4b711f7',
+							lookupType: 'id',
+							name: 'Headlines',
+						},
 					],
 				},
 			],
@@ -26,6 +30,7 @@ export const ausConfig: PressReaderEditionConfig = {
 					collectionIds: [
 						{
 							id: 'ee319aab-a40c-4bc5-a40d-fa8f0b8f2b88',
+							lookupType: 'id',
 							name: 'Australia news',
 						},
 					],
@@ -36,6 +41,7 @@ export const ausConfig: PressReaderEditionConfig = {
 					collectionIds: [
 						{
 							id: '5d60fb3d-9bb2-439b-81d4-3bd4d625165a',
+							lookupType: 'id',
 							name: 'Across the country',
 						},
 					],
@@ -53,6 +59,7 @@ export const ausConfig: PressReaderEditionConfig = {
 					collectionIds: [
 						{
 							id: '47eb1794-2f5a-490d-a3af-425d88e2d2f2',
+							lookupType: 'id',
 							name: 'Australian politics',
 						},
 					],
@@ -70,9 +77,14 @@ export const ausConfig: PressReaderEditionConfig = {
 					sectionContentURL:
 						'https://api.nextgen.guardianapps.co.uk/international/lite.json',
 					collectionIds: [
-						{ id: '10f21d96-18f6-426f-821b-19df55dfb831', name: 'Headlines' },
+						{
+							id: '10f21d96-18f6-426f-821b-19df55dfb831',
+							lookupType: 'id',
+							name: 'Headlines',
+						},
 						{
 							id: '2c19b8b3-6503-4a3b-8821-9a04898b5243',
+							lookupType: 'id',
 							name: 'Around the world',
 						},
 					],
@@ -94,26 +106,43 @@ export const ausConfig: PressReaderEditionConfig = {
 					sectionContentURL:
 						'https://api.nextgen.guardianapps.co.uk/au/commentisfree/lite.json',
 					collectionIds: [
-						{ id: '856d1576-46f0-4cbb-af2a-ec83f0eaa9ff', name: 'Columnists' },
+						{
+							id: '856d1576-46f0-4cbb-af2a-ec83f0eaa9ff',
+							lookupType: 'id',
+							name: 'Columnists',
+						},
 						{
 							id: '644f8b13-1b3b-42fd-b4a4-79309849b6f4',
+							lookupType: 'id',
 							name: 'Indigenous Australia',
 						},
-						{ id: 'au/commentisfree/regular-stories', name: 'Opinion' },
+						{
+							id: 'au/commentisfree/regular-stories',
+							lookupType: 'id',
+							name: 'Opinion',
+						},
 					],
 				},
 				{
 					sectionContentURL:
 						'https://api.nextgen.guardianapps.co.uk/au/lite.json',
 					collectionIds: [
-						{ id: 'au-alpha/contributors/feature-stories', name: 'Opinion' },
+						{
+							id: 'au-alpha/contributors/feature-stories',
+							lookupType: 'id',
+							name: 'Opinion',
+						},
 					],
 				},
 				{
 					sectionContentURL:
 						'https://api.nextgen.guardianapps.co.uk/au/commentisfree/lite.json',
 					collectionIds: [
-						{ id: 'a3194998-0d92-49a5-aaa2-c3b7cd26bafc', name: 'World view' },
+						{
+							id: 'a3194998-0d92-49a5-aaa2-c3b7cd26bafc',
+							lookupType: 'id',
+							name: 'World view',
+						},
 					],
 				},
 			],
@@ -127,17 +156,31 @@ export const ausConfig: PressReaderEditionConfig = {
 					sectionContentURL:
 						'https://api.nextgen.guardianapps.co.uk/au/business/lite.json',
 					collectionIds: [
-						{ id: 'c7bc8956-7d55-4968-840b-e23e44f0e18b', name: 'News' },
-						{ id: '0a1173d4-8904-4221-87e6-3f8b22ebc29e', name: 'In depth' },
+						{
+							id: 'c7bc8956-7d55-4968-840b-e23e44f0e18b',
+							lookupType: 'id',
+							name: 'News',
+						},
+						{
+							id: '0a1173d4-8904-4221-87e6-3f8b22ebc29e',
+							lookupType: 'id',
+							name: 'In depth',
+						},
 						{
 							id: 'a7de79b6-5b1b-49d1-8e35-cd3725134c9c',
+							lookupType: 'id',
 							name: 'Greg Jericho',
 						},
 						{
 							id: '02dcfceb-accb-42a4-a998-4cb1c935738f',
+							lookupType: 'id',
 							name: 'Guardian Labs',
 						},
-						{ id: 'a6be553e-2a64-4bb0-9678-b81227eae5e1', name: 'World news' },
+						{
+							id: 'a6be553e-2a64-4bb0-9678-b81227eae5e1',
+							lookupType: 'id',
+							name: 'World news',
+						},
 					],
 				},
 			],
@@ -160,12 +203,29 @@ export const ausConfig: PressReaderEditionConfig = {
 					sectionContentURL:
 						'https://api.nextgen.guardianapps.co.uk/au/environment/lite.json',
 					collectionIds: [
-						{ id: '586be7cd-1f83-4e71-8ff3-f2610d2d71d9', name: 'Environment' },
-						{ id: 'b2aab4ef-ccab-4a24-bade-419e8222d789', name: 'World news' },
-						{ id: '99b67485-70ef-4f75-be86-15843a8d0207', name: 'Opinion' },
-						{ id: 'bd261fb2-3d6d-465e-92e8-e3bf88b3ee67', name: 'Global view' },
+						{
+							id: '586be7cd-1f83-4e71-8ff3-f2610d2d71d9',
+							lookupType: 'id',
+							name: 'Environment',
+						},
+						{
+							id: 'b2aab4ef-ccab-4a24-bade-419e8222d789',
+							lookupType: 'id',
+							name: 'World news',
+						},
+						{
+							id: '99b67485-70ef-4f75-be86-15843a8d0207',
+							lookupType: 'id',
+							name: 'Opinion',
+						},
+						{
+							id: 'bd261fb2-3d6d-465e-92e8-e3bf88b3ee67',
+							lookupType: 'id',
+							name: 'Global view',
+						},
 						{
 							id: '5561a451-dd53-4114-a957-2c8a18f87132',
+							lookupType: 'id',
 							name: 'Investigations and analysis',
 						},
 					],
@@ -181,9 +241,17 @@ export const ausConfig: PressReaderEditionConfig = {
 					sectionContentURL:
 						'https://api.nextgen.guardianapps.co.uk/science/lite.json',
 					collectionIds: [
-						{ id: 'e9c7-cf23-23b1-363b', name: 'Science' },
-						{ id: 'e7623e60-63fe-4f52-8295-3692ef272beb', name: 'News' },
-						{ id: '1ccdafee-622a-4dfb-aaca-e3bb995bd5f1', name: 'Key issues' },
+						{ id: 'e9c7-cf23-23b1-363b', lookupType: 'id', name: 'Science' },
+						{
+							id: 'e7623e60-63fe-4f52-8295-3692ef272beb',
+							lookupType: 'id',
+							name: 'News',
+						},
+						{
+							id: '1ccdafee-622a-4dfb-aaca-e3bb995bd5f1',
+							lookupType: 'id',
+							name: 'Key issues',
+						},
 					],
 				},
 			],
@@ -200,18 +268,32 @@ export const ausConfig: PressReaderEditionConfig = {
 					sectionContentURL:
 						'https://api.nextgen.guardianapps.co.uk/au/technology/lite.json',
 					collectionIds: [
-						{ id: '6bb3-9f76-43bd-4213', name: 'Technology' },
+						{ id: '6bb3-9f76-43bd-4213', lookupType: 'id', name: 'Technology' },
 						{
 							id: '86be3263-a4db-4bb8-aaa9-7c9662094958',
+							lookupType: 'id',
 							name: 'Australian tech',
 						},
-						{ id: 'c4f66912-47c4-4d5b-a52e-a1180bf68e5d', name: 'In depth' },
-						{ id: '8185-0956-87b3-126d', name: 'Opinion & analysis' },
+						{
+							id: 'c4f66912-47c4-4d5b-a52e-a1180bf68e5d',
+							lookupType: 'id',
+							name: 'In depth',
+						},
+						{
+							id: '8185-0956-87b3-126d',
+							lookupType: 'id',
+							name: 'Opinion & analysis',
+						},
 						{
 							id: 'c6a8df3e-7685-4bca-856d-f5b0c59163d0',
+							lookupType: 'id',
 							name: 'Inside Silicon Valley',
 						},
-						{ id: 'cff4aa48-dd86-433f-bc11-eb15abae55fc', name: 'Spotlight' },
+						{
+							id: 'cff4aa48-dd86-433f-bc11-eb15abae55fc',
+							lookupType: 'id',
+							name: 'Spotlight',
+						},
 					],
 				},
 			],
@@ -224,16 +306,27 @@ export const ausConfig: PressReaderEditionConfig = {
 				{
 					sectionContentURL:
 						'https://api.nextgen.guardianapps.co.uk/au/lite.json',
-					collectionIds: [{ id: 'c45d-318f-896c-3a85', name: 'Sport' }],
+					collectionIds: [
+						{ id: 'c45d-318f-896c-3a85', lookupType: 'id', name: 'Sport' },
+					],
 				},
 				{
 					sectionContentURL:
 						'https://api.nextgen.guardianapps.co.uk/au/sport/lite.json',
 					collectionIds: [
-						{ id: '0644cd79-4d8b-4d20-a1ed-13f8b7ed4373', name: 'Sport' },
-						{ id: 'f40bb225-86ab-4d85-a98d-bb2ea11fb453', name: 'Features' },
+						{
+							id: '0644cd79-4d8b-4d20-a1ed-13f8b7ed4373',
+							lookupType: 'id',
+							name: 'Sport',
+						},
+						{
+							id: 'f40bb225-86ab-4d85-a98d-bb2ea11fb453',
+							lookupType: 'id',
+							name: 'Features',
+						},
 						{
 							id: 'a368f61c-8bfb-4d5d-9a88-f76123cd22c9',
+							lookupType: 'id',
 							name: 'International sport',
 						},
 					],
