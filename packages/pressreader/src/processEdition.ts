@@ -7,8 +7,12 @@ import {
 	isPressedFrontPage,
 } from './typePredicates';
 import type { CapiItem } from './types/CapiTypes';
-import type { PressedFrontPage } from './types/PressedFrontTypes';
 import type {
+	CollectionType,
+	PressedFrontPage,
+} from './types/PressedFrontTypes';
+import type {
+	CollectionIdentifiers,
 	FrontSource,
 	PressReaderEditionConfig,
 	PressReaderEditionOutput,
@@ -255,22 +259,11 @@ export function processFrontData(
 	collectionMismatchAlarm: () => void,
 ): string[] {
 	const collections = front.collectionIds
-		.map((targetCollection) => {
-			const targetId = targetCollection.id.trim().toLowerCase();
-			const targetName = targetCollection.name.trim().toLowerCase();
-			const maybeCollection = front.data.collections.find(
-				(collection) => collection.id.trim().toLowerCase() === targetId,
+		.map((identifiers) => {
+			const maybeCollection = front.data.collections.find((collection, index) =>
+				matchCollection(collection, index, identifiers),
 			);
-			if (maybeCollection === undefined) {
-				console.error(`Collection not found: ${targetId}`);
-				collectionMismatchAlarm();
-			} else if (
-				maybeCollection.displayName.trim().toLowerCase() !== targetName
-			) {
-				console.warn(
-					`Collection name mismatch. Expected: ${targetName}. Found: ${maybeCollection.displayName}`,
-				);
-			}
+			decideAlerts(maybeCollection, identifiers, collectionMismatchAlarm);
 			return maybeCollection;
 		})
 		.filter(isNotUndefined);
@@ -278,4 +271,40 @@ export function processFrontData(
 		return collection.content.map((article) => article.id);
 	});
 	return articles;
+}
+
+function matchCollection(
+	collection: CollectionType,
+	collectionIndex: number,
+	identifiers: CollectionIdentifiers,
+): boolean {
+	switch (identifiers.lookupType) {
+		case 'id':
+			return (
+				identifiers.id.trim().toLowerCase() ===
+				collection.id.trim().toLowerCase()
+			);
+		case 'index':
+			return identifiers.index === collectionIndex;
+	}
+}
+
+function decideAlerts(
+	maybeCollection: CollectionType | undefined,
+	identifiers: CollectionIdentifiers,
+	collectionMismatchAlarm: () => void,
+) {
+	if (identifiers.lookupType === 'id') {
+		if (maybeCollection === undefined) {
+			console.error(`Collection not found: ${identifiers.id}`);
+			collectionMismatchAlarm();
+		} else if (
+			maybeCollection.displayName.trim().toLowerCase() !==
+			identifiers.name.trim().toLowerCase()
+		) {
+			console.warn(
+				`Collection name mismatch. Expected: ${identifiers.name}. Found: ${maybeCollection.displayName}`,
+			);
+		}
+	}
 }
