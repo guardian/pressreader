@@ -21,7 +21,30 @@ export interface SectionConfig {
 	 * @example `["search?tag=science%2Fscience&production-office=us&order-by=newest"]`
 	 */
 	capiSources: string[];
+	/**
+	 * Tone filters will be used to filter articles from a section, (prior to the
+	 * `bannedTags` filter, which is applied to articles for a whole edition.
+	 * For example, features might be included in a section called 'long reads', but
+	 * we wouldn't want to include non-feature long-reads. An `includeOnly` filter
+	 * could be used to ensure that only articles with the 'features' tone tag are
+	 * included in the section.
+	 * Leave as `undefined` if you don't want to filter articles by tone in the section.
+	 */
+	toneFilters?: ToneFilters;
 }
+
+export type ToneFilters = {
+	/**
+	 * If `filterType` is `includeOnly`, then only articles that have a tone tag that
+	 * matches one or more of the tags in `list` will be included. If `filterType` is
+	 * `excludeAll`, then articles that have one or more tone tags that matches one of the tags
+	 * in `list` will be excluded.
+	 * If you don't want to filter articles by tone, then leave `toneFilters` as `undefined`
+	 * in the `SectionConfig`
+	 */
+	filterType: 'includeOnly' | 'excludeAll';
+	list: string[];
+};
 
 interface IdLookupConfig {
 	lookupType: 'id';

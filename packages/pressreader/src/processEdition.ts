@@ -16,6 +16,7 @@ import type {
 	FrontSource,
 	PressReaderEditionConfig,
 	PressReaderEditionOutput,
+	ToneFilters,
 } from './types/PressReaderTypes';
 
 interface FrontSourceWithData extends FrontSource {
@@ -67,7 +68,10 @@ export function editionProcessor({
 				const maybeArticles = await Promise.all(
 					uniqueArticleIds.map((id) => fetchArticleData(id, capiConfig)),
 				);
-				const articleDetails = maybeArticles.filter(isNotUndefined);
+				const articleDetails = checkArticlesForSection(
+					section.toneFilters,
+					maybeArticles,
+				);
 				return { ...section, articleDetails };
 			}),
 		);
@@ -307,4 +311,47 @@ function decideAlerts(
 			);
 		}
 	}
+}
+
+export function checkArticlesForSection(
+	toneFilters: ToneFilters | undefined,
+	articles: Array<CapiItem | undefined>,
+): CapiItem[] {
+	const toneTagFilter = decideToneTagFilter(toneFilters);
+	return articles.filter(isNotUndefined).filter((article) => {
+		const articleTags = extractToneTags(article);
+		const passesThroughToneFilter = toneTagFilter(articleTags);
+		if (!passesThroughToneFilter) {
+			console.log(
+				`Article excluded [Tone Filter]: ${article.id} (${articleTags.join(
+					',',
+				)})`,
+			);
+		}
+		return passesThroughToneFilter;
+	});
+}
+
+function decideToneTagFilter(toneFilters: ToneFilters | undefined) {
+	if (toneFilters === undefined) {
+		return () => true;
+	}
+	switch (toneFilters.filterType) {
+		case 'includeOnly':
+			return (articleTags: string[]) =>
+				toneFilters.list.some((tone) =>
+					articleTags.includes(tone.trim().toLowerCase()),
+				);
+		case 'excludeAll':
+			return (articleTags: string[]) =>
+				!toneFilters.list.some((tone) =>
+					articleTags.includes(tone.trim().toLowerCase()),
+				);
+	}
+}
+
+function extractToneTags(article: CapiItem): string[] {
+	return article.tags
+		.filter((tag) => tag.type === 'tone')
+		.map((tag) => tag.id.trim().toLowerCase());
 }
