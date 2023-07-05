@@ -217,7 +217,7 @@ export const ausConfig: PressReaderEditionConfig = {
 				},
 				{
 					sectionContentURL:
-						'https://api.nextgen.guardianapps.co.uk/uk/culture/lite.json',
+						'https://api.nextgen.guardianapps.co.uk/au/culture/lite.json',
 					collectionIds: [
 						{
 							id: 'au/culture/feature-stories',
