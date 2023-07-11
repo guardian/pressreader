@@ -24,6 +24,8 @@ updates:
         patterns:
           - "@guardian/cdk"
       non-cdk-dependencies:
+        patterns:
+          - "*"
         exclude-patterns:
           - "@guardian/cdk"
   - package-ecosystem: "github-actions"
