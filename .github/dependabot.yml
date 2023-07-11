@@ -19,6 +19,13 @@ updates:
         update-types:
           - "version-update:semver-major"
           - "version-update:semver-minor"
+    groups:
+      cdk-dependencies:
+        patterns:
+          - "@guardian/cdk"
+      non-cdk-dependencies:
+        exclude-patterns:
+          - "@guardian/cdk"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
