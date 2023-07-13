@@ -362,7 +362,7 @@ export const usConfig: PressReaderEditionConfig = {
 					],
 				},
 			],
-			capiSources: [],
+			capiSources: ['search?tag=business/us-small-business&order-by=newest'],
 		},
 		{
 			displayName: 'The Guardian View',
@@ -705,13 +705,6 @@ export const usConfig: PressReaderEditionConfig = {
 							lookupType: 'id',
 							name: 'Across the country',
 						},
-						{ id: 'f6dd-d7b1-0e85-4650', lookupType: 'id', name: 'Sports' },
-					],
-				},
-				{
-					sectionContentURL:
-						'https://api.nextgen.guardianapps.co.uk/us/lite.json',
-					collectionIds: [
 						{ id: 'f6dd-d7b1-0e85-4650', lookupType: 'id', name: 'Sports' },
 					],
 				},
