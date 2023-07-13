@@ -41,7 +41,9 @@ export const ausConfig: PressReaderEditionConfig = {
 					],
 				},
 			],
-			capiSources: [],
+			capiSources: [
+				'search?tag=australia-news/indigenous-australians&order-by=newest',
+			],
 		},
 		{
 			displayName: 'Politics',
@@ -239,7 +241,11 @@ export const ausConfig: PressReaderEditionConfig = {
 					],
 				},
 			],
-			capiSources: [],
+			capiSources: [
+				'search?tag=football/a-league&order-by=newest',
+				'search?tag=sport/afl&order-by=newest',
+				'search?tag=sport/nrl&order-by=newest',
+			],
 		},
 	],
 	bannedTags: [
