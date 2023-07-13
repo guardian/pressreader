@@ -1,7 +1,5 @@
-import type { Tag } from '@guardian/content-api-models/v1/tag';
-import { TagType } from '@guardian/content-api-models/v1/tagType';
 import { meetsInclusionCriteria } from './processEdition';
-import type { CapiItem } from './types/CapiTypes';
+import type { CapiItem, Tag } from './types/CapiTypes';
 
 const mockNow = '2023-05-22T05:00:47Z';
 const lessThan24HoursAgo = '2023-05-21T05:00:49Z';
@@ -10,11 +8,7 @@ const minWordCount = 1000;
 
 const dummyTag: Tag = {
 	id: '',
-	type: TagType.KEYWORD,
-	webTitle: '',
-	webUrl: '',
-	apiUrl: '',
-	references: [],
+	type: 'keyword',
 };
 
 const passingArticle: CapiItem = {

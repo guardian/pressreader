@@ -1,5 +1,6 @@
 import { processFrontData } from './processEdition';
 import type { PressedFrontPage } from './types/PressedFrontTypes';
+import type { CollectionIdentifiers } from './types/PressReaderTypes';
 
 const dummyContentTemplate = {
 	id: 'string',
@@ -30,6 +31,7 @@ const collection1 = {
 	displayName: 'name',
 	content: [content1, content2],
 };
+
 const collection2 = {
 	id: 'def',
 	displayName: 'my container',
@@ -47,18 +49,21 @@ function collectionMismatchAlarm() {
 
 describe('processFrontData', () => {
 	it('should get stories from each of the matching collections', () => {
+		const collectionIds: CollectionIdentifiers[] = [
+			{
+				id: 'abc',
+				lookupType: 'id',
+				name: 'name',
+			},
+			{
+				id: 'def',
+				lookupType: 'id',
+				name: 'my container',
+			},
+		];
 		const frontConfigWithData = {
 			sectionContentURL: 'sectionContentURL',
-			collectionIds: [
-				{
-					id: 'abc',
-					name: 'name',
-				},
-				{
-					id: 'def',
-					name: 'my container',
-				},
-			],
+			collectionIds,
 			data: pressedPage,
 		};
 		expect(
@@ -67,31 +72,52 @@ describe('processFrontData', () => {
 	});
 
 	it('should match a collection by id even if capitalisation differs', () => {
+		const collectionIds: CollectionIdentifiers[] = [
+			{
+				id: 'DEF',
+				lookupType: 'id',
+				name: 'my container',
+			},
+		];
 		const frontConfigWithData = {
 			sectionContentURL: 'sectionContentURL',
 			data: pressedPage,
-			collectionIds: [
-				{
-					id: 'DEF',
-					name: 'my container',
-				},
-			],
+			collectionIds,
 		};
 		expect(
 			processFrontData(frontConfigWithData, collectionMismatchAlarm),
 		).toEqual(['3']);
 	});
 
-	it('should ignore unmatched collections', () => {
+	it('should match a collection by index', () => {
+		const collectionIds: CollectionIdentifiers[] = [
+			{
+				index: 0,
+				lookupType: 'index',
+			},
+		];
 		const frontConfigWithData = {
 			sectionContentURL: 'sectionContentURL',
 			data: pressedPage,
-			collectionIds: [
-				{
-					id: 'non-existent-colection-id',
-					name: 'n/a',
-				},
-			],
+			collectionIds,
+		};
+		expect(
+			processFrontData(frontConfigWithData, collectionMismatchAlarm),
+		).toEqual(['1', '2']);
+	});
+
+	it('should ignore unmatched collections', () => {
+		const collectionIds: CollectionIdentifiers[] = [
+			{
+				id: 'non-existent-colection-id',
+				lookupType: 'id',
+				name: 'n/a',
+			},
+		];
+		const frontConfigWithData = {
+			sectionContentURL: 'sectionContentURL',
+			data: pressedPage,
+			collectionIds,
 		};
 		expect(
 			processFrontData(frontConfigWithData, collectionMismatchAlarm),
@@ -105,19 +131,23 @@ describe('processFrontData', () => {
 			alarmHasBeenCalled = true;
 		}
 
+		const collectionIds: CollectionIdentifiers[] = [
+			{
+				id: 'def',
+				lookupType: 'id',
+				name: 'My Container',
+			},
+			{
+				id: 'non-existent-colection-id',
+				lookupType: 'id',
+				name: 'n/a',
+			},
+		];
+
 		const frontConfigWithData = {
 			sectionContentURL: 'sectionContentURL',
 			data: pressedPage,
-			collectionIds: [
-				{
-					id: 'def',
-					name: 'My Container',
-				},
-				{
-					id: 'non-existent-colection-id',
-					name: 'n/a',
-				},
-			],
+			collectionIds,
 		};
 		processFrontData(frontConfigWithData, alarmFunction);
 		expect(alarmHasBeenCalled).toEqual(true);

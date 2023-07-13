@@ -1,5 +1,5 @@
 import type { ItemResponse } from '@guardian/content-api-models/v1/itemResponse';
-import type { CapiSearchResponse } from './types/CapiTypes';
+import type { CapiItemResponse, CapiSearchResponse } from './types/CapiTypes';
 import type { PressedFrontPage } from './types/PressedFrontTypes';
 
 export function isCapiSearchResponse(
@@ -31,7 +31,7 @@ export function isNotUndefined<T>(value: T | undefined): value is T {
 	return value !== undefined;
 }
 
-export function isCapiItemResponse(data: unknown): data is ItemResponse {
+export function isCapiItemResponse(data: unknown): data is CapiItemResponse {
 	return (
 		data != null &&
 		(typeof data === 'object' || typeof data === 'function') &&
