@@ -1,18 +1,17 @@
 {
-  "name": "cdk",
-  "version": "1.0.0",
-  "scripts": {
-    "test": "jest --detectOpenHandles --config ../../jest.config.js --selectProjects cdk",
-    "typecheck": "tsc -noEmit",
-    "format": "prettier --write \"{lib,bin}/**/*.ts\"",
-    "cdk": "cdk",
-    "synth": "cdk synth --path-metadata false --version-reporting false"
-  },
-  "devDependencies": {
-    "@guardian/cdk": "50.8.2",
-    "aws-cdk": "2.78.0",
-    "aws-cdk-lib": "2.78.0",
-    "constructs": "10.2.18",
-    "source-map-support": "^0.5.21"
-  }
+	"name": "cdk",
+	"version": "1.0.0",
+	"scripts": {
+		"test": "jest --detectOpenHandles --config ../../jest.config.js --selectProjects cdk",
+		"typecheck": "tsc -noEmit",
+		"cdk": "cdk",
+		"synth": "cdk synth --path-metadata false --version-reporting false"
+	},
+	"devDependencies": {
+		"@guardian/cdk": "50.8.2",
+		"aws-cdk": "2.78.0",
+		"aws-cdk-lib": "2.78.0",
+		"constructs": "10.2.18",
+		"source-map-support": "^0.5.21"
+	}
 }
