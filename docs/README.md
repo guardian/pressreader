@@ -10,7 +10,7 @@ Architecture Decision Records (ADRs), and other context associated with this pro
 
 ## Infrastructure
 
-This project runs in AWS and is described using the [Guardian CDK](https://github.com/guardian/cdk) 
+This project runs in AWS and is described using the [Guardian CDK](https://github.com/guardian/cdk)
 which is extended from the [AWS Cloud Development Kit (CDK)](https://aws.amazon.com/cdk/) project.
 
 ### AWS Architecture

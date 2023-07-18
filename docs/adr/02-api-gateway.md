@@ -18,7 +18,7 @@ These include potential attacks that result in increased costs from uncontrolled
 
 ### EC2 Autoscaling Group / ALB
 
-We could serve this content from an EC2 instance, but this would add infrastructure for us to maintain, as well as a monthly fixed cost for the instance & ALB. 
+We could serve this content from an EC2 instance, but this would add infrastructure for us to maintain, as well as a monthly fixed cost for the instance & ALB.
 
 ### CloudFront distribution / Private S3 bucket
 
