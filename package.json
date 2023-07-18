@@ -20,7 +20,7 @@
 		"@guardian/tsconfig": "^0.2.0",
 		"aws-sdk-client-mock": "^3.0.0",
 		"esbuild": "^0.18.14",
-		"eslint-plugin-prettier": "^5.0.0"
+		"eslint-plugin-prettier": "^4.2.1"
 	},
 	"dependencies": {
 		"@types/jest": "^29.5.3",
