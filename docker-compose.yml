@@ -2,11 +2,11 @@ version: '2.1'
 
 services:
   localstack:
-    container_name: "${LOCALSTACK_DOCKER_NAME-localstack_pressreader}"
+    container_name: '${LOCALSTACK_DOCKER_NAME-localstack_pressreader}'
     image: localstack/localstack:0.14.0
     ports:
-      - "4566-4599:4566-4599"
-      - "${PORT_WEB_UI-8080}:${PORT_WEB_UI-8080}"
+      - '4566-4599:4566-4599'
+      - '${PORT_WEB_UI-8080}:${PORT_WEB_UI-8080}'
     environment:
       - SERVICES=s3,secretsmanager
       - DEBUG=true
@@ -14,7 +14,7 @@ services:
       - KINESIS_ERROR_PROBABILITY=0
       - DOCKER_HOST=unix:///var/run/docker.sock
     volumes:
-      - "./.tmp:/tmp/localstack"
+      - './.tmp:/tmp/localstack'
       - ./localstack:/docker-entrypoint-initaws.d
-      - "/var/run/docker.sock:/var/run/docker.sock"
+      - '/var/run/docker.sock:/var/run/docker.sock'
       - $HOME/.gu/pressreader:/root/.gu/pressreader:ro

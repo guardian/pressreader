@@ -6,12 +6,8 @@ The service reads [config files](https://github.com/guardian/pressreader/tree/ma
 
 ```js
 export const ausConfig: PressReaderEditionConfig = {
-	sections: [
-        { '...': '...'},
-        { '...': '...'},
-        { '...': '...'},
-    ]
-}
+	sections: [{ '...': '...' }, { '...': '...' }, { '...': '...' }],
+};
 ```
 
 Top level array called “sections” contains the definitions necessary to create the index file that Pressreader consults.
@@ -74,7 +70,7 @@ Articles are also excluded if:
 
 1. They were published more than 24 hours ago
 1. They have a word count that's shorter than the `MIN_WORDCOUNT` that's set globally
-2. If an article has already been included in a section
-3. If the content type is not an article
-   
+1. If an article has already been included in a section
+1. If the content type is not an article
+
 Once the maximum article count has been met, or the sources exhausted we move on to the next section.

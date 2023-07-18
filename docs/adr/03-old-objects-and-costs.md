@@ -8,7 +8,7 @@ This service stores data in AWS S3 and has no mechanism to clean-up old objects 
 
 ### S3 Object Expiration
 
-We could choose to use [S3 object expiration](https://docs.aws.amazon.com/AmazonS3/latest/userguide/lifecycle-expire-general-considerations.html) to remove old objects over time. 
+We could choose to use [S3 object expiration](https://docs.aws.amazon.com/AmazonS3/latest/userguide/lifecycle-expire-general-considerations.html) to remove old objects over time.
 
 ## Cost Estimate
 
@@ -16,7 +16,7 @@ Looking at the current rate of increasing storage for the current AUS bucket we 
 
 ![AUS storage over 48 months](./aus-storage-48-months.png)
 
-3.5M over 4 years is a very low rate of accumulation and also a very low storage volume. Storage costs in S3 at time of writing (June 2023), are $0.023 per GB per month. 
+3.5M over 4 years is a very low rate of accumulation and also a very low storage volume. Storage costs in S3 at time of writing (June 2023), are $0.023 per GB per month.
 
 ## Decision
 
