@@ -1,6 +1,5 @@
 import { GuCertificate } from '@guardian/cdk/lib/constructs/acm';
 import { GuAlarm } from '@guardian/cdk/lib/constructs/cloudwatch/alarm';
-import { GuLambdaErrorPercentageAlarm } from '@guardian/cdk/lib/constructs/cloudwatch/lambda-alarms';
 import type { GuStackProps } from '@guardian/cdk/lib/constructs/core';
 import { GuStack } from '@guardian/cdk/lib/constructs/core';
 import { GuCname } from '@guardian/cdk/lib/constructs/dns/';
@@ -248,9 +247,12 @@ export class PressReader extends GuStack {
 						PREFIX_PATH: config.s3PrefixPath.join('/'),
 					},
 					fileName: `pressreader.zip`,
-
-					// Do our own monitoring here (see below)
-					monitoringConfiguration: { noMonitoring: true },
+					monitoringConfiguration: {
+						snsTopicName: alarmSnsTopic.topicName,
+						toleratedErrorPercentage: 1,
+						lengthOfEvaluationPeriod: Duration.minutes(15),
+						numberOfEvaluationPeriodsAboveThresholdBeforeAlarm: 2,
+					},
 					rules: [{ schedule: props.schedule }],
 					timeout: Duration.seconds(300),
 				},
@@ -260,21 +262,6 @@ export class PressReader extends GuStack {
 			scheduledLambda.addToRolePolicy(s3PutPolicyStatement);
 
 			Metric.grantPutMetricData(scheduledLambda);
-
-			// Custom monitoring to allow for longer evaluation periods
-			new GuLambdaErrorPercentageAlarm(
-				this,
-				`${appName}-${lambdaSuffix}-${this.stage}-ScheduledLambdaErrorAlarm`,
-				{
-					alarmName: `${appName}-${lambdaSuffix}-${this.stage}-ScheduledLambdaErrorAlarm`,
-					alarmDescription: `Triggers if there are errors from ${appName} on ${this.stage}`,
-					snsTopicName: alarmSnsTopic.topicName,
-					toleratedErrorPercentage: 1,
-					lambda: scheduledLambda,
-					lengthOfEvaluationPeriod: Duration.minutes(15),
-					numberOfEvaluationPeriodsAboveThresholdBeforeAlarm: 2,
-				},
-			);
 		});
 	}
 }
