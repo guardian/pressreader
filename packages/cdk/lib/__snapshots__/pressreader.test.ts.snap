@@ -760,192 +760,6 @@ exports[`The PressReader stack matches the snapshot 1`] = `
       },
       "Type": "Guardian::DNS::RecordSet",
     },
-    "pressreaderAUSTESTScheduledLambdaErrorAlarm30CE0D3C": {
-      "Properties": {
-        "ActionsEnabled": true,
-        "AlarmActions": [
-          {
-            "Fn::Join": [
-              "",
-              [
-                "arn:aws:sns:",
-                {
-                  "Ref": "AWS::Region",
-                },
-                ":",
-                {
-                  "Ref": "AWS::AccountId",
-                },
-                ":",
-                {
-                  "Fn::GetAtt": [
-                    "pressreaderTESTemailalarmtopicE3E05C64",
-                    "TopicName",
-                  ],
-                },
-              ],
-            ],
-          },
-        ],
-        "AlarmDescription": "Triggers if there are errors from pressreader on TEST",
-        "AlarmName": "pressreader-AUS-TEST-ScheduledLambdaErrorAlarm",
-        "ComparisonOperator": "GreaterThanThreshold",
-        "EvaluationPeriods": 2,
-        "Metrics": [
-          {
-            "Expression": "100*m1/m2",
-            "Id": "expr_1",
-            "Label": {
-              "Fn::Join": [
-                "",
-                [
-                  "Error % of ",
-                  {
-                    "Ref": "pressreaderTESTAUS60AC2E4C",
-                  },
-                ],
-              ],
-            },
-          },
-          {
-            "Id": "m1",
-            "MetricStat": {
-              "Metric": {
-                "Dimensions": [
-                  {
-                    "Name": "FunctionName",
-                    "Value": {
-                      "Ref": "pressreaderTESTAUS60AC2E4C",
-                    },
-                  },
-                ],
-                "MetricName": "Errors",
-                "Namespace": "AWS/Lambda",
-              },
-              "Period": 900,
-              "Stat": "Sum",
-            },
-            "ReturnData": false,
-          },
-          {
-            "Id": "m2",
-            "MetricStat": {
-              "Metric": {
-                "Dimensions": [
-                  {
-                    "Name": "FunctionName",
-                    "Value": {
-                      "Ref": "pressreaderTESTAUS60AC2E4C",
-                    },
-                  },
-                ],
-                "MetricName": "Invocations",
-                "Namespace": "AWS/Lambda",
-              },
-              "Period": 900,
-              "Stat": "Sum",
-            },
-            "ReturnData": false,
-          },
-        ],
-        "Threshold": 1,
-        "TreatMissingData": "notBreaching",
-      },
-      "Type": "AWS::CloudWatch::Alarm",
-    },
-    "pressreaderAUSoldTESTScheduledLambdaErrorAlarmED115CE8": {
-      "Properties": {
-        "ActionsEnabled": true,
-        "AlarmActions": [
-          {
-            "Fn::Join": [
-              "",
-              [
-                "arn:aws:sns:",
-                {
-                  "Ref": "AWS::Region",
-                },
-                ":",
-                {
-                  "Ref": "AWS::AccountId",
-                },
-                ":",
-                {
-                  "Fn::GetAtt": [
-                    "pressreaderTESTemailalarmtopicE3E05C64",
-                    "TopicName",
-                  ],
-                },
-              ],
-            ],
-          },
-        ],
-        "AlarmDescription": "Triggers if there are errors from pressreader on TEST",
-        "AlarmName": "pressreader-AUS-old-TEST-ScheduledLambdaErrorAlarm",
-        "ComparisonOperator": "GreaterThanThreshold",
-        "EvaluationPeriods": 2,
-        "Metrics": [
-          {
-            "Expression": "100*m1/m2",
-            "Id": "expr_1",
-            "Label": {
-              "Fn::Join": [
-                "",
-                [
-                  "Error % of ",
-                  {
-                    "Ref": "pressreaderTESTAUSold857C2C7D",
-                  },
-                ],
-              ],
-            },
-          },
-          {
-            "Id": "m1",
-            "MetricStat": {
-              "Metric": {
-                "Dimensions": [
-                  {
-                    "Name": "FunctionName",
-                    "Value": {
-                      "Ref": "pressreaderTESTAUSold857C2C7D",
-                    },
-                  },
-                ],
-                "MetricName": "Errors",
-                "Namespace": "AWS/Lambda",
-              },
-              "Period": 900,
-              "Stat": "Sum",
-            },
-            "ReturnData": false,
-          },
-          {
-            "Id": "m2",
-            "MetricStat": {
-              "Metric": {
-                "Dimensions": [
-                  {
-                    "Name": "FunctionName",
-                    "Value": {
-                      "Ref": "pressreaderTESTAUSold857C2C7D",
-                    },
-                  },
-                ],
-                "MetricName": "Invocations",
-                "Namespace": "AWS/Lambda",
-              },
-              "Period": 900,
-              "Stat": "Sum",
-            },
-            "ReturnData": false,
-          },
-        ],
-        "Threshold": 1,
-        "TreatMissingData": "notBreaching",
-      },
-      "Type": "AWS::CloudWatch::Alarm",
-    },
     "pressreaderTESTAUS60AC2E4C": {
       "DependsOn": [
         "pressreaderTESTAUSServiceRoleDefaultPolicy00797ECE",
@@ -1058,6 +872,120 @@ exports[`The PressReader stack matches the snapshot 1`] = `
         "Timeout": 300,
       },
       "Type": "AWS::Lambda::Function",
+    },
+    "pressreaderTESTAUSErrorPercentageAlarmForLambda44B99795": {
+      "Properties": {
+        "ActionsEnabled": true,
+        "AlarmActions": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:aws:sns:",
+                {
+                  "Ref": "AWS::Region",
+                },
+                ":",
+                {
+                  "Ref": "AWS::AccountId",
+                },
+                ":",
+                {
+                  "Fn::GetAtt": [
+                    "pressreaderTESTemailalarmtopicE3E05C64",
+                    "TopicName",
+                  ],
+                },
+              ],
+            ],
+          },
+        ],
+        "AlarmDescription": {
+          "Fn::Join": [
+            "",
+            [
+              {
+                "Ref": "pressreaderTESTAUS60AC2E4C",
+              },
+              " exceeded 1% error rate",
+            ],
+          ],
+        },
+        "AlarmName": {
+          "Fn::Join": [
+            "",
+            [
+              "High error % from ",
+              {
+                "Ref": "pressreaderTESTAUS60AC2E4C",
+              },
+              " lambda in TEST",
+            ],
+          ],
+        },
+        "ComparisonOperator": "GreaterThanThreshold",
+        "EvaluationPeriods": 2,
+        "Metrics": [
+          {
+            "Expression": "100*m1/m2",
+            "Id": "expr_1",
+            "Label": {
+              "Fn::Join": [
+                "",
+                [
+                  "Error % of ",
+                  {
+                    "Ref": "pressreaderTESTAUS60AC2E4C",
+                  },
+                ],
+              ],
+            },
+          },
+          {
+            "Id": "m1",
+            "MetricStat": {
+              "Metric": {
+                "Dimensions": [
+                  {
+                    "Name": "FunctionName",
+                    "Value": {
+                      "Ref": "pressreaderTESTAUS60AC2E4C",
+                    },
+                  },
+                ],
+                "MetricName": "Errors",
+                "Namespace": "AWS/Lambda",
+              },
+              "Period": 900,
+              "Stat": "Sum",
+            },
+            "ReturnData": false,
+          },
+          {
+            "Id": "m2",
+            "MetricStat": {
+              "Metric": {
+                "Dimensions": [
+                  {
+                    "Name": "FunctionName",
+                    "Value": {
+                      "Ref": "pressreaderTESTAUS60AC2E4C",
+                    },
+                  },
+                ],
+                "MetricName": "Invocations",
+                "Namespace": "AWS/Lambda",
+              },
+              "Period": 900,
+              "Stat": "Sum",
+            },
+            "ReturnData": false,
+          },
+        ],
+        "Threshold": 1,
+        "TreatMissingData": "notBreaching",
+      },
+      "Type": "AWS::CloudWatch::Alarm",
     },
     "pressreaderTESTAUSServiceRoleDEF56D3D": {
       "Properties": {
@@ -1352,6 +1280,120 @@ exports[`The PressReader stack matches the snapshot 1`] = `
         "Timeout": 300,
       },
       "Type": "AWS::Lambda::Function",
+    },
+    "pressreaderTESTAUSoldErrorPercentageAlarmForLambda20E2300F": {
+      "Properties": {
+        "ActionsEnabled": true,
+        "AlarmActions": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:aws:sns:",
+                {
+                  "Ref": "AWS::Region",
+                },
+                ":",
+                {
+                  "Ref": "AWS::AccountId",
+                },
+                ":",
+                {
+                  "Fn::GetAtt": [
+                    "pressreaderTESTemailalarmtopicE3E05C64",
+                    "TopicName",
+                  ],
+                },
+              ],
+            ],
+          },
+        ],
+        "AlarmDescription": {
+          "Fn::Join": [
+            "",
+            [
+              {
+                "Ref": "pressreaderTESTAUSold857C2C7D",
+              },
+              " exceeded 1% error rate",
+            ],
+          ],
+        },
+        "AlarmName": {
+          "Fn::Join": [
+            "",
+            [
+              "High error % from ",
+              {
+                "Ref": "pressreaderTESTAUSold857C2C7D",
+              },
+              " lambda in TEST",
+            ],
+          ],
+        },
+        "ComparisonOperator": "GreaterThanThreshold",
+        "EvaluationPeriods": 2,
+        "Metrics": [
+          {
+            "Expression": "100*m1/m2",
+            "Id": "expr_1",
+            "Label": {
+              "Fn::Join": [
+                "",
+                [
+                  "Error % of ",
+                  {
+                    "Ref": "pressreaderTESTAUSold857C2C7D",
+                  },
+                ],
+              ],
+            },
+          },
+          {
+            "Id": "m1",
+            "MetricStat": {
+              "Metric": {
+                "Dimensions": [
+                  {
+                    "Name": "FunctionName",
+                    "Value": {
+                      "Ref": "pressreaderTESTAUSold857C2C7D",
+                    },
+                  },
+                ],
+                "MetricName": "Errors",
+                "Namespace": "AWS/Lambda",
+              },
+              "Period": 900,
+              "Stat": "Sum",
+            },
+            "ReturnData": false,
+          },
+          {
+            "Id": "m2",
+            "MetricStat": {
+              "Metric": {
+                "Dimensions": [
+                  {
+                    "Name": "FunctionName",
+                    "Value": {
+                      "Ref": "pressreaderTESTAUSold857C2C7D",
+                    },
+                  },
+                ],
+                "MetricName": "Invocations",
+                "Namespace": "AWS/Lambda",
+              },
+              "Period": 900,
+              "Stat": "Sum",
+            },
+            "ReturnData": false,
+          },
+        ],
+        "Threshold": 1,
+        "TreatMissingData": "notBreaching",
+      },
+      "Type": "AWS::CloudWatch::Alarm",
     },
     "pressreaderTESTAUSoldServiceRole62D5805D": {
       "Properties": {
@@ -1721,6 +1763,120 @@ exports[`The PressReader stack matches the snapshot 1`] = `
       },
       "Type": "AWS::Lambda::Function",
     },
+    "pressreaderTESTUSErrorPercentageAlarmForLambda905A891A": {
+      "Properties": {
+        "ActionsEnabled": true,
+        "AlarmActions": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:aws:sns:",
+                {
+                  "Ref": "AWS::Region",
+                },
+                ":",
+                {
+                  "Ref": "AWS::AccountId",
+                },
+                ":",
+                {
+                  "Fn::GetAtt": [
+                    "pressreaderTESTemailalarmtopicE3E05C64",
+                    "TopicName",
+                  ],
+                },
+              ],
+            ],
+          },
+        ],
+        "AlarmDescription": {
+          "Fn::Join": [
+            "",
+            [
+              {
+                "Ref": "pressreaderTESTUS1B14EF59",
+              },
+              " exceeded 1% error rate",
+            ],
+          ],
+        },
+        "AlarmName": {
+          "Fn::Join": [
+            "",
+            [
+              "High error % from ",
+              {
+                "Ref": "pressreaderTESTUS1B14EF59",
+              },
+              " lambda in TEST",
+            ],
+          ],
+        },
+        "ComparisonOperator": "GreaterThanThreshold",
+        "EvaluationPeriods": 2,
+        "Metrics": [
+          {
+            "Expression": "100*m1/m2",
+            "Id": "expr_1",
+            "Label": {
+              "Fn::Join": [
+                "",
+                [
+                  "Error % of ",
+                  {
+                    "Ref": "pressreaderTESTUS1B14EF59",
+                  },
+                ],
+              ],
+            },
+          },
+          {
+            "Id": "m1",
+            "MetricStat": {
+              "Metric": {
+                "Dimensions": [
+                  {
+                    "Name": "FunctionName",
+                    "Value": {
+                      "Ref": "pressreaderTESTUS1B14EF59",
+                    },
+                  },
+                ],
+                "MetricName": "Errors",
+                "Namespace": "AWS/Lambda",
+              },
+              "Period": 900,
+              "Stat": "Sum",
+            },
+            "ReturnData": false,
+          },
+          {
+            "Id": "m2",
+            "MetricStat": {
+              "Metric": {
+                "Dimensions": [
+                  {
+                    "Name": "FunctionName",
+                    "Value": {
+                      "Ref": "pressreaderTESTUS1B14EF59",
+                    },
+                  },
+                ],
+                "MetricName": "Invocations",
+                "Namespace": "AWS/Lambda",
+              },
+              "Period": 900,
+              "Stat": "Sum",
+            },
+            "ReturnData": false,
+          },
+        ],
+        "Threshold": 1,
+        "TreatMissingData": "notBreaching",
+      },
+      "Type": "AWS::CloudWatch::Alarm",
+    },
     "pressreaderTESTUSServiceRole90B7D6B4": {
       "Properties": {
         "AssumeRolePolicyDocument": {
@@ -2014,6 +2170,120 @@ exports[`The PressReader stack matches the snapshot 1`] = `
         "Timeout": 300,
       },
       "Type": "AWS::Lambda::Function",
+    },
+    "pressreaderTESTUSoldErrorPercentageAlarmForLambda63C1E609": {
+      "Properties": {
+        "ActionsEnabled": true,
+        "AlarmActions": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:aws:sns:",
+                {
+                  "Ref": "AWS::Region",
+                },
+                ":",
+                {
+                  "Ref": "AWS::AccountId",
+                },
+                ":",
+                {
+                  "Fn::GetAtt": [
+                    "pressreaderTESTemailalarmtopicE3E05C64",
+                    "TopicName",
+                  ],
+                },
+              ],
+            ],
+          },
+        ],
+        "AlarmDescription": {
+          "Fn::Join": [
+            "",
+            [
+              {
+                "Ref": "pressreaderTESTUSoldCB2E4EB4",
+              },
+              " exceeded 1% error rate",
+            ],
+          ],
+        },
+        "AlarmName": {
+          "Fn::Join": [
+            "",
+            [
+              "High error % from ",
+              {
+                "Ref": "pressreaderTESTUSoldCB2E4EB4",
+              },
+              " lambda in TEST",
+            ],
+          ],
+        },
+        "ComparisonOperator": "GreaterThanThreshold",
+        "EvaluationPeriods": 2,
+        "Metrics": [
+          {
+            "Expression": "100*m1/m2",
+            "Id": "expr_1",
+            "Label": {
+              "Fn::Join": [
+                "",
+                [
+                  "Error % of ",
+                  {
+                    "Ref": "pressreaderTESTUSoldCB2E4EB4",
+                  },
+                ],
+              ],
+            },
+          },
+          {
+            "Id": "m1",
+            "MetricStat": {
+              "Metric": {
+                "Dimensions": [
+                  {
+                    "Name": "FunctionName",
+                    "Value": {
+                      "Ref": "pressreaderTESTUSoldCB2E4EB4",
+                    },
+                  },
+                ],
+                "MetricName": "Errors",
+                "Namespace": "AWS/Lambda",
+              },
+              "Period": 900,
+              "Stat": "Sum",
+            },
+            "ReturnData": false,
+          },
+          {
+            "Id": "m2",
+            "MetricStat": {
+              "Metric": {
+                "Dimensions": [
+                  {
+                    "Name": "FunctionName",
+                    "Value": {
+                      "Ref": "pressreaderTESTUSoldCB2E4EB4",
+                    },
+                  },
+                ],
+                "MetricName": "Invocations",
+                "Namespace": "AWS/Lambda",
+              },
+              "Period": 900,
+              "Stat": "Sum",
+            },
+            "ReturnData": false,
+          },
+        ],
+        "Threshold": 1,
+        "TreatMissingData": "notBreaching",
+      },
+      "Type": "AWS::CloudWatch::Alarm",
     },
     "pressreaderTESTUSoldServiceRole3341ECF5": {
       "Properties": {
@@ -2335,192 +2605,6 @@ exports[`The PressReader stack matches the snapshot 1`] = `
         },
       },
       "Type": "AWS::SNS::Subscription",
-    },
-    "pressreaderUSTESTScheduledLambdaErrorAlarm5159CCA4": {
-      "Properties": {
-        "ActionsEnabled": true,
-        "AlarmActions": [
-          {
-            "Fn::Join": [
-              "",
-              [
-                "arn:aws:sns:",
-                {
-                  "Ref": "AWS::Region",
-                },
-                ":",
-                {
-                  "Ref": "AWS::AccountId",
-                },
-                ":",
-                {
-                  "Fn::GetAtt": [
-                    "pressreaderTESTemailalarmtopicE3E05C64",
-                    "TopicName",
-                  ],
-                },
-              ],
-            ],
-          },
-        ],
-        "AlarmDescription": "Triggers if there are errors from pressreader on TEST",
-        "AlarmName": "pressreader-US-TEST-ScheduledLambdaErrorAlarm",
-        "ComparisonOperator": "GreaterThanThreshold",
-        "EvaluationPeriods": 2,
-        "Metrics": [
-          {
-            "Expression": "100*m1/m2",
-            "Id": "expr_1",
-            "Label": {
-              "Fn::Join": [
-                "",
-                [
-                  "Error % of ",
-                  {
-                    "Ref": "pressreaderTESTUS1B14EF59",
-                  },
-                ],
-              ],
-            },
-          },
-          {
-            "Id": "m1",
-            "MetricStat": {
-              "Metric": {
-                "Dimensions": [
-                  {
-                    "Name": "FunctionName",
-                    "Value": {
-                      "Ref": "pressreaderTESTUS1B14EF59",
-                    },
-                  },
-                ],
-                "MetricName": "Errors",
-                "Namespace": "AWS/Lambda",
-              },
-              "Period": 900,
-              "Stat": "Sum",
-            },
-            "ReturnData": false,
-          },
-          {
-            "Id": "m2",
-            "MetricStat": {
-              "Metric": {
-                "Dimensions": [
-                  {
-                    "Name": "FunctionName",
-                    "Value": {
-                      "Ref": "pressreaderTESTUS1B14EF59",
-                    },
-                  },
-                ],
-                "MetricName": "Invocations",
-                "Namespace": "AWS/Lambda",
-              },
-              "Period": 900,
-              "Stat": "Sum",
-            },
-            "ReturnData": false,
-          },
-        ],
-        "Threshold": 1,
-        "TreatMissingData": "notBreaching",
-      },
-      "Type": "AWS::CloudWatch::Alarm",
-    },
-    "pressreaderUSoldTESTScheduledLambdaErrorAlarm71AD4248": {
-      "Properties": {
-        "ActionsEnabled": true,
-        "AlarmActions": [
-          {
-            "Fn::Join": [
-              "",
-              [
-                "arn:aws:sns:",
-                {
-                  "Ref": "AWS::Region",
-                },
-                ":",
-                {
-                  "Ref": "AWS::AccountId",
-                },
-                ":",
-                {
-                  "Fn::GetAtt": [
-                    "pressreaderTESTemailalarmtopicE3E05C64",
-                    "TopicName",
-                  ],
-                },
-              ],
-            ],
-          },
-        ],
-        "AlarmDescription": "Triggers if there are errors from pressreader on TEST",
-        "AlarmName": "pressreader-US-old-TEST-ScheduledLambdaErrorAlarm",
-        "ComparisonOperator": "GreaterThanThreshold",
-        "EvaluationPeriods": 2,
-        "Metrics": [
-          {
-            "Expression": "100*m1/m2",
-            "Id": "expr_1",
-            "Label": {
-              "Fn::Join": [
-                "",
-                [
-                  "Error % of ",
-                  {
-                    "Ref": "pressreaderTESTUSoldCB2E4EB4",
-                  },
-                ],
-              ],
-            },
-          },
-          {
-            "Id": "m1",
-            "MetricStat": {
-              "Metric": {
-                "Dimensions": [
-                  {
-                    "Name": "FunctionName",
-                    "Value": {
-                      "Ref": "pressreaderTESTUSoldCB2E4EB4",
-                    },
-                  },
-                ],
-                "MetricName": "Errors",
-                "Namespace": "AWS/Lambda",
-              },
-              "Period": 900,
-              "Stat": "Sum",
-            },
-            "ReturnData": false,
-          },
-          {
-            "Id": "m2",
-            "MetricStat": {
-              "Metric": {
-                "Dimensions": [
-                  {
-                    "Name": "FunctionName",
-                    "Value": {
-                      "Ref": "pressreaderTESTUSoldCB2E4EB4",
-                    },
-                  },
-                ],
-                "MetricName": "Invocations",
-                "Namespace": "AWS/Lambda",
-              },
-              "Period": 900,
-              "Stat": "Sum",
-            },
-            "ReturnData": false,
-          },
-        ],
-        "Threshold": 1,
-        "TreatMissingData": "notBreaching",
-      },
-      "Type": "AWS::CloudWatch::Alarm",
     },
   },
 }
