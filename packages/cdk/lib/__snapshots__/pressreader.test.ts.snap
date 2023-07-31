@@ -924,7 +924,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
           ],
         },
         "ComparisonOperator": "GreaterThanThreshold",
-        "EvaluationPeriods": 2,
+        "EvaluationPeriods": 3,
         "Metrics": [
           {
             "Expression": "100*m1/m2",
@@ -1332,7 +1332,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
           ],
         },
         "ComparisonOperator": "GreaterThanThreshold",
-        "EvaluationPeriods": 2,
+        "EvaluationPeriods": 3,
         "Metrics": [
           {
             "Expression": "100*m1/m2",
@@ -1814,7 +1814,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
           ],
         },
         "ComparisonOperator": "GreaterThanThreshold",
-        "EvaluationPeriods": 2,
+        "EvaluationPeriods": 3,
         "Metrics": [
           {
             "Expression": "100*m1/m2",
@@ -2222,7 +2222,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
           ],
         },
         "ComparisonOperator": "GreaterThanThreshold",
-        "EvaluationPeriods": 2,
+        "EvaluationPeriods": 3,
         "Metrics": [
           {
             "Expression": "100*m1/m2",

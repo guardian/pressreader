@@ -251,7 +251,7 @@ export class PressReader extends GuStack {
 						snsTopicName: alarmSnsTopic.topicName,
 						toleratedErrorPercentage: 1,
 						lengthOfEvaluationPeriod: Duration.minutes(15),
-						numberOfEvaluationPeriodsAboveThresholdBeforeAlarm: 2,
+						numberOfEvaluationPeriodsAboveThresholdBeforeAlarm: 3,
 					},
 					rules: [{ schedule: props.schedule }],
 					timeout: Duration.seconds(300),
