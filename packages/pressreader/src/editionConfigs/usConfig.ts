@@ -189,17 +189,6 @@ export const usConfig: PressReaderEditionConfig = {
 				},
 				{
 					sectionContentURL:
-						'https://api.nextgen.guardianapps.co.uk/us/sustainable-business/lite.json',
-					collectionIds: [
-						{
-							id: '7f3c-ab04-684f-76a2',
-							lookupType: 'id',
-							name: 'sustainable business',
-						},
-					],
-				},
-				{
-					sectionContentURL:
 						'https://api.nextgen.guardianapps.co.uk/us/business/lite.json',
 					collectionIds: [
 						{
