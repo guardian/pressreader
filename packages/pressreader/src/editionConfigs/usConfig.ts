@@ -734,5 +734,6 @@ export const usConfig: PressReaderEditionConfig = {
 	bannedTags: [
 		'sport/series/talking-horses',
 		'science/series/alex-bellos-monday-puzzle',
+		'us-news/series/guardian-us-briefing',
 	],
 };
