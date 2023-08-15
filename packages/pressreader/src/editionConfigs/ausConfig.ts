@@ -53,10 +53,22 @@ export const ausConfig: PressReaderEditionConfig = {
 							lookupType: 'id',
 							name: 'Across the country',
 						},
+						{
+							id: 'bbeca920-4543-4db5-b315-8a39a5e0642f',
+							lookupType: 'id',
+							name: 'News extra',
+						},
+						{
+							id: '0409d5d4-b375-4f3b-9ca0-d0b8f7c4ebb0',
+							lookupType: 'id',
+							name: 'The rural network',
+						},
 					],
 				},
 			],
-			capiSources: [],
+			capiSources: [
+				'search?tag=australia-news/indigenous-australians&order-by=newest',
+			],
 		},
 		{
 			displayName: 'Politics',
@@ -98,6 +110,63 @@ export const ausConfig: PressReaderEditionConfig = {
 						},
 					],
 				},
+				{
+					sectionContentURL:
+						'https://api.nextgen.guardianapps.co.uk/au/lite.json',
+					collectionIds: [
+						{
+							id: 'a63f-82a9-8f63-edf1',
+							lookupType: 'id',
+							name: 'Around the world',
+						},
+					],
+				},
+				{
+					sectionContentURL:
+						'https://api.nextgen.guardianapps.co.uk/world/lite.json?INTCMP=CE_AU',
+					collectionIds: [
+						{
+							id: 'b714d00d-9306-41b3-9dd9-7706a793c5e5',
+							lookupType: 'id',
+							name: 'US',
+						},
+						{
+							id: '352ef8ac-2301-4c55-a9d9-4925e0d9ad57',
+							lookupType: 'id',
+							name: 'UK',
+						},
+						{
+							id: 'c914be94-82e2-42bb-964f-c66bf1aecdd2',
+							lookupType: 'id',
+							name: 'Americas',
+						},
+						{
+							id: 'd133cddf-0dab-41c6-ab80-a2e2a687dae1',
+							lookupType: 'id',
+							name: 'Europe',
+						},
+						{
+							id: 'bd7c0716-d332-471d-ba94-d36f63db064a',
+							lookupType: 'id',
+							name: 'Asia Pacific',
+						},
+						{
+							id: 'c717f5dd-a4f7-46f8-8617-e6907afb52ed',
+							lookupType: 'id',
+							name: 'Middle East',
+						},
+						{
+							id: '59d6cdf5-b1fb-480b-9c6f-fd40bf23c7c0',
+							lookupType: 'id',
+							name: 'Africa',
+						},
+						{
+							id: 'b0189d79-08a3-4054-bede-bbdbf44eaf91',
+							lookupType: 'id',
+							name: 'South and Central Asia',
+						},
+					],
+				},
 			],
 			capiSources: [],
 		},
@@ -106,6 +175,130 @@ export const ausConfig: PressReaderEditionConfig = {
 			maximumArticleCount: 2,
 			frontSources: [],
 			capiSources: ['search?tag=news%2Fseries%2Fthe-long-read&order-by=newest'],
+		},
+		{
+			displayName: 'Features',
+			maximumArticleCount: 12,
+			frontSources: [
+				{
+					sectionContentURL:
+						'https://api.nextgen.guardianapps.co.uk/us/technology/lite.json',
+					collectionIds: [
+						{
+							id: 'cff4aa48-dd86-433f-bc11-eb15abae55fc',
+							lookupType: 'id',
+							name: 'Spotlight',
+						},
+						{
+							id: 'c6a8df3e-7685-4bca-856d-f5b0c59163d0',
+							lookupType: 'id',
+							name: 'Inside Silicon Valley',
+						},
+					],
+				},
+				{
+					sectionContentURL:
+						'https://api.nextgen.guardianapps.co.uk/au/lite.json',
+					collectionIds: [
+						{
+							id: '7f0d9448-a9af-40a4-a567-24582060d46a',
+							lookupType: 'id',
+							name: 'Spotlight',
+						},
+						{
+							id: 'au-alpha/features/feature-stories',
+							lookupType: 'id',
+							name: 'Explore',
+						},
+						{
+							id: '13636104-51ce-4264-bb6b-556c80227331',
+							lookupType: 'id',
+							name: 'Lifestyle',
+						},
+					],
+				},
+				{
+					sectionContentURL:
+						'https://api.nextgen.guardianapps.co.uk/au/culture/lite.json',
+					collectionIds: [
+						{
+							id: 'au/culture/feature-stories',
+							lookupType: 'id',
+							name: 'Features',
+						},
+					],
+				},
+			],
+			capiSources: [],
+			toneFilters: {
+				filterType: 'includeOnly',
+				list: ['tone/features'],
+			},
+		},
+		{
+			displayName: 'Arts',
+			maximumArticleCount: 8,
+			frontSources: [
+				{
+					sectionContentURL:
+						'https://api.nextgen.guardianapps.co.uk/au/lite.json',
+					collectionIds: [
+						{
+							id: '22262088-4bce-4290-9810-cb50bbead8db',
+							lookupType: 'id',
+							name: 'Culture',
+						},
+					],
+				},
+				{
+					sectionContentURL:
+						'https://api.nextgen.guardianapps.co.uk/au/culture/lite.json',
+					collectionIds: [
+						{
+							id: 'au/culture/regular-stories',
+							lookupType: 'id',
+							name: 'Culture',
+						},
+						{
+							id: '8f97cb5c-aaa2-476a-b81f-c9ec58040eef',
+							lookupType: 'id',
+							name: 'Regulars',
+						},
+						{
+							id: 'fe51eab0-7a39-4091-87bc-c9c3f737904f',
+							lookupType: 'id',
+							name: 'Australia this month',
+						},
+						{
+							id: 'b375bd53-c074-421d-89c4-8bda68a186b6',
+							lookupType: 'id',
+							name: 'Australian reviews',
+						},
+					],
+				},
+				{
+					sectionContentURL:
+						'https://api.nextgen.guardianapps.co.uk/au/film/lite.json',
+					collectionIds: [
+						{
+							id: '1ce8-6c50-425f-9d32',
+							lookupType: 'id',
+							name: 'Film',
+						},
+						{
+							id: 'b073-c5d7-c8a9-1e32',
+							lookupType: 'id',
+							name: 'News',
+						},
+						{
+							id: '42cd-30fd-cd7d-9505',
+							lookupType: 'id',
+							name: 'Interviews',
+						},
+					],
+				},
+			],
+			capiSources: [],
 		},
 		{
 			displayName: 'Opinion',
@@ -181,9 +374,14 @@ export const ausConfig: PressReaderEditionConfig = {
 							name: 'Greg Jericho',
 						},
 						{
-							id: '02dcfceb-accb-42a4-a998-4cb1c935738f',
+							id: 'ed33702c-81fb-4078-a29b-b54f6f10eff7',
 							lookupType: 'id',
-							name: 'Guardian Labs',
+							name: 'Opinion',
+						},
+						{
+							id: '5d37a759-090a-4a4c-bdfd-413c5676919c',
+							lookupType: 'id',
+							name: 'Global view',
 						},
 						{
 							id: 'a6be553e-2a64-4bb0-9678-b81227eae5e1',
@@ -237,6 +435,16 @@ export const ausConfig: PressReaderEditionConfig = {
 							lookupType: 'id',
 							name: 'Investigations and analysis',
 						},
+						{
+							id: 'e0bff2c6-76d3-485d-b8cf-bccd561127b2',
+							lookupType: 'id',
+							name: 'The Green Recovery',
+						},
+						{
+							id: 'bc53918b-c9f6-4153-93df-9c3b1f4375c5',
+							lookupType: 'id',
+							name: "The frontline: inside Australia's climate emergency",
+						},
 					],
 				},
 			],
@@ -260,6 +468,11 @@ export const ausConfig: PressReaderEditionConfig = {
 							id: '1ccdafee-622a-4dfb-aaca-e3bb995bd5f1',
 							lookupType: 'id',
 							name: 'Key issues',
+						},
+						{
+							id: '75fd1561-aad3-4e69-baf8-278f7db65050',
+							lookupType: 'id',
+							name: 'Coronavirus',
 						},
 					],
 				},
@@ -338,10 +551,19 @@ export const ausConfig: PressReaderEditionConfig = {
 							lookupType: 'id',
 							name: 'International sport',
 						},
+						{
+							id: 'a32d32a5-ad1e-4e74-bfef-fa98e0360299',
+							lookupType: 'id',
+							name: "Women's World Cup 2023",
+						},
 					],
 				},
 			],
-			capiSources: [],
+			capiSources: [
+				'search?tag=football/a-league&order-by=newest',
+				'search?tag=sport/afl&order-by=newest',
+				'search?tag=sport/nrl&order-by=newest',
+			],
 		},
 	],
 	bannedTags: [
