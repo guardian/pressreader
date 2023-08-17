@@ -28,8 +28,8 @@ export interface PressReaderProps extends GuStackProps {
 		bucketName?: string;
 		editionKey: EditionKey;
 		s3PrefixPath: string[];
+		schedule: Schedule;
 	}>;
-	schedule: Schedule;
 	domainName: string;
 }
 
@@ -253,7 +253,7 @@ export class PressReader extends GuStack {
 						lengthOfEvaluationPeriod: Duration.minutes(15),
 						numberOfEvaluationPeriodsAboveThresholdBeforeAlarm: 3,
 					},
-					rules: [{ schedule: props.schedule }],
+					rules: [{ schedule: config.schedule }],
 					timeout: Duration.seconds(300),
 				},
 			);
