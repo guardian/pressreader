@@ -1,7 +1,9 @@
-import { App, Duration } from 'aws-cdk-lib';
+import { App } from 'aws-cdk-lib';
 import { Template } from 'aws-cdk-lib/assertions';
 import { Schedule } from 'aws-cdk-lib/aws-events';
 import { PressReader } from './pressreader';
+
+const schedule = Schedule.cron({ minute: '15' });
 
 describe('The PressReader stack', () => {
 	it('matches the snapshot', () => {
@@ -10,20 +12,21 @@ describe('The PressReader stack', () => {
 			stack: 'print-production',
 			stage: 'TEST',
 			lambdaConfigs: [
-				{ editionKey: 'AUS', s3PrefixPath: ['data', 'AUS'] },
-				{ editionKey: 'US', s3PrefixPath: ['data', 'US'] },
+				{ editionKey: 'AUS', s3PrefixPath: ['data', 'AUS'], schedule },
+				{ editionKey: 'US', s3PrefixPath: ['data', 'US'], schedule },
 				{
 					editionKey: 'AUS',
 					s3PrefixPath: [],
 					bucketName: 'press-reader-aus-configs',
+					schedule,
 				},
 				{
 					editionKey: 'US',
 					s3PrefixPath: [],
 					bucketName: 'press-reader-us-configs',
+					schedule,
 				},
 			],
-			schedule: Schedule.rate(Duration.minutes(15)),
 			domainName: 'pressreader.test.dev-gutools.co.uk',
 		});
 		const template = Template.fromStack(stack);

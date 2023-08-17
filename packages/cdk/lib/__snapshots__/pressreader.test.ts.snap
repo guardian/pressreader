@@ -1576,7 +1576,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
       },
       "Type": "AWS::IAM::Policy",
     },
-    "pressreaderTESTAUSoldpressreaderTESTAUSoldrate15minutes0AllowEventRulePressReaderpressreaderTESTAUSold46DB6A52628B8658": {
+    "pressreaderTESTAUSoldpressreaderTESTAUSoldcron150AllowEventRulePressReaderpressreaderTESTAUSold46DB6A520E73403A": {
       "Properties": {
         "Action": "lambda:InvokeFunction",
         "FunctionName": {
@@ -1588,16 +1588,16 @@ exports[`The PressReader stack matches the snapshot 1`] = `
         "Principal": "events.amazonaws.com",
         "SourceArn": {
           "Fn::GetAtt": [
-            "pressreaderTESTAUSoldpressreaderTESTAUSoldrate15minutes0E1CE297C",
+            "pressreaderTESTAUSoldpressreaderTESTAUSoldcron150EA5C7897",
             "Arn",
           ],
         },
       },
       "Type": "AWS::Lambda::Permission",
     },
-    "pressreaderTESTAUSoldpressreaderTESTAUSoldrate15minutes0E1CE297C": {
+    "pressreaderTESTAUSoldpressreaderTESTAUSoldcron150EA5C7897": {
       "Properties": {
-        "ScheduleExpression": "rate(15 minutes)",
+        "ScheduleExpression": "cron(15 * * * ? *)",
         "State": "ENABLED",
         "Targets": [
           {
@@ -1613,9 +1613,9 @@ exports[`The PressReader stack matches the snapshot 1`] = `
       },
       "Type": "AWS::Events::Rule",
     },
-    "pressreaderTESTAUSpressreaderTESTAUSrate15minutes046435523": {
+    "pressreaderTESTAUSpressreaderTESTAUScron1500E085ACC": {
       "Properties": {
-        "ScheduleExpression": "rate(15 minutes)",
+        "ScheduleExpression": "cron(15 * * * ? *)",
         "State": "ENABLED",
         "Targets": [
           {
@@ -1631,7 +1631,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
       },
       "Type": "AWS::Events::Rule",
     },
-    "pressreaderTESTAUSpressreaderTESTAUSrate15minutes0AllowEventRulePressReaderpressreaderTESTAUS382F54FF4D3C6686": {
+    "pressreaderTESTAUSpressreaderTESTAUScron150AllowEventRulePressReaderpressreaderTESTAUS382F54FF180AD9D2": {
       "Properties": {
         "Action": "lambda:InvokeFunction",
         "FunctionName": {
@@ -1643,7 +1643,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
         "Principal": "events.amazonaws.com",
         "SourceArn": {
           "Fn::GetAtt": [
-            "pressreaderTESTAUSpressreaderTESTAUSrate15minutes046435523",
+            "pressreaderTESTAUSpressreaderTESTAUScron1500E085ACC",
             "Arn",
           ],
         },
@@ -2466,9 +2466,9 @@ exports[`The PressReader stack matches the snapshot 1`] = `
       },
       "Type": "AWS::IAM::Policy",
     },
-    "pressreaderTESTUSoldpressreaderTESTUSoldrate15minutes002919872": {
+    "pressreaderTESTUSoldpressreaderTESTUSoldcron15037AB71BC": {
       "Properties": {
-        "ScheduleExpression": "rate(15 minutes)",
+        "ScheduleExpression": "cron(15 * * * ? *)",
         "State": "ENABLED",
         "Targets": [
           {
@@ -2484,7 +2484,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
       },
       "Type": "AWS::Events::Rule",
     },
-    "pressreaderTESTUSoldpressreaderTESTUSoldrate15minutes0AllowEventRulePressReaderpressreaderTESTUSoldBFB7FA9608E25E64": {
+    "pressreaderTESTUSoldpressreaderTESTUSoldcron150AllowEventRulePressReaderpressreaderTESTUSoldBFB7FA96A6A6A567": {
       "Properties": {
         "Action": "lambda:InvokeFunction",
         "FunctionName": {
@@ -2496,16 +2496,16 @@ exports[`The PressReader stack matches the snapshot 1`] = `
         "Principal": "events.amazonaws.com",
         "SourceArn": {
           "Fn::GetAtt": [
-            "pressreaderTESTUSoldpressreaderTESTUSoldrate15minutes002919872",
+            "pressreaderTESTUSoldpressreaderTESTUSoldcron15037AB71BC",
             "Arn",
           ],
         },
       },
       "Type": "AWS::Lambda::Permission",
     },
-    "pressreaderTESTUSpressreaderTESTUSrate15minutes0191622F6": {
+    "pressreaderTESTUSpressreaderTESTUScron1508ABFF8CD": {
       "Properties": {
-        "ScheduleExpression": "rate(15 minutes)",
+        "ScheduleExpression": "cron(15 * * * ? *)",
         "State": "ENABLED",
         "Targets": [
           {
@@ -2521,7 +2521,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
       },
       "Type": "AWS::Events::Rule",
     },
-    "pressreaderTESTUSpressreaderTESTUSrate15minutes0AllowEventRulePressReaderpressreaderTESTUS2CC9488566095411": {
+    "pressreaderTESTUSpressreaderTESTUScron150AllowEventRulePressReaderpressreaderTESTUS2CC9488571D740B8": {
       "Properties": {
         "Action": "lambda:InvokeFunction",
         "FunctionName": {
@@ -2533,7 +2533,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
         "Principal": "events.amazonaws.com",
         "SourceArn": {
           "Fn::GetAtt": [
-            "pressreaderTESTUSpressreaderTESTUSrate15minutes0191622F6",
+            "pressreaderTESTUSpressreaderTESTUScron1508ABFF8CD",
             "Arn",
           ],
         },
