@@ -110,8 +110,11 @@ export function editionProcessor({
 }
 
 function CapiSearchUrlFromQuery(query: string, capiConfig: CapiConfig): string {
+	const yesterdayYyyyMmDd = new Date(Date.now() - 24 * 60 * 60 * 1000)
+		.toISOString()
+		.slice(0, 10);
 	return new URL(
-		`${query}&api-key=${capiConfig.capiKey}`,
+		`${query}&from-date=${yesterdayYyyyMmDd}&api-key=${capiConfig.capiKey}`,
 		capiConfig.baseCapiUrl,
 	).toString();
 }
