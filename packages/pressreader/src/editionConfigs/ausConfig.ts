@@ -554,7 +554,7 @@ export const ausConfig: PressReaderEditionConfig = {
 						{
 							id: 'a32d32a5-ad1e-4e74-bfef-fa98e0360299',
 							lookupType: 'id',
-							name: "Women's World Cup 2023",
+							name: 'Women’s World Cup 2023',
 						},
 					],
 				},
