@@ -144,12 +144,96 @@ exports[`The PressReader stack matches the snapshot 1`] = `
       },
       "Type": "AWS::IAM::Policy",
     },
-    "CapiTokenSecret1D3F4E33": {
+    "CapiTokenSecretAUSE7DED8BD": {
       "DeletionPolicy": "Delete",
       "Properties": {
         "Description": "The CAPI token used to retrieve content",
         "GenerateSecretString": {},
-        "Name": "/TEST/print-production/pressreader/capiToken",
+        "Name": "/TEST/print-production/pressreader/capiTokenAUS",
+        "Tags": [
+          {
+            "Key": "gu:cdk:version",
+            "Value": "TEST",
+          },
+          {
+            "Key": "gu:repo",
+            "Value": "guardian/pressreader",
+          },
+          {
+            "Key": "Stack",
+            "Value": "print-production",
+          },
+          {
+            "Key": "Stage",
+            "Value": "TEST",
+          },
+        ],
+      },
+      "Type": "AWS::SecretsManager::Secret",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "CapiTokenSecretAUSold88B029DA": {
+      "DeletionPolicy": "Delete",
+      "Properties": {
+        "Description": "The CAPI token used to retrieve content",
+        "GenerateSecretString": {},
+        "Name": "/TEST/print-production/pressreader/capiTokenAUS-old",
+        "Tags": [
+          {
+            "Key": "gu:cdk:version",
+            "Value": "TEST",
+          },
+          {
+            "Key": "gu:repo",
+            "Value": "guardian/pressreader",
+          },
+          {
+            "Key": "Stack",
+            "Value": "print-production",
+          },
+          {
+            "Key": "Stage",
+            "Value": "TEST",
+          },
+        ],
+      },
+      "Type": "AWS::SecretsManager::Secret",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "CapiTokenSecretUS61320231": {
+      "DeletionPolicy": "Delete",
+      "Properties": {
+        "Description": "The CAPI token used to retrieve content",
+        "GenerateSecretString": {},
+        "Name": "/TEST/print-production/pressreader/capiTokenUS",
+        "Tags": [
+          {
+            "Key": "gu:cdk:version",
+            "Value": "TEST",
+          },
+          {
+            "Key": "gu:repo",
+            "Value": "guardian/pressreader",
+          },
+          {
+            "Key": "Stack",
+            "Value": "print-production",
+          },
+          {
+            "Key": "Stage",
+            "Value": "TEST",
+          },
+        ],
+      },
+      "Type": "AWS::SecretsManager::Secret",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "CapiTokenSecretUSoldF93AFBE7": {
+      "DeletionPolicy": "Delete",
+      "Properties": {
+        "Description": "The CAPI token used to retrieve content",
+        "GenerateSecretString": {},
+        "Name": "/TEST/print-production/pressreader/capiTokenUS-old",
         "Tags": [
           {
             "Key": "gu:cdk:version",
@@ -795,7 +879,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
                                 "Fn::Split": [
                                   ":",
                                   {
-                                    "Ref": "CapiTokenSecret1D3F4E33",
+                                    "Ref": "CapiTokenSecretAUSE7DED8BD",
                                   },
                                 ],
                               },
@@ -818,7 +902,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
                                 "Fn::Split": [
                                   ":",
                                   {
-                                    "Ref": "CapiTokenSecret1D3F4E33",
+                                    "Ref": "CapiTokenSecretAUSE7DED8BD",
                                   },
                                 ],
                               },
@@ -1132,7 +1216,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
               "Action": "secretsmanager:GetSecretValue",
               "Effect": "Allow",
               "Resource": {
-                "Ref": "CapiTokenSecret1D3F4E33",
+                "Ref": "CapiTokenSecretAUSE7DED8BD",
               },
             },
             {
@@ -1203,7 +1287,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
                                 "Fn::Split": [
                                   ":",
                                   {
-                                    "Ref": "CapiTokenSecret1D3F4E33",
+                                    "Ref": "CapiTokenSecretAUSold88B029DA",
                                   },
                                 ],
                               },
@@ -1226,7 +1310,30 @@ exports[`The PressReader stack matches the snapshot 1`] = `
                                 "Fn::Split": [
                                   ":",
                                   {
-                                    "Ref": "CapiTokenSecret1D3F4E33",
+                                    "Ref": "CapiTokenSecretAUSold88B029DA",
+                                  },
+                                ],
+                              },
+                            ],
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                  {
+                    "Fn::Select": [
+                      2,
+                      {
+                        "Fn::Split": [
+                          "-",
+                          {
+                            "Fn::Select": [
+                              6,
+                              {
+                                "Fn::Split": [
+                                  ":",
+                                  {
+                                    "Ref": "CapiTokenSecretAUSold88B029DA",
                                   },
                                 ],
                               },
@@ -1540,7 +1647,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
               "Action": "secretsmanager:GetSecretValue",
               "Effect": "Allow",
               "Resource": {
-                "Ref": "CapiTokenSecret1D3F4E33",
+                "Ref": "CapiTokenSecretAUSold88B029DA",
               },
             },
             {
@@ -1685,7 +1792,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
                                 "Fn::Split": [
                                   ":",
                                   {
-                                    "Ref": "CapiTokenSecret1D3F4E33",
+                                    "Ref": "CapiTokenSecretUS61320231",
                                   },
                                 ],
                               },
@@ -1708,7 +1815,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
                                 "Fn::Split": [
                                   ":",
                                   {
-                                    "Ref": "CapiTokenSecret1D3F4E33",
+                                    "Ref": "CapiTokenSecretUS61320231",
                                   },
                                 ],
                               },
@@ -2022,7 +2129,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
               "Action": "secretsmanager:GetSecretValue",
               "Effect": "Allow",
               "Resource": {
-                "Ref": "CapiTokenSecret1D3F4E33",
+                "Ref": "CapiTokenSecretUS61320231",
               },
             },
             {
@@ -2093,7 +2200,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
                                 "Fn::Split": [
                                   ":",
                                   {
-                                    "Ref": "CapiTokenSecret1D3F4E33",
+                                    "Ref": "CapiTokenSecretUSoldF93AFBE7",
                                   },
                                 ],
                               },
@@ -2116,7 +2223,30 @@ exports[`The PressReader stack matches the snapshot 1`] = `
                                 "Fn::Split": [
                                   ":",
                                   {
-                                    "Ref": "CapiTokenSecret1D3F4E33",
+                                    "Ref": "CapiTokenSecretUSoldF93AFBE7",
+                                  },
+                                ],
+                              },
+                            ],
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                  {
+                    "Fn::Select": [
+                      2,
+                      {
+                        "Fn::Split": [
+                          "-",
+                          {
+                            "Fn::Select": [
+                              6,
+                              {
+                                "Fn::Split": [
+                                  ":",
+                                  {
+                                    "Ref": "CapiTokenSecretUSoldF93AFBE7",
                                   },
                                 ],
                               },
@@ -2430,7 +2560,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
               "Action": "secretsmanager:GetSecretValue",
               "Effect": "Allow",
               "Resource": {
-                "Ref": "CapiTokenSecret1D3F4E33",
+                "Ref": "CapiTokenSecretUSoldF93AFBE7",
               },
             },
             {

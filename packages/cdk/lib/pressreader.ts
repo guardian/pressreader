@@ -156,12 +156,6 @@ export class PressReader extends GuStack {
 			resourceRecord: apiDomainName.domainNameAliasDomainName,
 		});
 
-		// secrets
-		const capiSecret = new Secret(this, 'CapiTokenSecret', {
-			secretName: `/${this.stage}/${this.stack}/${appName}/capiToken`,
-			description: 'The CAPI token used to retrieve content',
-		});
-
 		// metrics
 		const collectionLookupFailureMetric = new Metric({
 			namespace: 'AWS/Lambda',
@@ -194,13 +188,6 @@ export class PressReader extends GuStack {
 		const alertEmail = `newsroom.resilience+alerts@guardian.co.uk`;
 		alarmSnsTopic.addSubscription(new EmailSubscription(alertEmail));
 
-		// scheduled lambda
-		const capiSecretGetPolicyStatement = new PolicyStatement({
-			effect: Effect.ALLOW,
-			actions: ['secretsmanager:GetSecretValue'],
-			resources: [capiSecret.secretArn],
-		});
-
 		props.lambdaConfigs.forEach((config) => {
 			const lambdaSuffix =
 				config.bucketName === undefined
@@ -216,6 +203,16 @@ export class PressReader extends GuStack {
 							config.bucketName,
 					  );
 
+			const capiSecret = new Secret(this, `CapiTokenSecret${lambdaSuffix}`, {
+				secretName: `/${this.stage}/${this.stack}/${appName}/capiToken${lambdaSuffix}`,
+				description: 'The CAPI token used to retrieve content',
+			});
+
+			const capiSecretGetPolicyStatement = new PolicyStatement({
+				effect: Effect.ALLOW,
+				actions: ['secretsmanager:GetSecretValue'],
+				resources: [capiSecret.secretArn],
+			});
 			const s3PutPolicyStatement = new PolicyStatement({
 				effect: Effect.ALLOW,
 				actions: ['s3:PutObject'],
