@@ -15,10 +15,10 @@ const app = new GuRootExperimental();
  * without running them too often.
  */
 const infraSchedules = [
-	Schedule.cron({ minute: '0,15,30,45', hour: '10' }),
-	Schedule.cron({ minute: '2,17,32,47', hour: '10' }),
-	Schedule.cron({ minute: '4,19,34,49' }),
-	Schedule.cron({ minute: '6,21,36,51' }),
+	Schedule.cron({ minute: '0,15,30,45' }),
+	Schedule.cron({ minute: '2,17,32,47' }),
+	Schedule.cron({ minute: '4,19,34,49', hour: '0,4,8,12,16,20' }),
+	Schedule.cron({ minute: '6,21,36,51', hour: '0,4,8,12,16,20' }),
 ] as const;
 
 new PressReader(app, 'PressReader-INFRA', {
