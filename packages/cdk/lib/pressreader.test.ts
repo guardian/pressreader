@@ -14,18 +14,6 @@ describe('The PressReader stack', () => {
 			lambdaConfigs: [
 				{ editionKey: 'AUS', s3PrefixPath: ['data', 'AUS'], schedule },
 				{ editionKey: 'US', s3PrefixPath: ['data', 'US'], schedule },
-				{
-					editionKey: 'AUS',
-					s3PrefixPath: [],
-					bucketName: 'press-reader-aus-configs',
-					schedule,
-				},
-				{
-					editionKey: 'US',
-					s3PrefixPath: [],
-					bucketName: 'press-reader-us-configs',
-					schedule,
-				},
 			],
 			domainName: 'pressreader.test.dev-gutools.co.uk',
 		});
