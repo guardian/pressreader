@@ -7,10 +7,10 @@
 		"synth": "cdk synth --path-metadata false --version-reporting false"
 	},
 	"devDependencies": {
-		"@guardian/cdk": "50.10.12",
-		"aws-cdk": "2.90.0",
-		"aws-cdk-lib": "2.90.0",
-		"constructs": "10.2.69",
+		"@guardian/cdk": "50.11.0",
+		"aws-cdk": "2.95.1",
+		"aws-cdk-lib": "2.95.1",
+		"constructs": "10.2.70",
 		"source-map-support": "^0.5.21"
 	}
 }
