@@ -999,7 +999,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
           "Fn::Join": [
             "",
             [
-              "High error % from ",
+              "High error percentage from ",
               {
                 "Ref": "pressreaderTESTAUS60AC2E4C",
               },
@@ -1430,7 +1430,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
           "Fn::Join": [
             "",
             [
-              "High error % from ",
+              "High error percentage from ",
               {
                 "Ref": "pressreaderTESTAUSold857C2C7D",
               },
@@ -1912,7 +1912,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
           "Fn::Join": [
             "",
             [
-              "High error % from ",
+              "High error percentage from ",
               {
                 "Ref": "pressreaderTESTUS1B14EF59",
               },
@@ -2343,7 +2343,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
           "Fn::Join": [
             "",
             [
-              "High error % from ",
+              "High error percentage from ",
               {
                 "Ref": "pressreaderTESTUSoldCB2E4EB4",
               },
