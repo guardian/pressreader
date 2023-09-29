@@ -25,7 +25,6 @@ import type { EditionKey } from 'packages/shared-types';
 
 export interface PressReaderProps extends GuStackProps {
 	lambdaConfigs: Array<{
-		bucketName?: string;
 		editionKey: EditionKey;
 		s3PrefixPath: string[];
 		schedule: Schedule;
@@ -44,10 +43,6 @@ export class PressReader extends GuStack {
 			app: appName,
 			bucketName: `gu-pressreader-data-${this.stage.toLowerCase()}`,
 		});
-
-		const lambdasUsingDataBucket = props.lambdaConfigs.filter(
-			(config) => config.bucketName === undefined,
-		);
 
 		// ACM Certificate
 		const certificate = new GuCertificate(this, {
@@ -70,7 +65,7 @@ export class PressReader extends GuStack {
 			roleName: `APIGatewayS3IntegrationRole${this.stage}`,
 		});
 
-		lambdasUsingDataBucket.forEach((lambdaConfig) => {
+		props.lambdaConfigs.forEach((lambdaConfig) => {
 			executeRole.addToPolicy(
 				new PolicyStatement({
 					resources: [
@@ -189,19 +184,7 @@ export class PressReader extends GuStack {
 		alarmSnsTopic.addSubscription(new EmailSubscription(alertEmail));
 
 		props.lambdaConfigs.forEach((config) => {
-			const lambdaSuffix =
-				config.bucketName === undefined
-					? config.editionKey
-					: `${config.editionKey}-old`;
-
-			const lambdaBucket =
-				config.bucketName === undefined
-					? dataBucket
-					: GuS3Bucket.fromBucketName(
-							this,
-							`legacyDataBucket-${lambdaSuffix}`,
-							config.bucketName,
-					  );
+			const lambdaSuffix = config.editionKey;
 
 			const capiSecret = new Secret(this, `CapiTokenSecret${lambdaSuffix}`, {
 				secretName: `/${this.stage}/${this.stack}/${appName}/capiToken${lambdaSuffix}`,
@@ -217,7 +200,7 @@ export class PressReader extends GuStack {
 				effect: Effect.ALLOW,
 				actions: ['s3:PutObject'],
 				resources: [
-					[lambdaBucket.bucketArn, ...config.s3PrefixPath, '*'].join('/'),
+					[dataBucket.bucketArn, ...config.s3PrefixPath, '*'].join('/'),
 				],
 			});
 
@@ -237,7 +220,7 @@ export class PressReader extends GuStack {
 					memorySize: 512,
 					handler: 'handler.main',
 					environment: {
-						BUCKET_NAME: lambdaBucket.bucketName,
+						BUCKET_NAME: dataBucket.bucketName,
 						CAPI_SECRET_LOCATION: capiSecret.secretName,
 						EDITION_KEY: config.editionKey,
 						FAILURE_METRIC_NAME: collectionLookupFailureMetric.metricName,
