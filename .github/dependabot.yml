@@ -5,30 +5,33 @@
 
 version: 2
 updates:
-  - package-ecosystem: 'npm'
-    directory: '/'
+  - package-ecosystem: "npm"
+    directory: "/"
     schedule:
-      interval: 'weekly'
+      interval: "weekly"
     ignore:
       # The version of AWS CDK libraries must match those from @guardian/cdk.
       # We'd never be able to update them here independently, so just ignore them.
-      - dependency-name: 'aws-cdk'
-      - dependency-name: 'aws-cdk-lib'
-      - dependency-name: 'constructs'
-      - dependency-name: '@types/node'
+      - dependency-name: "aws-cdk"
+      - dependency-name: "aws-cdk-lib"
+      - dependency-name: "constructs"
+      - dependency-name: "@types/node"
         update-types:
-          - 'version-update:semver-major'
-          - 'version-update:semver-minor'
+          - "version-update:semver-major"
+          - "version-update:semver-minor"
     groups:
       cdk-dependencies:
         patterns:
-          - '@guardian/cdk'
+          - "@guardian/cdk"
+        exclude-patterns:
+          - "typescript"
       non-cdk-dependencies:
         patterns:
-          - '*'
+          - "*"
         exclude-patterns:
-          - '@guardian/cdk'
-  - package-ecosystem: 'github-actions'
-    directory: '/'
+          - "@guardian/cdk"
+          - "typescript"
+  - package-ecosystem: "github-actions"
+    directory: "/"
     schedule:
-      interval: 'weekly'
+      interval: "weekly"
