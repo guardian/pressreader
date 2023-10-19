@@ -54,7 +54,7 @@ export const ausConfig: PressReaderEditionConfig = {
 							name: 'Across the country',
 						},
 						{
-							id: 'bbeca920-4543-4db5-b315-8a39a5e0642f',
+							id: '016d967f-0303-4a47-b5e0-bf6d36ad4a52',
 							lookupType: 'id',
 							name: 'News extra',
 						},
