@@ -1,9 +1,9 @@
 import 'source-map-support/register';
-import { GuRootExperimental } from '@guardian/cdk/lib/experimental/constructs/root';
+import { GuRoot } from '@guardian/cdk/lib/constructs/root';
 import { Schedule } from 'aws-cdk-lib/aws-events';
 import { PressReader } from '../lib/pressreader';
 
-const app = new GuRootExperimental();
+const app = new GuRoot();
 
 /**
  * Each of the INFRA lambdas is scheduled to run every 15 minutes, but the schedules

@@ -209,7 +209,7 @@ export class PressReader extends GuStack {
 				`${appName}-${this.stage}-${lambdaSuffix}`,
 				{
 					// The riff-raff.yaml auto-generation incorporated
-					// by using GuRootExperimental, and outputting to
+					// by using GuRoot and outputting to
 					// cdk/cdk.out/riff-raff.yaml when the synth task is
 					// run uses this value to identify what to deploy.
 					//
