@@ -18,6 +18,7 @@ jobs:
     permissions:
       id-token: write
       contents: read
+      pull-requests: write
 
     steps:
       - name: Checkout repo
@@ -32,15 +33,16 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version-file: '.nvmrc'
+          node-version-file: ".nvmrc"
 
       - name: Build
         run: |
           ./scripts/ci
 
       - name: Upload to riff-raff
-        uses: guardian/actions-riff-raff@v2
+        uses: guardian/actions-riff-raff@v3
         with:
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
           buildNumber: ${{ env.GITHUB_RUN_NUMBER }}
           projectName: print-production::pressreader
           configPath: packages/cdk/cdk.out/riff-raff.yaml
