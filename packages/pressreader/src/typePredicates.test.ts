@@ -92,6 +92,40 @@ describe('isCapiItemResponse', () => {
 			}),
 		).toBe(false);
 	});
+	it('should be fine with an empty array of tags', () => {
+		expect(
+			isCapiItemResponse({
+				status: 'ok',
+				content: { ...validCapiItemResponse.content, tags: [] },
+			}),
+		).toBe(true);
+	});
+	it('should return false if content.tags is not an array of objects with id and type both being strings', () => {
+		expect(
+			isCapiItemResponse({
+				status: 'ok',
+				content: {
+					...validCapiItemResponse.content,
+					tags: [
+						{ id: 'a', type: 'series' },
+						{ id: 0, type: 'type' },
+					],
+				},
+			}),
+		).toBe(false);
+		expect(
+			isCapiItemResponse({
+				status: 'ok',
+				content: {
+					...validCapiItemResponse.content,
+					tags: [
+						{ id: 'a', type: 'series' },
+						{ id: 'b', type: 0 },
+					],
+				},
+			}),
+		).toBe(false);
+	});
 });
 
 describe('isCapiSearchResponse', () => {

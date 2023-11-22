@@ -42,7 +42,11 @@ export function isCapiItemResponse(data: unknown): data is CapiItemResponse {
 		typeof (data as ItemResponse).content?.webPublicationDate === 'string' &&
 		typeof (data as ItemResponse).content?.fields === 'object' &&
 		typeof (data as ItemResponse).content?.fields?.wordcount === 'string' &&
-		Array.isArray((data as ItemResponse).content?.tags)
+		Array.isArray((data as ItemResponse).content?.tags) &&
+		((data as ItemResponse).content?.tags.every(
+			(tag) => typeof tag.id === 'string' && typeof tag.type === 'string',
+		) ??
+			false)
 	);
 }
 
