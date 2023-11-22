@@ -356,9 +356,7 @@ export function capiResponseToCapiItem(
 ): CapiItem | undefined {
 	try {
 		const wordcount = parseInt(response.content.fields.wordcount);
-		const type = response.content.type;
-		const webPublicationDate = response.content.webPublicationDate;
-		return { ...response.content, webPublicationDate, wordcount, type };
+		return { ...response.content, wordcount };
 	} catch (e) {
 		throw new Error('CAPI item has invalid wordcount value');
 	}
