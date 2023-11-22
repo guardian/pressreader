@@ -3,13 +3,35 @@ import {
 	isCapiSearchResponse,
 	isPressedFrontPage,
 } from './typePredicates';
+import type { CapiItemResponse } from './types/CapiTypes';
 
 describe('isCapiItemResponse', () => {
-	it('should return true if the data has {status: "okay"}', () => {
-		expect(isCapiItemResponse({ status: 'ok' })).toBe(true);
+	const validCapiItemResponse: CapiItemResponse = {
+		status: 'ok',
+		content: {
+			id: 'us-news/2023/nov/20/first-thing-richest-1-account-for-more-carbon-emissions-than-poorest-66',
+			type: 'article',
+			webPublicationDate: '2023-11-20T11:50:12Z',
+			fields: { wordcount: '1384' },
+			tags: [
+				{
+					id: 'a',
+					type: 'series',
+				},
+				{
+					id: 'b',
+					type: 'type',
+				},
+			],
+		},
+	};
+	it('should return true if the data has all expected fields', () => {
+		expect(isCapiItemResponse(validCapiItemResponse)).toBe(true);
 	});
 	it('should return false if the data does not have {status: "okay"}', () => {
-		expect(isCapiItemResponse({ status: 'error' })).toBe(false);
+		expect(
+			isCapiItemResponse({ ...validCapiItemResponse, status: 'error' }),
+		).toBe(false);
 	});
 	it('should return false if the data is an empty object', () => {
 		expect(isCapiItemResponse({})).toBe(false);
@@ -20,6 +42,55 @@ describe('isCapiItemResponse', () => {
 		expect(isCapiItemResponse(undefined)).toBe(false);
 		expect(isCapiItemResponse(0)).toBe(false);
 		expect(isCapiItemResponse('')).toBe(false);
+	});
+	it('should return false if content.id is not a string', () => {
+		expect(
+			isCapiItemResponse({
+				status: 'ok',
+				content: { ...validCapiItemResponse.content, id: 0 },
+			}),
+		).toBe(false);
+	});
+	it('should return false if content.type is not a string', () => {
+		expect(
+			isCapiItemResponse({
+				status: 'ok',
+				content: { ...validCapiItemResponse.content, type: 0 },
+			}),
+		).toBe(false);
+	});
+	it('should return false if content.webPublicationDate is not a string', () => {
+		expect(
+			isCapiItemResponse({
+				status: 'ok',
+				content: {
+					...validCapiItemResponse.content,
+					webPublicationDate: 0,
+				},
+			}),
+		).toBe(false);
+	});
+	it('should return false if content.fields.wordcount is not a string', () => {
+		expect(
+			isCapiItemResponse({
+				status: 'ok',
+				content: { ...validCapiItemResponse.content, fields: 0 },
+			}),
+		).toBe(false);
+		expect(
+			isCapiItemResponse({
+				status: 'ok',
+				content: { ...validCapiItemResponse.content, fields: { wordcount: 0 } },
+			}),
+		).toBe(false);
+	});
+	it('should return false if content.tags is not an array', () => {
+		expect(
+			isCapiItemResponse({
+				status: 'ok',
+				content: { ...validCapiItemResponse.content, tags: 0 },
+			}),
+		).toBe(false);
 	});
 });
 
