@@ -109,7 +109,7 @@ describe('processFrontData', () => {
 	it('should ignore unmatched collections', () => {
 		const collectionIds: CollectionIdentifiers[] = [
 			{
-				id: 'non-existent-colection-id',
+				id: 'non-existent-collection-id',
 				lookupType: 'id',
 				name: 'n/a',
 			},
@@ -138,7 +138,7 @@ describe('processFrontData', () => {
 				name: 'My Container',
 			},
 			{
-				id: 'non-existent-colection-id',
+				id: 'non-existent-collection-id',
 				lookupType: 'id',
 				name: 'n/a',
 			},

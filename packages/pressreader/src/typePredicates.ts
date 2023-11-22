@@ -34,8 +34,19 @@ export function isNotUndefined<T>(value: T | undefined): value is T {
 export function isCapiItemResponse(data: unknown): data is CapiItemResponse {
 	return (
 		data != null &&
-		(typeof data === 'object' || typeof data === 'function') &&
-		(data as ItemResponse).status == 'ok'
+		typeof data === 'object' &&
+		(data as ItemResponse).status == 'ok' &&
+		typeof (data as ItemResponse).content === 'object' &&
+		typeof (data as ItemResponse).content?.id === 'string' &&
+		typeof (data as ItemResponse).content?.type === 'string' &&
+		typeof (data as ItemResponse).content?.webPublicationDate === 'string' &&
+		typeof (data as ItemResponse).content?.fields === 'object' &&
+		typeof (data as ItemResponse).content?.fields?.wordcount === 'string' &&
+		Array.isArray((data as ItemResponse).content?.tags) &&
+		((data as ItemResponse).content?.tags.every(
+			(tag) => typeof tag.id === 'string' && typeof tag.type === 'string',
+		) ??
+			false)
 	);
 }
 
