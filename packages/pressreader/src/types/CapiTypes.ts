@@ -6,12 +6,12 @@ export interface CapiSearchResponse {
 
 export interface CapiItemResponse {
 	status: 'ok';
-	content?: {
+	content: {
 		id: string;
 		type: string;
-		webPublicationDate?: string;
-		fields?: {
-			wordcount?: string;
+		webPublicationDate: string;
+		fields: {
+			wordcount: string;
 		};
 		tags: Tag[];
 	};

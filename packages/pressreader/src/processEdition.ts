@@ -6,7 +6,7 @@ import {
 	isNotUndefined,
 	isPressedFrontPage,
 } from './typePredicates';
-import type { CapiItem } from './types/CapiTypes';
+import type { CapiItem, CapiItemResponse } from './types/CapiTypes';
 import type {
 	CollectionType,
 	PressedFrontPage,
@@ -152,12 +152,21 @@ export function meetsInclusionCriteria(
 	return true;
 }
 
-async function fetchArticleData(
+export async function fetchArticleData(
 	id: string,
 	capiConfig: CapiConfig,
 ): Promise<CapiItem | undefined> {
 	const url = CapiItemUrlFromId(id, capiConfig);
-	const resp = await axios.get(url);
+	const resp = await axios.get(url, {
+		validateStatus: (code) => {
+			// We don't want to error on 404s; rather, handle them in the code below.
+			return (code >= 200 && code < 300) || code == 404;
+		},
+	});
+	if (resp.status == 404) {
+		console.warn(`Article not found: ${id}`);
+		return undefined;
+	}
 	if (resp.status != 200) {
 		throw new Error('Failed to fetch article data');
 	}
@@ -186,24 +195,7 @@ async function fetchArticleData(
 	if (!isCapiItemResponse(data)) {
 		throw new Error(`CAPI response is not valid: ${id}`);
 	}
-	if (
-		data.content == undefined ||
-		data.content.webPublicationDate == undefined ||
-		data.content.fields?.wordcount == undefined
-	) {
-		throw new Error('CAPI item is missing required fields');
-	}
-	try {
-		const wordcount = parseInt(
-			data.content.fields.wordcount as unknown as string,
-		);
-		const type = data.content.type as unknown as string;
-		const webPublicationDate = data.content
-			.webPublicationDate as unknown as string;
-		return { ...data.content, webPublicationDate, wordcount, type } as CapiItem;
-	} catch (e) {
-		throw new Error('CAPI item has invalid wordcount value');
-	}
+	return capiResponseToCapiItem(data);
 }
 
 async function getArticleIdsFromCapi(
@@ -357,4 +349,17 @@ function extractToneTags(article: CapiItem): string[] {
 	return article.tags
 		.filter((tag) => tag.type === 'tone')
 		.map((tag) => tag.id.trim().toLowerCase());
+}
+
+export function capiResponseToCapiItem(
+	response: CapiItemResponse,
+): CapiItem | undefined {
+	try {
+		const wordcount = parseInt(response.content.fields.wordcount);
+		const type = response.content.type;
+		const webPublicationDate = response.content.webPublicationDate;
+		return { ...response.content, webPublicationDate, wordcount, type };
+	} catch (e) {
+		throw new Error('CAPI item has invalid wordcount value');
+	}
 }
