@@ -15,8 +15,8 @@
 		"packages/*"
 	],
 	"devDependencies": {
-		"@guardian/eslint-config-typescript": "^8.0.0",
-		"@guardian/prettier": "^5.0.0",
+		"@guardian/eslint-config-typescript": "^8.0.1",
+		"@guardian/prettier": "^6.0.0",
 		"@guardian/tsconfig": "^0.2.0",
 		"aws-sdk-client-mock": "^3.0.0",
 		"esbuild": "^0.19.9",
