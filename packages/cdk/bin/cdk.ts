@@ -15,7 +15,7 @@ const infraSchedules = [
 	Schedule.cron({ minute: '2,17,32,47' }),
 ] as const;
 
-new PressReader(app, 'PressReader-INFRA', {
+export const pressreaderInfraStack = new PressReader(app, 'PressReader-INFRA', {
 	env: { region: 'eu-west-1' },
 	app: 'pressreader',
 	stack: 'print-production',
@@ -33,6 +33,7 @@ new PressReader(app, 'PressReader-INFRA', {
 		},
 	],
 	domainName: 'pressreader.gutools.co.uk',
+	enableNotifications: true,
 });
 
 const codeSchedules = [
@@ -58,4 +59,5 @@ new PressReader(app, 'PressReader-CODE', {
 		},
 	],
 	domainName: 'pressreader.code.dev-gutools.co.uk',
+	enableNotifications: false,
 });
