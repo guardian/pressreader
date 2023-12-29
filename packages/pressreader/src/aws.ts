@@ -24,7 +24,7 @@ const awsOptions = isRunningLocally
 				accessKeyId: '',
 				secretAccessKey: '',
 			},
-	  }
+		}
 	: {};
 
 export const s3 = new S3Client(awsOptions);
