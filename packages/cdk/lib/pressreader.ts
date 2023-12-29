@@ -30,6 +30,13 @@ export interface PressReaderProps extends GuStackProps {
 		schedule: Schedule;
 	}>;
 	domainName: string;
+	/**
+	 * If false, no notifications will be sent for this stack. Should be `true`
+	 * for 'INFRA' stage, but it can be useful to set to `false` for 'CODE' stage
+	 * to reduce noise. Does not affect alarms for regular monitoring of success
+	 * or failure for the lambda.
+	 */
+	enableNotifications: boolean;
 }
 
 export class PressReader extends GuStack {
@@ -37,6 +44,7 @@ export class PressReader extends GuStack {
 		super(scope, id, props);
 		const appName = 'pressreader';
 		const domainName = props.domainName;
+		const enableNotifications = props.enableNotifications;
 
 		// S3 Bucket
 		const dataBucket = new GuS3Bucket(this, 'PressreaderDataBucket', {
@@ -158,24 +166,26 @@ export class PressReader extends GuStack {
 		});
 
 		// non-critical alarms
-		const notificationsSnsTopic = new Topic(
-			this,
-			`${appName}-${this.stage}-email-notifications-topic`,
-		);
-		const notificationsEmail = `newsroom.resilience+notifications@guardian.co.uk`;
-		notificationsSnsTopic.addSubscription(
-			new EmailSubscription(notificationsEmail),
-		);
-		new GuAlarm(this, 'CollectionLookupFailureAlarm', {
-			app: appName,
-			metric: collectionLookupFailureMetric,
-			threshold: 1,
-			evaluationPeriods: 1,
-			datapointsToAlarm: 1,
-			snsTopicName: notificationsSnsTopic.topicName,
-		});
+		if (enableNotifications) {
+			const notificationsSnsTopic = new Topic(
+				this,
+				`${appName}-${this.stage}-email-notifications-topic`,
+			);
+			const notificationsEmail = `newsroom.resilience+notifications@guardian.co.uk`;
+			notificationsSnsTopic.addSubscription(
+				new EmailSubscription(notificationsEmail),
+			);
+			new GuAlarm(this, 'CollectionLookupFailureAlarm', {
+				app: appName,
+				metric: collectionLookupFailureMetric,
+				threshold: 1,
+				evaluationPeriods: 1,
+				datapointsToAlarm: 1,
+				snsTopicName: notificationsSnsTopic.topicName,
+			});
+		}
 
-		// alarms
+		// alarm for GuScheduledLambda built-in monitoring
 		const alarmSnsTopic = new Topic(
 			this,
 			`${appName}-${this.stage}-email-alarm-topic`,
