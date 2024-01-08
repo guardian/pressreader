@@ -32,4 +32,10 @@ Monitoring on lambda errors is configured in [`./cdk/lib/pressreader.ts`](../pac
 
 Lambda errors, invocations and duration [can be visualised in Grafana](https://metrics.gutools.co.uk/d/Z-KfjN34z/pressreader?orgId=1&from=now-30d&to=now).
 
+### `CollectionLookupFailureAlarm` alerts
+
 The edition configuration specifies a set of collections on Guardian web fronts that the script extracts stories from. Sometimes these collections are removed or renamed. When the script fails to find an expected collection is will send alarm notifications to `newsroom.resilience+notifications@guardian.co.uk`. These notifications don't include details about the missing collections, but more information can be found by searching the [project logs](https://logs.gutools.co.uk/s/newsroom-resilience/goto/8f38a860-fb94-11ed-a6e5-05ce52e0b77b).
+
+**nb.** collection lookup failure is not a fatal issue. However, it's best to catch it early, so that the Pressreader editions remain relevant, and because it should be easier to work out what's been changed sooner after the fact.
+
+In theory a collection could be added and removed from a front a few times within a short period (e.g. over the New Year period when `News Extra` was temporarily replaced on the AU front by some end-of-year roundup collections). This caused some unnecessary noise in the alerts, but so far this has only happened once. If it happens more often, we might want to rethink the alerting strategy.
