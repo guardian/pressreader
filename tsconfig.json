@@ -3,6 +3,6 @@
 	"compilerOptions": {
 		"module": "commonjs",
 		"esModuleInterop": true,
-		"baseUrl": "."
-	}
+		"baseUrl": ".",
+	},
 }
