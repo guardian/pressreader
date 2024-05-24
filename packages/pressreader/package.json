@@ -9,7 +9,7 @@
 		"@types/node": "18.13.0"
 	},
 	"scripts": {
-		"dev": "EDITION_KEY=US PREFIX_PATH=data/us ts-node-dev src/handler.ts",
+		"dev": "EDITION_KEY=US PREFIX_PATH=data/us tsx watch src/handler.ts",
 		"typecheck": "tsc -noEmit",
 		"build": "esbuild src/handler.ts --bundle --minify --outfile=dist/handler.js --external:aws-sdk --platform=node",
 		"test": "jest --detectOpenHandles --config ../../jest.config.js --selectProjects pressreader"
@@ -27,6 +27,6 @@
 	"dependencies": {
 		"@aws-sdk/client-cloudwatch": "3.569.0",
 		"axios": "1.6.8",
-		"ts-node-dev": "^2.0.0"
+		"tsx": "4.11.0"
 	}
 }
