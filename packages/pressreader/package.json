@@ -3,11 +3,11 @@
 	"version": "1.0.0",
 	"description": "",
 	"devDependencies": {
-		"@aws-sdk/client-s3": "^3.592.0",
-		"@aws-sdk/client-secrets-manager": "^3.592.0",
-		"@guardian/content-api-models": "24.0.0",
+		"@aws-sdk/client-s3": "^3.614.0",
+		"@aws-sdk/client-secrets-manager": "^3.614.0",
+		"@guardian/content-api-models": "25.0.0",
 		"@types/node": "18.13.0",
-		"tsx": "4.15.1"
+		"tsx": "4.16.2"
 	},
 	"scripts": {
 		"dev": "EDITION_KEY=US PREFIX_PATH=data/us tsx watch src/handler.ts",
@@ -26,7 +26,7 @@
 	},
 	"homepage": "https://github.com/guardian/pressreader#readme",
 	"dependencies": {
-		"@aws-sdk/client-cloudwatch": "3.592.0",
+		"@aws-sdk/client-cloudwatch": "3.614.0",
 		"axios": "1.7.2"
 	}
 }
