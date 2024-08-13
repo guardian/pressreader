@@ -1,4 +1,3 @@
-import axios from 'axios';
 import {
 	isCapiItemResponse,
 	isCapiSearchResponse,
@@ -157,12 +156,7 @@ export async function fetchArticleData(
 	capiConfig: CapiConfig,
 ): Promise<CapiItem | undefined> {
 	const url = CapiItemUrlFromId(id, capiConfig);
-	const resp = await axios.get(url, {
-		validateStatus: (code) => {
-			// We don't want to error on 404s; rather, handle them in the code below.
-			return (code >= 200 && code < 300) || code == 404;
-		},
-	});
+	const resp = await fetch(url);
 	if (resp.status == 404) {
 		console.warn(`Article not found: ${id}`);
 		return undefined;
@@ -170,7 +164,7 @@ export async function fetchArticleData(
 	if (resp.status != 200) {
 		throw new Error('Failed to fetch article data');
 	}
-	const { response: data } = (await resp.data) as unknown as {
+	const { response: data } = (await resp.json()) as unknown as {
 		response: unknown;
 	};
 	/**
@@ -213,12 +207,12 @@ async function fetchCapiSearchData(
 	capiConfig: CapiConfig,
 ): Promise<string[]> {
 	const url = CapiSearchUrlFromQuery(query, capiConfig);
-	const response = await axios.get(url);
+	const response = await fetch(url);
 	if (response.status != 200) {
 		console.log(`Capi search returned no data: ${query}`);
 		return [];
 	}
-	const data = (await response.data) as unknown;
+	const data = (await response.json()) as unknown;
 	if (!isCapiSearchResponse(data)) {
 		console.log(`Capi search returned invalid response: ${query})}`);
 		return [];
@@ -229,14 +223,14 @@ async function fetchCapiSearchData(
 async function fetchFrontData(
 	front: FrontSource,
 ): Promise<FrontSourceWithData | undefined> {
-	const response = await axios.get(front.sectionContentURL);
+	const response = await fetch(front.sectionContentURL);
 	if (response.status != 200) {
 		console.log(
 			`Front source error [${response.status}]: ${front.sectionContentURL}`,
 		);
 		return undefined;
 	}
-	const data = (await response.data) as unknown;
+	const data = (await response.json()) as unknown;
 	if (!isPressedFrontPage(data)) {
 		console.log(
 			`Front source returned invalid response: ${front.sectionContentURL}`,
