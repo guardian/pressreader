@@ -8,7 +8,7 @@ const setFetchMock = (response: unknown, status: number): void => {
 	global.fetch
 		// @ts-expect-error -- fetch is mocked
 		.mockResolvedValue({
-			ok: true,
+			ok: Math.trunc(status / 100) === 2, // statuses 200-299
 			json: () => response,
 			status,
 		});
