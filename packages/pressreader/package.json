@@ -26,7 +26,6 @@
 	},
 	"homepage": "https://github.com/guardian/pressreader#readme",
 	"dependencies": {
-		"@aws-sdk/client-cloudwatch": "3.624.0",
-		"axios": "1.7.3"
+		"@aws-sdk/client-cloudwatch": "3.624.0"
 	}
 }

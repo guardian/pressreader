@@ -1,15 +1,22 @@
-import axios from 'axios';
 import { capiResponseToCapiItem, fetchArticleData } from './processEdition';
 import type { CapiItemResponse } from './types/CapiTypes';
 
-jest.mock('axios');
+jest.spyOn(global, 'fetch');
+
+const setFetchMock = (response: unknown, status: number): void => {
+	// eslint-disable-next-line @typescript-eslint/no-unsafe-call -- fetch is mocked
+	global.fetch
+		// @ts-expect-error -- fetch is mocked
+		.mockResolvedValue({
+			ok: Math.trunc(status / 100) === 2, // statuses 200-299
+			json: () => response,
+			status,
+		});
+};
 
 describe('fetchArticleData', () => {
 	it('should return "undefined" if CAPI returns a 404', async () => {
-		const resp = { data: {}, status: 404 };
-		const mockedAxios = axios as jest.Mocked<typeof axios>;
-
-		mockedAxios.get.mockResolvedValue(resp);
+		setFetchMock({}, 404);
 
 		const data = await fetchArticleData('abc', {
 			baseCapiUrl: 'https://example.com',
@@ -38,10 +45,8 @@ describe('fetchArticleData', () => {
 				],
 			},
 		};
-		const resp = { data: { response: articleData }, status: 200 };
-		const mockedAxios = axios as jest.Mocked<typeof axios>;
-
-		mockedAxios.get.mockResolvedValue(resp);
+		const resp = { response: articleData };
+		setFetchMock(resp, 200);
 
 		const data = await fetchArticleData(articleData.content.id, {
 			baseCapiUrl: 'https://example.com',
@@ -51,10 +56,8 @@ describe('fetchArticleData', () => {
 	});
 
 	it('should throw an error if returned data is not a valid CAPI response', async () => {
-		const resp = { data: { response: {} }, status: 200 };
-		const mockedAxios = axios as jest.Mocked<typeof axios>;
-
-		mockedAxios.get.mockResolvedValue(resp);
+		const resp = { response: {} };
+		setFetchMock(resp, 200);
 
 		await expect(
 			fetchArticleData('abc', {
