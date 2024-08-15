@@ -226,7 +226,7 @@ export class PressReader extends GuStack {
 					// This value must match one of the contentDirectories
 					// identified in .github/workflows/ci.yml
 					app: `${appName}-${lambdaSuffix}`,
-					runtime: Runtime.NODEJS_18_X,
+					runtime: Runtime.NODEJS_20_X,
 					memorySize: 512,
 					handler: 'handler.main',
 					environment: {
