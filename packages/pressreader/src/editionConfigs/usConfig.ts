@@ -45,7 +45,7 @@ export const usConfig: PressReaderEditionConfig = {
 						{
 							id: '91a73cf9-8a26-4d6c-b8de-41f868e2f028',
 							lookupType: 'id',
-							name: 'In depth',
+							name: 'In focus',
 						},
 					],
 				},
