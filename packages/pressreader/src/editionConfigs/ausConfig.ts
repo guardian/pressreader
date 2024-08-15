@@ -224,7 +224,7 @@ export const ausConfig: PressReaderEditionConfig = {
 						{
 							id: 'au/culture/feature-stories',
 							lookupType: 'id',
-							name: 'Features',
+							name: 'Interviews',
 						},
 					],
 				},
