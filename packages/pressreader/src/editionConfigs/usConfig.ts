@@ -221,7 +221,7 @@ export const usConfig: PressReaderEditionConfig = {
 						{
 							id: '5fd45b04-c512-4a8c-a9b5-cc07a6097049',
 							lookupType: 'id',
-							name: 'Explore',
+							name: 'In case you missed it',
 						},
 						{
 							id: 'us-alpha/features/feature-stories',
@@ -270,7 +270,7 @@ export const usConfig: PressReaderEditionConfig = {
 						{
 							id: '5fd45b04-c512-4a8c-a9b5-cc07a6097049',
 							lookupType: 'id',
-							name: 'Explore',
+							name: 'In case you missed it',
 						},
 					],
 				},
