@@ -45,7 +45,7 @@ export const usConfig: PressReaderEditionConfig = {
 						{
 							id: '91a73cf9-8a26-4d6c-b8de-41f868e2f028',
 							lookupType: 'id',
-							name: 'In depth',
+							name: 'In focus',
 						},
 					],
 				},
@@ -221,7 +221,7 @@ export const usConfig: PressReaderEditionConfig = {
 						{
 							id: '5fd45b04-c512-4a8c-a9b5-cc07a6097049',
 							lookupType: 'id',
-							name: 'Explore',
+							name: 'In case you missed it',
 						},
 						{
 							id: 'us-alpha/features/feature-stories',
@@ -270,7 +270,7 @@ export const usConfig: PressReaderEditionConfig = {
 						{
 							id: '5fd45b04-c512-4a8c-a9b5-cc07a6097049',
 							lookupType: 'id',
-							name: 'Explore',
+							name: 'In case you missed it',
 						},
 					],
 				},
