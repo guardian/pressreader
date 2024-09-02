@@ -9,6 +9,6 @@
 	"devDependencies": {
 		"@guardian/cdk": "59.3.0",
 		"source-map-support": "^0.5.21",
-		"tsx": "^4.18.0"
+		"tsx": "^4.19.0"
 	}
 }
