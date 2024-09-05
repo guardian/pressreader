@@ -565,7 +565,7 @@ export const usConfig: PressReaderEditionConfig = {
 							name: 'Seascape',
 						},
 						{
-							id: '973980aa-519b-4ea6-bf97-668d1ed2e0c0',
+							id: '8b5b-99a9-e8c3-ff49',
 							lookupType: 'id',
 							name: 'Opinion',
 						},
