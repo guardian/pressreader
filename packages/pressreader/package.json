@@ -1,5 +1,5 @@
 {
-	"name": "pressreader",
+	"name": "pressreader-lambda",
 	"version": "1.0.0",
 	"description": "",
 	"devDependencies": {
