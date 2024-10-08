@@ -7,7 +7,7 @@
 		"synth": "cdk synth --path-metadata false --version-reporting false"
 	},
 	"devDependencies": {
-		"@guardian/cdk": "59.3.4",
+		"@guardian/cdk": "59.5.2",
 		"source-map-support": "^0.5.21",
 		"tsx": "^4.19.1"
 	}
