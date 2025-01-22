@@ -17,7 +17,7 @@ import {
 	Role,
 	ServicePrincipal,
 } from 'aws-cdk-lib/aws-iam';
-import { Runtime } from 'aws-cdk-lib/aws-lambda';
+import { LoggingFormat, Runtime } from 'aws-cdk-lib/aws-lambda';
 import { Secret } from 'aws-cdk-lib/aws-secretsmanager';
 import { Topic } from 'aws-cdk-lib/aws-sns';
 import { EmailSubscription } from 'aws-cdk-lib/aws-sns-subscriptions';
@@ -243,6 +243,7 @@ export class PressReader extends GuStack {
 						lengthOfEvaluationPeriod: Duration.minutes(15),
 						numberOfEvaluationPeriodsAboveThresholdBeforeAlarm: 3,
 					},
+					loggingFormat: LoggingFormat.TEXT,
 					rules: [{ schedule: config.schedule }],
 					timeout: Duration.seconds(300),
 				},
