@@ -263,6 +263,30 @@ exports[`The PressReader stack matches the snapshot 1`] = `
         "EvaluationPeriods": 1,
         "MetricName": "CollectionLookupFailure-TEST",
         "Namespace": "AWS/Lambda",
+        "OKActions": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:aws:sns:",
+                {
+                  "Ref": "AWS::Region",
+                },
+                ":",
+                {
+                  "Ref": "AWS::AccountId",
+                },
+                ":",
+                {
+                  "Fn::GetAtt": [
+                    "pressreaderTESTemailnotificationstopic55C74525",
+                    "TopicName",
+                  ],
+                },
+              ],
+            ],
+          },
+        ],
         "Period": 300,
         "Statistic": "Average",
         "Tags": [

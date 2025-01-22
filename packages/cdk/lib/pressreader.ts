@@ -182,6 +182,7 @@ export class PressReader extends GuStack {
 				evaluationPeriods: 1,
 				datapointsToAlarm: 1,
 				snsTopicName: notificationsSnsTopic.topicName,
+				okAction: true,
 			});
 		}
 
