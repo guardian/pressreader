@@ -256,7 +256,12 @@ export function processFrontData(
 			const maybeCollection = front.data.collections.find((collection, index) =>
 				matchCollection(collection, index, identifiers),
 			);
-			decideAlerts(maybeCollection, identifiers, collectionMismatchAlarm);
+			decideAlerts(
+				maybeCollection,
+				identifiers,
+				collectionMismatchAlarm,
+				front.sectionContentURL,
+			);
 			return maybeCollection;
 		})
 		.filter(isNotUndefined);
@@ -286,10 +291,19 @@ function decideAlerts(
 	maybeCollection: CollectionType | undefined,
 	identifiers: CollectionIdentifiers,
 	collectionMismatchAlarm: () => void,
+	front: string,
 ) {
 	if (identifiers.lookupType === 'id') {
 		if (maybeCollection === undefined) {
-			console.error(`Collection not found: ${identifiers.id}`);
+			console.error(
+				JSON.stringify({
+					expectedCollectionName: identifiers.name,
+					collectionId: identifiers.id,
+					front,
+					eventType: 'CollectionNotFound',
+					message: `Collection not found: ${identifiers.id} (${identifiers.name}) at ${front}`,
+				}),
+			);
 			collectionMismatchAlarm();
 		} else if (
 			maybeCollection.displayName.trim().toLowerCase() !==
