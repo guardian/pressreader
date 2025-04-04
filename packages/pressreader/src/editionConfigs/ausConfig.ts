@@ -11,7 +11,7 @@ export const ausConfig: PressReaderEditionConfig = {
 						'https://api.nextgen.guardianapps.co.uk/au/lite.json',
 					collectionIds: [
 						{
-							id: 'a22fa7fc-684f-484a-90bf-3f5aa4b711f7',
+							id: '"945e9c01-2834-4775-9684-991bf0c3b00d"',
 							lookupType: 'id',
 							name: 'Headlines',
 						},
