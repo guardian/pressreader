@@ -11,9 +11,9 @@ export const usConfig: PressReaderEditionConfig = {
 						'https://api.nextgen.guardianapps.co.uk/us/lite.json',
 					collectionIds: [
 						{
-							id: 'c5cad9ee-584d-4e85-85cd-bf8ee481b026',
+							id: '52a630d9-751f-4db2-810e-f6753a6d8103',
 							lookupType: 'id',
-							name: 'Headlines',
+							name: 'News',
 						},
 						{
 							lookupType: 'index',
@@ -38,12 +38,12 @@ export const usConfig: PressReaderEditionConfig = {
 						'https://api.nextgen.guardianapps.co.uk/us/lite.json',
 					collectionIds: [
 						{
-							id: '5a59a4e5-074e-4a2a-8bbe-2743e07ae30f',
+							id: '76484132-39af-4bab-895a-8a91b6278314',
 							lookupType: 'id',
-							name: 'Across the country',
+							name: 'More US News',
 						},
 						{
-							id: '91a73cf9-8a26-4d6c-b8de-41f868e2f028',
+							id: '2d0b7e15-e596-4ca3-8d0d-aa034e6350cf',
 							lookupType: 'id',
 							name: 'In focus',
 						},
@@ -117,9 +117,9 @@ export const usConfig: PressReaderEditionConfig = {
 						'https://api.nextgen.guardianapps.co.uk/us/lite.json',
 					collectionIds: [
 						{
-							id: '2e2035e0-7da9-4172-b0b4-787f3e2a4549',
+							id: '74570135-eb65-4662-8d43-e8ffc565a738',
 							lookupType: 'id',
-							name: 'Around the world',
+							name: 'World news',
 						},
 					],
 				},
@@ -181,14 +181,24 @@ export const usConfig: PressReaderEditionConfig = {
 						'https://api.nextgen.guardianapps.co.uk/us/lite.json',
 					collectionIds: [
 						{
-							id: '98df412d-b0e7-4d9a-98c2-062642823e94',
+							id: '4589bc01-6a20-4b96-a313-47acdc9fc944',
 							lookupType: 'id',
 							name: 'Opinion',
 						},
 						{
-							id: 'us-alpha/features/feature-stories',
+							id: '6878462b-0c9f-4231-b7e2-17a5784c83f4',
 							lookupType: 'id',
-							name: 'Spotlight',
+							name: 'More opinion',
+						},
+						{
+							id: 'c684dad2-3853-4dc0-aa0e-57753f72fa22',
+							lookupType: 'id',
+							name: 'Features',
+						},
+						{
+							id: 'e73f0725-3b4b-4eca-83b2-9b1454a1d272',
+							lookupType: 'id',
+							name: 'More features',
 						},
 					],
 				},
@@ -219,14 +229,19 @@ export const usConfig: PressReaderEditionConfig = {
 						'https://api.nextgen.guardianapps.co.uk/us/lite.json',
 					collectionIds: [
 						{
-							id: '5fd45b04-c512-4a8c-a9b5-cc07a6097049',
+							id: 'cca60ba5-cb25-4317-b6c8-7c75774ee276',
 							lookupType: 'id',
-							name: 'In case you missed it',
+							name: 'You may have missed',
 						},
 						{
-							id: 'us-alpha/features/feature-stories',
+							id: 'c684dad2-3853-4dc0-aa0e-57753f72fa22',
 							lookupType: 'id',
-							name: 'Spotlight',
+							name: 'Features',
+						},
+						{
+							id: 'e73f0725-3b4b-4eca-83b2-9b1454a1d272',
+							lookupType: 'id',
+							name: 'More features',
 						},
 					],
 				},
@@ -235,9 +250,14 @@ export const usConfig: PressReaderEditionConfig = {
 						'https://api.nextgen.guardianapps.co.uk/us-news/lite.json',
 					collectionIds: [
 						{
-							id: '98df412d-b0e7-4d9a-98c2-062642823e94',
+							id: '4589bc01-6a20-4b96-a313-47acdc9fc944',
 							lookupType: 'id',
 							name: 'Opinion',
+						},
+						{
+							id: '6878462b-0c9f-4231-b7e2-17a5784c83f4',
+							lookupType: 'id',
+							name: 'More opinion',
 						},
 					],
 				},
@@ -263,14 +283,19 @@ export const usConfig: PressReaderEditionConfig = {
 						'https://api.nextgen.guardianapps.co.uk/us/lite.json',
 					collectionIds: [
 						{
-							id: 'us-alpha/features/feature-stories',
+							id: 'c684dad2-3853-4dc0-aa0e-57753f72fa22',
 							lookupType: 'id',
-							name: 'Spotlight',
+							name: 'Features',
 						},
 						{
-							id: '5fd45b04-c512-4a8c-a9b5-cc07a6097049',
+							id: 'e73f0725-3b4b-4eca-83b2-9b1454a1d272',
 							lookupType: 'id',
-							name: 'In case you missed it',
+							name: 'More features',
+						},
+						{
+							id: 'cca60ba5-cb25-4317-b6c8-7c75774ee276',
+							lookupType: 'id',
+							name: 'You may have missed',
 						},
 					],
 				},
@@ -371,9 +396,14 @@ export const usConfig: PressReaderEditionConfig = {
 						'https://api.nextgen.guardianapps.co.uk/us/lite.json',
 					collectionIds: [
 						{
-							id: 'fb59c1f8-72a7-41d5-8365-a4d574809bed',
+							id: '10fc72da-b0ed-4509-bf6a-d5e64f7cff02',
 							lookupType: 'id',
 							name: 'Culture',
+						},
+						{
+							id: 'fed6c7be-fa5f-43ac-b61b-93fbd6fc3e6f',
+							lookupType: 'id',
+							name: 'More culture',
 						},
 					],
 				},
@@ -524,9 +554,9 @@ export const usConfig: PressReaderEditionConfig = {
 						'https://api.nextgen.guardianapps.co.uk/us/lite.json',
 					collectionIds: [
 						{
-							id: '972a5c22-6650-4a36-9f34-f4864dae0bf5',
+							id: '54223e8e-fcf4-4a14-b814-ec6726a25a3e',
 							lookupType: 'id',
-							name: 'Climate crisis',
+							name: 'Climate crisis & environment',
 						},
 					],
 				},
