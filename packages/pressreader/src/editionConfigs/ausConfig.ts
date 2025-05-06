@@ -589,5 +589,6 @@ export const ausConfig: PressReaderEditionConfig = {
 	bannedTags: [
 		'sport/series/talking-horses',
 		'science/series/alex-bellos-monday-puzzle',
+		'tone/newsletter-tone',
 	],
 };

@@ -765,5 +765,6 @@ export const usConfig: PressReaderEditionConfig = {
 		'sport/series/talking-horses',
 		'science/series/alex-bellos-monday-puzzle',
 		'us-news/series/guardian-us-briefing',
+		'tone/newsletter-tone',
 	],
 };
