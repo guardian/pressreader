@@ -619,11 +619,6 @@ export const usConfig: PressReaderEditionConfig = {
 							name: 'News',
 						},
 						{
-							id: '75fd1561-aad3-4e69-baf8-278f7db65050',
-							lookupType: 'id',
-							name: 'Coronavirus',
-						},
-						{
 							id: '29b0-f2f0-0c41-3cee',
 							lookupType: 'id',
 							name: 'Opinion',
