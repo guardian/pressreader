@@ -53,14 +53,11 @@ export const ausConfig: PressReaderEditionConfig = {
 							lookupType: 'id',
 							name: 'Australia News',
 						},
-						/**
-						 * Federal election replaces 'News Extra' for the next few weeks (election is 2025-05-03)
-						 */
-						// {
-						// 	id: '016d967f-0303-4a47-b5e0-bf6d36ad4a52',
-						// 	lookupType: 'id',
-						// 	name: 'News extra',
-						// },
+						{
+							id: 'ef2e69b5-9c2f-4cd9-8c7a-4d374028acba',
+							lookupType: 'id',
+							name: 'More news',
+						},
 					],
 				},
 			],
@@ -81,11 +78,17 @@ export const ausConfig: PressReaderEditionConfig = {
 							lookupType: 'id',
 							name: 'Australian politics',
 						},
+					],
+				},
+				{
+					sectionContentURL:
+						'https://api.nextgen.guardianapps.co.uk/au/lite.json',
+					collectionIds: [
 						/**
 						 * Federal election replaces 'News Extra' for the next few weeks (election is 2025-05-03)
 						 */
 						{
-							id: '5590a14d-5f51-4e14-ab5a-68baaff46681',
+							id: '18f49716-47e2-4296-861e-64ccdf6d6150',
 							lookupType: 'id',
 							name: 'Federal election',
 						},
@@ -346,7 +349,7 @@ export const ausConfig: PressReaderEditionConfig = {
 						'https://api.nextgen.guardianapps.co.uk/au/lite.json',
 					collectionIds: [
 						{
-							id: '7726e83-488f-4912-aacf-e9525485776b',
+							id: 'd7726e83-488f-4912-aacf-e9525485776b',
 							lookupType: 'id',
 							name: 'Opinion',
 						},
