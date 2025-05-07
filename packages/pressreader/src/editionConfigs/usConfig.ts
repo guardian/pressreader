@@ -247,7 +247,7 @@ export const usConfig: PressReaderEditionConfig = {
 				},
 				{
 					sectionContentURL:
-						'https://api.nextgen.guardianapps.co.uk/us-news/lite.json',
+						'https://api.nextgen.guardianapps.co.uk/us/lite.json',
 					collectionIds: [
 						{
 							id: '4589bc01-6a20-4b96-a313-47acdc9fc944',
@@ -401,7 +401,7 @@ export const usConfig: PressReaderEditionConfig = {
 							name: 'Culture',
 						},
 						{
-							id: 'fed6c7be-fa5f-43ac-b61b-93fbd6fc3e6f',
+							id: '0c3c398f-e49a-4569-a8bd-1ef289fb9319',
 							lookupType: 'id',
 							name: 'More culture',
 						},
@@ -619,11 +619,6 @@ export const usConfig: PressReaderEditionConfig = {
 							name: 'News',
 						},
 						{
-							id: '75fd1561-aad3-4e69-baf8-278f7db65050',
-							lookupType: 'id',
-							name: 'Coronavirus',
-						},
-						{
 							id: '29b0-f2f0-0c41-3cee',
 							lookupType: 'id',
 							name: 'Opinion',
@@ -706,17 +701,6 @@ export const usConfig: PressReaderEditionConfig = {
 			frontSources: [
 				{
 					sectionContentURL:
-						'https://api.nextgen.guardianapps.co.uk/us-news/lite.json',
-					collectionIds: [
-						{
-							id: 'c8132ecb-e937-4032-b69d-908f09c838a0',
-							lookupType: 'id',
-							name: 'US sports',
-						},
-					],
-				},
-				{
-					sectionContentURL:
 						'https://api.nextgen.guardianapps.co.uk/us/sport/lite.json',
 					collectionIds: [
 						{
@@ -724,7 +708,11 @@ export const usConfig: PressReaderEditionConfig = {
 							lookupType: 'id',
 							name: 'Across the country',
 						},
-						{ id: 'f6dd-d7b1-0e85-4650', lookupType: 'id', name: 'Sports' },
+						{
+							id: 'afd83b7b-647f-47a6-a0c1-a875a7dea2c9',
+							lookupType: 'id',
+							name: 'Sports',
+						},
 					],
 				},
 				{

@@ -488,11 +488,6 @@ export const ausConfig: PressReaderEditionConfig = {
 							lookupType: 'id',
 							name: 'Key issues',
 						},
-						{
-							id: '75fd1561-aad3-4e69-baf8-278f7db65050',
-							lookupType: 'id',
-							name: 'Coronavirus',
-						},
 					],
 				},
 			],
