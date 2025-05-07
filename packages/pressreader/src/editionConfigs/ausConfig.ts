@@ -11,9 +11,9 @@ export const ausConfig: PressReaderEditionConfig = {
 						'https://api.nextgen.guardianapps.co.uk/au/lite.json',
 					collectionIds: [
 						{
-							id: '945e9c01-2834-4775-9684-991bf0c3b00d',
+							id: '7ff637c4-f97e-4c11-b6e2-4194cd918ecc',
 							lookupType: 'id',
-							name: 'Headlines',
+							name: 'News',
 						},
 						{
 							lookupType: 'index',
@@ -49,9 +49,9 @@ export const ausConfig: PressReaderEditionConfig = {
 						'https://api.nextgen.guardianapps.co.uk/au/lite.json',
 					collectionIds: [
 						{
-							id: '5d60fb3d-9bb2-439b-81d4-3bd4d625165a',
+							id: 'd1626c1f-9fe1-4a47-8d04-268971292a06',
 							lookupType: 'id',
-							name: 'Across the country',
+							name: 'Australia News',
 						},
 						/**
 						 * Federal election replaces 'News Extra' for the next few weeks (election is 2025-05-03)
@@ -61,11 +61,6 @@ export const ausConfig: PressReaderEditionConfig = {
 						// 	lookupType: 'id',
 						// 	name: 'News extra',
 						// },
-						{
-							id: '0409d5d4-b375-4f3b-9ca0-d0b8f7c4ebb0',
-							lookupType: 'id',
-							name: 'The rural network',
-						},
 					],
 				},
 			],
@@ -110,14 +105,14 @@ export const ausConfig: PressReaderEditionConfig = {
 						'https://api.nextgen.guardianapps.co.uk/international/lite.json',
 					collectionIds: [
 						{
-							id: '10f21d96-18f6-426f-821b-19df55dfb831',
+							id: 'a8a0658c-7c83-4a54-b371-199f54d5412e',
 							lookupType: 'id',
-							name: 'Headlines',
+							name: 'News',
 						},
 						{
-							id: '2c19b8b3-6503-4a3b-8821-9a04898b5243',
+							id: 'bd633db8-947f-4ae7-963a-a4b512883d1b',
 							lookupType: 'id',
-							name: 'Around the world',
+							name: 'World news',
 						},
 					],
 				},
@@ -126,9 +121,9 @@ export const ausConfig: PressReaderEditionConfig = {
 						'https://api.nextgen.guardianapps.co.uk/au/lite.json',
 					collectionIds: [
 						{
-							id: 'a63f-82a9-8f63-edf1',
+							id: '5e781b03-7742-44c9-adbd-d453d118805b',
 							lookupType: 'id',
-							name: 'Around the world',
+							name: 'World news',
 						},
 					],
 				},
@@ -212,17 +207,22 @@ export const ausConfig: PressReaderEditionConfig = {
 						'https://api.nextgen.guardianapps.co.uk/au/lite.json',
 					collectionIds: [
 						{
-							id: '7f0d9448-a9af-40a4-a567-24582060d46a',
+							id: 'a70f8c91-8c26-4873-96ab-330d65c582b3',
 							lookupType: 'id',
-							name: 'Spotlight',
+							name: 'Features',
 						},
 						{
-							id: 'au-alpha/features/feature-stories',
+							id: '28e8b40b-037d-41b0-ada6-7d850d7811e0',
 							lookupType: 'id',
-							name: 'Explore',
+							name: 'You may have missed',
 						},
 						{
-							id: '13636104-51ce-4264-bb6b-556c80227331',
+							id: 'e845f5d0-99eb-4608-9fcc-5891ec68dc0c',
+							lookupType: 'id',
+							name: 'More features',
+						},
+						{
+							id: '8f031865-33dc-4c62-8b2f-c9048bc201f2',
 							lookupType: 'id',
 							name: 'Lifestyle',
 						},
@@ -255,9 +255,14 @@ export const ausConfig: PressReaderEditionConfig = {
 						'https://api.nextgen.guardianapps.co.uk/au/lite.json',
 					collectionIds: [
 						{
-							id: '22262088-4bce-4290-9810-cb50bbead8db',
+							id: '6e451495-7944-4850-8a3a-e1d0cd50db16',
 							lookupType: 'id',
 							name: 'Culture',
+						},
+						{
+							id: 'fed6c7be-fa5f-43ac-b61b-93fbd6fc3e6f',
+							lookupType: 'id',
+							name: 'More culture',
 						},
 					],
 				},
@@ -341,7 +346,7 @@ export const ausConfig: PressReaderEditionConfig = {
 						'https://api.nextgen.guardianapps.co.uk/au/lite.json',
 					collectionIds: [
 						{
-							id: 'au-alpha/contributors/feature-stories',
+							id: '7726e83-488f-4912-aacf-e9525485776b',
 							lookupType: 'id',
 							name: 'Opinion',
 						},
@@ -540,7 +545,16 @@ export const ausConfig: PressReaderEditionConfig = {
 					sectionContentURL:
 						'https://api.nextgen.guardianapps.co.uk/au/lite.json',
 					collectionIds: [
-						{ id: 'c45d-318f-896c-3a85', lookupType: 'id', name: 'Sport' },
+						{
+							id: '84c9dd19-ecbd-4dde-b4e1-265a55f3c41b',
+							lookupType: 'id',
+							name: 'Sport',
+						},
+						{
+							id: 'f8bec169-26f1-4989-9409-52352935900b',
+							lookupType: 'id',
+							name: 'More sport',
+						},
 					],
 				},
 				{
@@ -575,5 +589,6 @@ export const ausConfig: PressReaderEditionConfig = {
 	bannedTags: [
 		'sport/series/talking-horses',
 		'science/series/alex-bellos-monday-puzzle',
+		'tone/newsletter-tone',
 	],
 };
