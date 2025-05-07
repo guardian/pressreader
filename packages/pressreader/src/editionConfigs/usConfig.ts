@@ -754,7 +754,11 @@ export const usConfig: PressReaderEditionConfig = {
 					sectionContentURL:
 						'https://api.nextgen.guardianapps.co.uk/football/lite.json',
 					collectionIds: [
-						{ id: '1a78-862a-834b-b1d3', lookupType: 'id', name: 'Football' },
+						{
+							id: '4a81377e-5432-45f3-96b3-511be220e0b2',
+							lookupType: 'id',
+							name: 'Headlines',
+						},
 					],
 				},
 			],

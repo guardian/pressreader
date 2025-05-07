@@ -105,14 +105,14 @@ export const ausConfig: PressReaderEditionConfig = {
 						'https://api.nextgen.guardianapps.co.uk/international/lite.json',
 					collectionIds: [
 						{
-							id: '10f21d96-18f6-426f-821b-19df55dfb831',
+							id: 'a8a0658c-7c83-4a54-b371-199f54d5412e',
 							lookupType: 'id',
-							name: 'Headlines',
+							name: 'News',
 						},
 						{
-							id: '2c19b8b3-6503-4a3b-8821-9a04898b5243',
+							id: 'bd633db8-947f-4ae7-963a-a4b512883d1b',
 							lookupType: 'id',
-							name: 'Around the world',
+							name: 'World news',
 						},
 					],
 				},
