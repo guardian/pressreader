@@ -85,7 +85,7 @@ export const ausConfig: PressReaderEditionConfig = {
 						 * Federal election replaces 'News Extra' for the next few weeks (election is 2025-05-03)
 						 */
 						{
-							id: '5590a14d-5f51-4e14-ab5a-68baaff46681',
+							id: '18f49716-47e2-4296-861e-64ccdf6d6150',
 							lookupType: 'id',
 							name: 'Federal election',
 						},
@@ -346,7 +346,7 @@ export const ausConfig: PressReaderEditionConfig = {
 						'https://api.nextgen.guardianapps.co.uk/au/lite.json',
 					collectionIds: [
 						{
-							id: '7726e83-488f-4912-aacf-e9525485776b',
+							id: 'd7726e83-488f-4912-aacf-e9525485776b',
 							lookupType: 'id',
 							name: 'Opinion',
 						},
