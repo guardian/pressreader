@@ -706,17 +706,6 @@ export const usConfig: PressReaderEditionConfig = {
 			frontSources: [
 				{
 					sectionContentURL:
-						'https://api.nextgen.guardianapps.co.uk/us-news/lite.json',
-					collectionIds: [
-						{
-							id: 'afd83b7b-647f-47a6-a0c1-a875a7dea2c9',
-							lookupType: 'id',
-							name: 'US sports',
-						},
-					],
-				},
-				{
-					sectionContentURL:
 						'https://api.nextgen.guardianapps.co.uk/us/sport/lite.json',
 					collectionIds: [
 						{
