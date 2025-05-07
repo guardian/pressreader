@@ -757,7 +757,7 @@ export const usConfig: PressReaderEditionConfig = {
 						{
 							id: '4a81377e-5432-45f3-96b3-511be220e0b2',
 							lookupType: 'id',
-							name: 'Headlines',
+							name: 'Football',
 						},
 					],
 				},
