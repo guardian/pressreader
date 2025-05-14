@@ -651,14 +651,9 @@ export const usConfig: PressReaderEditionConfig = {
 							name: 'In depth',
 						},
 						{
-							id: '1312e7d1-57b5-49e3-900e-795f03620157',
+							id: '6bb3-9f76-43bd-4213',
 							lookupType: 'id',
-							name: 'News',
-						},
-						{
-							id: 'a014f653-dee0-4d72-84f9-7b5e7df1fc83',
-							lookupType: 'id',
-							name: 'Privacy',
+							name: 'Technology',
 						},
 						{
 							id: 'cff4aa48-dd86-433f-bc11-eb15abae55fc',
@@ -684,11 +679,6 @@ export const usConfig: PressReaderEditionConfig = {
 							id: 'c66d-aa1a-e12d-fc7a',
 							lookupType: 'id',
 							name: 'Reviews',
-						},
-						{
-							id: '00e17f51-a01d-4df0-9363-4a383f5922b2',
-							lookupType: 'id',
-							name: 'Devices',
 						},
 					],
 				},
