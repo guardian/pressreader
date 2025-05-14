@@ -666,7 +666,7 @@ export const usConfig: PressReaderEditionConfig = {
 							name: 'Opinion & analysis',
 						},
 						{
-							id: '16069bf1-3d0e-4c7a-abb2-b77f9ce7e071',
+							id: '75bec33c-9117-4fe5-80ad-f242818cf3fa',
 							lookupType: 'id',
 							name: 'Games',
 						},
