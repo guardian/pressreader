@@ -450,11 +450,6 @@ export const usConfig: PressReaderEditionConfig = {
 							name: 'Opinion',
 						},
 						{
-							id: '5ad3a1c5-454a-4426-8a87-b7e3d7404a0e',
-							lookupType: 'id',
-							name: 'Regulars',
-						},
-						{
 							id: '824a6701-4edf-42c2-b055-3baa568f0da7',
 							lookupType: 'id',
 							name: 'You may have missed',
