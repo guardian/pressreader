@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`The PressReader stack matches the snapshot 1`] = `
 {
@@ -553,6 +553,9 @@ exports[`The PressReader stack matches the snapshot 1`] = `
         "PressReaderAPIUSkey4F426D58",
         "PressReaderAPIUSED3F75B1",
       ],
+      "Metadata": {
+        "aws:cdk:do-not-refactor": true,
+      },
       "Properties": {
         "Description": "Serves data to Press Reader from an S3 bucket.",
         "RestApiId": {
@@ -1009,6 +1012,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
                 ],
               ],
             },
+            "ReturnData": true,
           },
           {
             "Id": "m1",
@@ -1477,6 +1481,7 @@ exports[`The PressReader stack matches the snapshot 1`] = `
                 ],
               ],
             },
+            "ReturnData": true,
           },
           {
             "Id": "m1",
