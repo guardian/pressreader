@@ -310,7 +310,7 @@ function decideAlerts(
 			identifiers.name.trim().toLowerCase()
 		) {
 			console.warn(
-				`Collection name mismatch. Expected: ${identifiers.name}. Found: ${maybeCollection.displayName}`,
+				`Collection name mismatch for id ${identifiers.id}. Expected: ${identifiers.name}. Found: ${maybeCollection.displayName}`,
 			);
 		}
 	}

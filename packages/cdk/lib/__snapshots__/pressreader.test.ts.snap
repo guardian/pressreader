@@ -258,6 +258,8 @@ exports[`The PressReader stack matches the snapshot 1`] = `
             ],
           },
         ],
+        "AlarmDescription": "Collection lookup failure(s) found for the Pressreader feed config. For details, check out the logs: https://logs.gutools.co.uk/s/newsroom-resilience/app/r/s/RYqRI 
+Or you can search for 'app:pressreader and "collection not found" and stage:TEST' in Kibana in the Media & Feeds index.",
         "ComparisonOperator": "GreaterThanOrEqualToThreshold",
         "DatapointsToAlarm": 1,
         "EvaluationPeriods": 1,
