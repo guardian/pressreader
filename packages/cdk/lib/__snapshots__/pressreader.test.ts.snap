@@ -1265,6 +1265,28 @@ exports[`The PressReader stack matches the snapshot 1`] = `
       "Properties": {
         "ScheduleExpression": "cron(15 * * * ? *)",
         "State": "ENABLED",
+        "Tags": [
+          {
+            "Key": "App",
+            "Value": "pressreader-AUS",
+          },
+          {
+            "Key": "gu:cdk:version",
+            "Value": "TEST",
+          },
+          {
+            "Key": "gu:repo",
+            "Value": "guardian/pressreader",
+          },
+          {
+            "Key": "Stack",
+            "Value": "print-production",
+          },
+          {
+            "Key": "Stage",
+            "Value": "TEST",
+          },
+        ],
         "Targets": [
           {
             "Arn": {
@@ -1734,6 +1756,28 @@ exports[`The PressReader stack matches the snapshot 1`] = `
       "Properties": {
         "ScheduleExpression": "cron(15 * * * ? *)",
         "State": "ENABLED",
+        "Tags": [
+          {
+            "Key": "App",
+            "Value": "pressreader-US",
+          },
+          {
+            "Key": "gu:cdk:version",
+            "Value": "TEST",
+          },
+          {
+            "Key": "gu:repo",
+            "Value": "guardian/pressreader",
+          },
+          {
+            "Key": "Stack",
+            "Value": "print-production",
+          },
+          {
+            "Key": "Stage",
+            "Value": "TEST",
+          },
+        ],
         "Targets": [
           {
             "Arn": {
