@@ -272,7 +272,7 @@ export const ausConfig: PressReaderEditionConfig = {
 						{
 							id: 'fe51eab0-7a39-4091-87bc-c9c3f737904f',
 							lookupType: 'id',
-							name: 'Australia this month',
+							name: 'Features',
 						},
 						{
 							id: '5a2f4701-213e-4feb-8818-acc93cdb472d',

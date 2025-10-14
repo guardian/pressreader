@@ -183,6 +183,7 @@ export class PressReader extends GuStack {
 				datapointsToAlarm: 1,
 				snsTopicName: notificationsSnsTopic.topicName,
 				okAction: true,
+				alarmDescription: `Collection lookup failure(s) found for the Pressreader feed config. For details, check out the logs: https://logs.gutools.co.uk/s/newsroom-resilience/app/r/s/RYqRI \nOr you can search for 'app:pressreader and "collection not found" and stage:${this.stage}' in Kibana in the Media & Feeds index.`,
 			});
 		}
 
