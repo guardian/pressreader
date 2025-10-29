@@ -20,7 +20,6 @@
 		"@guardian/tsconfig": "^1.0.0",
 		"@types/jest": "^30.0.0",
 		"@types/node": "^20.17.58",
-		"aws-sdk-client-mock": "^4.1.0",
 		"esbuild": "^0.25.10",
 		"eslint": "^9.37.0",
 		"eslint-plugin-prettier": "^5.5.4",

@@ -11,7 +11,7 @@
 	"scripts": {
 		"dev": "EDITION_KEY=US PREFIX_PATH=data/us tsx watch src/handler.ts",
 		"typecheck": "tsc -noEmit",
-		"build": "esbuild src/handler.ts --bundle --minify --outfile=dist/handler.js --external:aws-sdk --platform=node",
+		"build": "esbuild src/handler.ts --bundle --minify --outfile=dist/handler.js --platform=node",
 		"test": "jest --detectOpenHandles --config ../../jest.config.js --selectProjects pressreader"
 	},
 	"repository": {
