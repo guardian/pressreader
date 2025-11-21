@@ -244,6 +244,7 @@ export class PressReader extends GuStack {
 						toleratedErrorPercentage: 1,
 						lengthOfEvaluationPeriod: Duration.minutes(15),
 						numberOfEvaluationPeriodsAboveThresholdBeforeAlarm: 3,
+						okAction: true,
 					},
 					loggingFormat: LoggingFormat.TEXT,
 					rules: [{ schedule: config.schedule }],

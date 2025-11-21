@@ -1057,6 +1057,30 @@ Or you can search for 'app:pressreader and "collection not found" and stage:TEST
             "ReturnData": false,
           },
         ],
+        "OKActions": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:aws:sns:",
+                {
+                  "Ref": "AWS::Region",
+                },
+                ":",
+                {
+                  "Ref": "AWS::AccountId",
+                },
+                ":",
+                {
+                  "Fn::GetAtt": [
+                    "pressreaderTESTemailalarmtopicE3E05C64",
+                    "TopicName",
+                  ],
+                },
+              ],
+            ],
+          },
+        ],
         "Tags": [
           {
             "Key": "gu:cdk:version",
@@ -1546,6 +1570,30 @@ Or you can search for 'app:pressreader and "collection not found" and stage:TEST
               "Stat": "Sum",
             },
             "ReturnData": false,
+          },
+        ],
+        "OKActions": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:aws:sns:",
+                {
+                  "Ref": "AWS::Region",
+                },
+                ":",
+                {
+                  "Ref": "AWS::AccountId",
+                },
+                ":",
+                {
+                  "Fn::GetAtt": [
+                    "pressreaderTESTemailalarmtopicE3E05C64",
+                    "TopicName",
+                  ],
+                },
+              ],
+            ],
           },
         ],
         "Tags": [
