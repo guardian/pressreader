@@ -3,8 +3,8 @@
 	"version": "1.0.0",
 	"description": "",
 	"devDependencies": {
-		"@aws-sdk/client-s3": "^3.971.0",
-		"@aws-sdk/client-secrets-manager": "^3.971.0",
+		"@aws-sdk/client-s3": "^3.981.0",
+		"@aws-sdk/client-secrets-manager": "^3.981.0",
 		"@guardian/content-api-models": "37.0.0",
 		"tsx": "4.21.0"
 	},
@@ -25,6 +25,6 @@
 	},
 	"homepage": "https://github.com/guardian/pressreader#readme",
 	"dependencies": {
-		"@aws-sdk/client-cloudwatch": "3.971.0"
+		"@aws-sdk/client-cloudwatch": "3.981.0"
 	}
 }
