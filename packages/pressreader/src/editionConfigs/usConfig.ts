@@ -40,7 +40,7 @@ export const usConfig: PressReaderEditionConfig = {
 						{
 							id: '76484132-39af-4bab-895a-8a91b6278314',
 							lookupType: 'id',
-							name: 'More US News',
+							name: 'US News',
 						},
 						{
 							id: '2d0b7e15-e596-4ca3-8d0d-aa034e6350cf',
@@ -551,7 +551,7 @@ export const usConfig: PressReaderEditionConfig = {
 						{
 							id: '54223e8e-fcf4-4a14-b814-ec6726a25a3e',
 							lookupType: 'id',
-							name: 'More climate crisis & environment',
+							name: 'Climate crisis & environment',
 						},
 					],
 				},
