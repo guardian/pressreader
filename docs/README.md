@@ -1,6 +1,6 @@
 # Documentation
 
-This folder contains documentation relating to the Birthdays service, including
+This folder contains documentation relating to the Pressreader service, including
 Architecture Decision Records (ADRs), and other context associated with this project.
 
 ## ADRs
@@ -28,13 +28,13 @@ There is further documentation on [how the configuration affects what is publish
 
 Lambda logs can be viewed using the [`app: pressreader` filter in Kibana on logs.gutools.co.uk](https://logs.gutools.co.uk/s/newsroom-resilience/goto/8f38a860-fb94-11ed-a6e5-05ce52e0b77b).
 
-Monitoring on lambda errors is configured in [`./cdk/lib/pressreader.ts`](../packages/cdk/lib/pressreader.ts#L141), and will send alarm events to `newsroom.resilience+alerts@guardian.co.uk`.
+Monitoring on lambda errors is configured in [`./cdk/lib/pressreader.ts`](../packages/cdk/lib/pressreader.ts#L242-L248), and will send alarm events to `newsroom.resilience+alerts@guardian.co.uk`.
 
 Lambda errors, invocations and duration [can be visualised in Grafana](https://metrics.gutools.co.uk/d/Z-KfjN34z/pressreader?orgId=1&from=now-30d&to=now).
 
 ### `CollectionLookupFailureAlarm` alerts
 
-The edition configuration specifies a set of collections on Guardian web fronts that the script extracts stories from. Sometimes these collections are removed or renamed. When the script fails to find an expected collection is will send alarm notifications to `newsroom.resilience+notifications@guardian.co.uk`. These notifications don't include details about the missing collections, but more information can be found by searching the [project logs](https://logs.gutools.co.uk/s/newsroom-resilience/goto/8f38a860-fb94-11ed-a6e5-05ce52e0b77b):
+The edition configuration specifies a set of collections on Guardian web fronts that the script extracts stories from. Sometimes these collections are removed or renamed. When the script fails to find an expected collection is will send alarm notifications to `newsroom.resilience+notifications@guardian.co.uk`. These notifications don't include details about the missing collections, but more information can be found by searching the [project logs](https://logs.gutools.co.uk/s/newsroom-resilience/app/r/s/BMPMb):
 
 ```
 // Kibana query for collection lookup failures:
