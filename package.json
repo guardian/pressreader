@@ -20,7 +20,7 @@
 		"@guardian/tsconfig": "^1.0.1",
 		"@types/jest": "^30.0.0",
 		"@types/node": "^20.17.58",
-		"esbuild": "^0.27.2",
+		"esbuild": "^0.28.1",
 		"eslint": "^9.37.0",
 		"eslint-plugin-prettier": "^5.5.5",
 		"jest": "^30.2.0",
