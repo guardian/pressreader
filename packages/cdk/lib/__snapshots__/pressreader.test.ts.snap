@@ -433,6 +433,32 @@ Or you can search for 'app:pressreader and "collection not found" and stage:TEST
       },
       "Type": "AWS::ApiGateway::Method",
     },
+    "PressReaderAPIAccessLogs6B1A933F": {
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "RetentionInDays": 365,
+        "Tags": [
+          {
+            "Key": "gu:cdk:version",
+            "Value": "TEST",
+          },
+          {
+            "Key": "gu:repo",
+            "Value": "guardian/pressreader",
+          },
+          {
+            "Key": "Stack",
+            "Value": "print-production",
+          },
+          {
+            "Key": "Stage",
+            "Value": "TEST",
+          },
+        ],
+      },
+      "Type": "AWS::Logs::LogGroup",
+      "UpdateReplacePolicy": "Retain",
+    },
     "PressReaderAPIAccount0348D010": {
       "DeletionPolicy": "Retain",
       "DependsOn": [
@@ -571,6 +597,15 @@ Or you can search for 'app:pressreader and "collection not found" and stage:TEST
         "PressReaderAPIAccount0348D010",
       ],
       "Properties": {
+        "AccessLogSetting": {
+          "DestinationArn": {
+            "Fn::GetAtt": [
+              "PressReaderAPIAccessLogs6B1A933F",
+              "Arn",
+            ],
+          },
+          "Format": "{"requestId":"$context.requestId","ip":"$context.identity.sourceIp","requestTime":"$context.requestTime","httpMethod":"$context.httpMethod","resourcePath":"$context.resourcePath","status":"$context.status","protocol":"$context.protocol","responseLength":"$context.responseLength"}",
+        },
         "DeploymentId": {
           "Ref": "PressReaderAPIDeployment76372679c63aecad3660742617189f6d49cb6d19",
         },

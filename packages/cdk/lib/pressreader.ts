@@ -8,7 +8,12 @@ import { GuScheduledLambda } from '@guardian/cdk/lib/patterns/scheduled-lambda';
 import type { App } from 'aws-cdk-lib';
 import { Duration } from 'aws-cdk-lib';
 import type { DomainName } from 'aws-cdk-lib/aws-apigateway';
-import { AwsIntegration, RestApi } from 'aws-cdk-lib/aws-apigateway';
+import {
+	AccessLogFormat,
+	AwsIntegration,
+	LogGroupLogDestination,
+	RestApi,
+} from 'aws-cdk-lib/aws-apigateway';
 import { Metric } from 'aws-cdk-lib/aws-cloudwatch';
 import type { Schedule } from 'aws-cdk-lib/aws-events';
 import {
@@ -18,6 +23,7 @@ import {
 	ServicePrincipal,
 } from 'aws-cdk-lib/aws-iam';
 import { LoggingFormat, Runtime } from 'aws-cdk-lib/aws-lambda';
+import { LogGroup, RetentionDays } from 'aws-cdk-lib/aws-logs';
 import { Secret } from 'aws-cdk-lib/aws-secretsmanager';
 import { Topic } from 'aws-cdk-lib/aws-sns';
 import { EmailSubscription } from 'aws-cdk-lib/aws-sns-subscriptions';
@@ -59,12 +65,30 @@ export class PressReader extends GuStack {
 		});
 
 		// API Gateway
+		const accessLogGroup = new LogGroup(this, 'PressReaderAPIAccessLogs', {
+			retention: RetentionDays.ONE_YEAR,
+		});
+
 		const apiGateway = new RestApi(this, 'PressReaderAPI', {
 			restApiName: 'Press Reader API',
 			description: 'Serves data to Press Reader from an S3 bucket.',
 			domainName: {
 				domainName,
 				certificate,
+			},
+			deployOptions: {
+				accessLogDestination: new LogGroupLogDestination(accessLogGroup),
+				accessLogFormat: AccessLogFormat.jsonWithStandardFields({
+					caller: false,
+					user: false,
+					httpMethod: true,
+					ip: true,
+					protocol: true,
+					requestTime: true,
+					resourcePath: true,
+					responseLength: true,
+					status: true,
+				}),
 			},
 		});
 
