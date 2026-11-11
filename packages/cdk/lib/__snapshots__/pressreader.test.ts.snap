@@ -955,7 +955,7 @@ Or you can search for 'app:pressreader and "collection not found" and stage:TEST
             "Arn",
           ],
         },
-        "Runtime": "nodejs20.x",
+        "Runtime": "nodejs24.x",
         "Tags": [
           {
             "Key": "App",
@@ -1470,7 +1470,7 @@ Or you can search for 'app:pressreader and "collection not found" and stage:TEST
             "Arn",
           ],
         },
-        "Runtime": "nodejs20.x",
+        "Runtime": "nodejs24.x",
         "Tags": [
           {
             "Key": "App",
