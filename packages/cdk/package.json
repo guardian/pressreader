@@ -5,7 +5,7 @@
 		"test-update": "jest -u --detectOpenHandles --config ../../jest.config.js --selectProjects cdk",
 		"typecheck": "tsc -noEmit",
 		"cdk": "cdk",
-		"synth": "cdk synth --path-medtadata false --version-reporting false"
+		"synth": "cdk synth --path-metadata false --version-reporting false"
 	},
 	"devDependencies": {
 		"@guardian/cdk": "67.1.0",
