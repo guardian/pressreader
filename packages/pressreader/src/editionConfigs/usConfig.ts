@@ -549,7 +549,7 @@ export const usConfig: PressReaderEditionConfig = {
 						'https://api.nextgen.guardianapps.co.uk/us/lite.json',
 					collectionIds: [
 						{
-							id: '54223e8e-fcf4-4a14-b814-ec6726a25a3e',
+							id: 'fd877ebc-0424-4322-b059-f9ba00040a16',
 							lookupType: 'id',
 							name: 'Climate crisis & environment',
 						},

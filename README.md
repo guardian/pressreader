@@ -1,6 +1,6 @@
 # Pressreader
 
-This repository contains the a scheduled lambda which
+This repository contains a scheduled lambda which
 publishes hourly lists of content to S3 for consumption by the
 3rd party company [pressreader](https://about.pressreader.com/cruises-ferries/).
 
